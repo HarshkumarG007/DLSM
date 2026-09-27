@@ -33,6 +33,7 @@ htmlcov/
 
 # Jupyter
 .ipynb_checkpoints
+notebooks/artifacts/
 
 # IDE
 .vscode/
