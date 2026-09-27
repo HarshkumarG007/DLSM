@@ -1,0 +1,46 @@
+name: DLSM Continuous Integration
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    name: Test Suite & Integrity Checks
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Python Syntax & Compilation Verification
+        run: |
+          python -m py_compile app/dashboard.py
+          python -m py_compile src/dlsm/pipeline_orchestrator.py
+
+      - name: Run Automated Pytest Suite
+        env:
+          DISABLE_PANDERA_IMPORT_WARNING: "True"
+        run: |
+          pytest tests/ -v --maxfail=1
+
+      - name: Verify Core Research Pipeline Orchestrator
+        run: |
+          python -c "from src.dlsm.data.loader import load_dataset_a, load_dataset_b; df_a = load_dataset_a(); df_b = load_dataset_b(); assert len(df_a) == 8500; assert len(df_b) == 16000; print('Schema ingestion verified!')"
