@@ -140,3 +140,10 @@
 - [x] **TASK-27.2:** Author comprehensive step-by-step deployment guide in [`README.md`](README.md).
 - [x] **TASK-27.3:** Verify repository sync on remote branch `main` at `https://github.com/HarshkumarG007/DLSM`.
 
+## Phase 28: Small-N Noise Stress Benchmark & Reviewer Methodology Audit
+- [x] **TASK-28.1:** Author [`src/dlsm/evaluation/noise_stress_benchmark.py`](src/dlsm/evaluation/noise_stress_benchmark.py) evaluating the reviewer's $N=220$ Gaussian noise stress test side-by-side with real DLSM datasets.
+- [x] **TASK-28.2:** Eliminate circular definitional leakage in Dataset A classification by excluding nocturnal sleep composition features (`total_sleep_hours`, `deep_sleep_pct`, `rem_sleep_pct`, `sleep_latency_min`).
+- [x] **TASK-28.3:** Disclose Dataset B target reality (`Mental_Health_Score` substituted for absent grades column) prominently across `README.md`, `JOURNAL_ARTICLE.md`, `MASTER_SPECIFICATION.md`, and `report_generator.py`.
+- [x] **TASK-28.4:** Audit and calibrate claims across all docs, replacing overclaiming verbs ("proves that") with scientific terminology ("demonstrates that within this predictive model").
+- [x] **TASK-28.5:** Integrate Small-N Stress Benchmark into Page 8 of [`app/dashboard.py`](app/dashboard.py) and unit test suite in [`tests/unit/test_core.py`](tests/unit/test_core.py) (10/10 tests passing).
+
