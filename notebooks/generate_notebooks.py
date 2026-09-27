@@ -14,11 +14,15 @@ def create_notebook(title, cells, target_file):
         json.dump(nb, f, indent=2)
 
 def make_cell(cell_type, source_text):
-    return {
+    cell = {
         "cell_type": cell_type,
         "metadata": {},
         "source": [line + "\n" for line in source_text.split("\n")]
     }
+    if cell_type == "code":
+        cell["outputs"] = []
+        cell["execution_count"] = None
+    return cell
 
 def generate_all_notebooks():
     nb_dir = Path("notebooks")
