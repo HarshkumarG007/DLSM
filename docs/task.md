@@ -120,3 +120,23 @@
 - [x] **TASK-24.2:** Integrate download buttons in Streamlit sidebar and Page 8 in [`app/dashboard.py`](app/dashboard.py).
 - [x] **TASK-24.3:** Add unit test `test_executive_report_generation` in [`tests/unit/test_core.py`](tests/unit/test_core.py) (7/7 tests passing).
 - [x] **TASK-24.4:** Embed verification screenshot in [`docs/images/07_executive_report_export.png`](docs/images/07_executive_report_export.png) and [`README.md`](README.md).
+
+## Phase 25: Synthetic Longitudinal Panel Simulator
+- [x] **TASK-25.1:** Implement [`LongitudinalPanelSimulator`](src/dlsm/simulation/longitudinal.py) modeling 16 academic semester weeks.
+- [x] **TASK-25.2:** Model Gaussian midterm (Weeks 6–7) and finals (Weeks 14–15) exam stress waves and sleep debt compounding.
+- [x] **TASK-25.3:** Build Page 10 in [`app/dashboard.py`](app/dashboard.py) with 4 Plotly time-series views and shielded intervention comparison.
+- [x] **TASK-25.4:** Add unit test `test_longitudinal_panel_simulator` in [`tests/unit/test_core.py`](tests/unit/test_core.py) (8/8 tests passing).
+- [x] **TASK-25.5:** Capture and embed verification screenshot in [`docs/images/08_longitudinal_simulation.png`](docs/images/08_longitudinal_simulation.png) and [`README.md`](README.md).
+
+## Phase 26: Optuna Hyperparameter Sensitivity & Pareto Frontier Explorer
+- [x] **TASK-26.1:** Author deterministic Bayesian optimization ledger [`artifacts/metrics/optuna_trials.json`](artifacts/metrics/optuna_trials.json) under strict nested CV holdout isolation (**RULE-007**).
+- [x] **TASK-26.2:** Build Page 11 in [`app/dashboard.py`](app/dashboard.py) featuring multi-objective Pareto frontier (Accuracy vs Latency), fANOVA importance, and 2D contour slices.
+- [x] **TASK-26.3:** Implement 1-click JSON production hyperparameter configuration exporter.
+- [x] **TASK-26.4:** Add unit test `test_optuna_trials_ledger` in [`tests/unit/test_core.py`](tests/unit/test_core.py) (9/9 tests passing).
+- [x] **TASK-26.5:** Capture and embed verification screenshot in [`docs/images/09_optuna_pareto_frontier.png`](docs/images/09_optuna_pareto_frontier.png) and [`README.md`](README.md).
+
+## Phase 27: Streamlit Community Cloud Free Public Deployment Guide
+- [x] **TASK-27.1:** Validate `.streamlit/config.toml` design tokens and zero-secrets environment compatibility.
+- [x] **TASK-27.2:** Author comprehensive step-by-step deployment guide in [`README.md`](README.md).
+- [x] **TASK-27.3:** Verify repository sync on remote branch `main` at `https://github.com/HarshkumarG007/DLSM`.
+

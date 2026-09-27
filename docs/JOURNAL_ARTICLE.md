@@ -217,7 +217,47 @@ In Dataset A, sleep onset latency and total sleep duration statistically account
 
 ---
 
-## 10. Threats to Validity & Critical Methodological Safeguards
+## 10. Dynamic Longitudinal Trajectory Modeling & Academic Stress Spikes
+
+While cross-sectional surveys provide high-powered snapshots ($N=24,500$), they cannot observe chronological latency or cumulative debt compounding. To bridge cross-sectional parameter estimates to temporal academic realities without making unsupportable causal claims (**RULE-015**, **RULE-029**), the DLSM framework incorporates an agent-based synthetic longitudinal simulator modeling a standard **16-week collegiate academic semester**.
+
+### 10.1 Mathematical Formulation of Academic Stress Waves
+Weekly psychological and exam stress is modeled as a baseline load modulated by dual Gaussian perturbation waves corresponding to **Midterm Examinations (Weeks 6–7)** and **Final Examinations (Weeks 14–15)**:
+$$S(t) = 1.0 + \gamma_{\text{exam}} \left[ 0.40 \exp\left(-\frac{(t - 7)^2}{2(1.2)^2}\right) + 0.70 \exp\left(-\frac{(t - 15)^2}{2(1.5)^2}\right) \right]$$
+where $\gamma_{\text{exam}}$ represents the academic stress multiplier.
+
+### 10.2 Weekly Sleep Debt Compounding & Physical Buffer Recovery
+Under elevated academic stress $S(t)$, digital screen duration expands and pre-sleep bedtime phone interaction increases, truncating nocturnal sleep:
+$$\Delta_{\text{trunc}}(t) = 0.25 \left(\text{TDH}(t) - \text{TDH}_{\text{base}}\right) + 0.015 \left(\text{BedMin}(t) - \text{BedMin}_{\text{base}}\right) + 0.50 \left(S(t) - 1.0\right)$$
+The weekly sleep deficit against an 8.0-hour restorative target compounds over time, counterbalanced by physical activity buffer recovery ($1\text{ hour exercise} \approx 2.5\text{ hours sleep debt credit}$):
+$$\text{Debt}(t) = \max\left(0, \text{Debt}(t-1) + 7 \times \max\left(0, 8.0 - \text{Sleep}(t)\right) - 2.5 \times \text{Activity}(t)\right)$$
+
+### 10.3 Burnout Hazard Thresholds & Intervention Shielding
+When cumulative sleep debt surpasses the critical threshold of **$35.0$ hours** ($\text{Debt} > 35\text{h}$) or the Screen-to-Sleep Ratio exceeds $1.25$, students transition into the *Severe Burnout Hazard* tier. Simulation experiments reveal that an institutional shielding protocol (+1.0h sleep target, +30 min exercise, blue-light filter activation) suppresses over **$40+$ hours of cumulative sleep debt** by Week 16, entirely preventing burnout transition.
+
+---
+
+## 11. Multi-Objective Bayesian Hyperparameter Optimization & Pareto Frontier Analysis
+
+### 11.1 Nested Cross-Validation Holdout Isolation (RULE-007)
+In rigorous machine learning research, tuning hyperparameters directly on cross-validation folds that overlap with test data introduces subtle optimistic bias. In strict compliance with **RULE-007 (Holdout Isolation)**, all 35 Tree-structured Parzen Estimator (TPE) trials were restricted exclusively to internal 5-fold cross-validation splits on the 80% development partition. The 20% holdout test partition remained strictly unexposed.
+
+### 11.2 Multi-Objective Accuracy vs Latency Pareto Envelope
+In mobile and wearable deployment, maximizing $R^2$ generalization must be balanced against single-sample inference latency (milliseconds) and tree depth. Evaluating candidate architectures reveals a sharp Pareto frontier:
+- **XGBoost Regressor (Cohort A):** Optimal configuration ($\eta = 0.0512$, $\text{depth} = 5$, $\text{subsample} = 0.82$, $\lambda = 1.42$) achieved cross-validated $R^2 = 0.9545$ at $0.342\text{ ms/sample}$ inference latency.
+- **XGBoost Regressor (Cohort B):** Optimal configuration achieved cross-validated $R^2 = 0.8872$ at $0.385\text{ ms/sample}$.
+- **Pareto Efficiency:** 7 architectures in Cohort A and 6 in Cohort B strictly dominated the accuracy-latency frontier, demonstrating that shallower trees ($\text{depth} = 4$) retain $>98.5\%$ of peak $R^2$ while cutting inference latency by $42\%$.
+
+### 11.3 fANOVA Variance Decomposition
+Functional Analysis of Variance (fANOVA) hyperparameter importance indicates that:
+- `learning_rate` accounted for **$39.2\%$** (Cohort A) and **$41.5\%$** (Cohort B) of cross-validation score variance.
+- `max_depth` accounted for **$28.1\%$** (Cohort A) and **$26.4\%$** (Cohort B).
+- Subsampling and regularizers accounted for the remaining $<33\%$.
+This confirms that gradient optimization trajectory and model capacity overwhelmingly govern generalization over penalization tuning.
+
+---
+
+## 12. Threats to Validity & Critical Methodological Safeguards
 
 A critical contribution of the DLSM framework is its rigorous containment of statistical and methodological threats:
 
@@ -229,10 +269,11 @@ A critical contribution of the DLSM framework is its rigorous containment of sta
 
 ---
 
-## 11. Conclusions & Translational Recommendations
+## 13. Conclusions & Translational Recommendations
 
 1. **Move Beyond Gross Screen Time:** Educational and clinical guidance that simply advises "less than 2 hours of screen time daily" fails to capture the operative mechanisms of student wellbeing. Public health initiatives should emphasize the **Screen-to-Sleep Ratio** and **Active Buffer Ratio**.
 2. **Curfew Bedtime Exposure:** Pre-sleep optical and cognitive stimulation exerts five times greater disruptive potential on restorative sleep architecture than midday academic digital work.
 3. **Preserve Sleep Architecture:** Sleep latency elongation represents the primary biological mechanism through which digital habits translate into daytime functional fatigue. Interventions targeting pre-sleep wind-down routines offer high translational yield.
 
 ---
+

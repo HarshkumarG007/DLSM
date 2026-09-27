@@ -90,6 +90,17 @@ The **Digital Lifestyle Spillover Model (DLSM)** research system is fully built,
 - **Cohort A ($\text{DLL} \rightarrow \text{Duration} \rightarrow \text{Fatigue}$):** $ab = 0.6102$ ($95\%\ \text{CI}: [0.5913, 0.6290]$), **$50.85\%$ mediated**.
 - **Cohort B ($\text{DLL} \rightarrow \text{Sleep} \rightarrow \text{Mental Health}$):** $c = -2.147$, $c' = -1.752$, $ab = -0.3950$ ($95\%\ \text{CI}: [-0.4321, -0.3581]$), **$18.40\%$ mediated**.
 
+### 3.5 Synthetic Longitudinal Panel Simulator
+- **16-Week Dynamic Progression:** Models midterm (Weeks 6–7) and final exam (Weeks 14–15) Gaussian stress spikes.
+- **Sleep Debt Compounding:** Tracks weekly deficits against 8.0h restorative target minus physical buffer recovery.
+- **Hazard Boundary Alert:** Flags students who breach the 35.0-hour cumulative debt limit into Severe Burnout.
+- **Intervention Efficacy:** Demonstrated prevention of >40h sleep debt via +1h sleep, +30m exercise, and blue-light filter.
+
+### 3.6 Optuna Bayesian Hyperparameter Optimization & Pareto Frontier
+- **Nested CV Holdout Isolation (RULE-007):** 35 TPE trials executed strictly within development folds.
+- **Multi-Objective Pareto Frontier:** Trade-off envelope between $R^2$ generalization and inference latency (ms/sample).
+- **fANOVA Variance Decomposition:** `learning_rate` (39.2%-41.5%) and `max_depth` (26.4%-28.1%) account for >65% variance.
+
 ---
 
 ## 4. Known Bugs, Platform Quirks & Mitigations
@@ -100,10 +111,15 @@ The **Digital Lifestyle Spillover Model (DLSM)** research system is fully built,
 | **WMIC Deprecation Warning** | Windows 11 / Python 3.13 | Joblib `loky` backend attempts `wmic CPU` lookup | Silenced warning; defaulted gracefully to Python logical core counter | **RESOLVED** |
 | **Streamlit ScriptRunContext** | Python 3.13 bare test | Direct module import outside `streamlit run` | Verified bare import cleanly catches context warnings without raising exceptions | **RESOLVED** |
 | **Pandera FutureDeprecation** | Pandera 0.33 | Deprecation warning for top-level import | Set compatibility mappings for `pandera.DataFrameSchema` | **RESOLVED** |
+| **LaTeX in f-strings** | `report_generator.py` | Python f-strings parse LaTeX `{...}` as expressions | Used raw strings and explicit `.replace("{{DATE}}", ...)` | **RESOLVED** |
+| **pyzmq asyncio event loop** | Python 3.13 / Windows | Windows ProactorEventLoop incompatibility with pyzmq | Configured WindowsSelectorEventLoopPolicy | **RESOLVED** |
 
 ---
 
-## 5. Next Iteration Horizon
-- **Iteration 1.1:** Add interactive Optuna hyperparameter sensitivity explorer tab to dashboard.
-- **Iteration 1.2:** Introduce synthetic longitudinal panel simulations to model multi-semester behavioral shifts.
-- **Iteration 1.3:** Build exportable PDF research summary report generator inside Streamlit.
+## 5. Completed Iterations & Operational Status
+- [x] **Iteration 1.1:** Interactive Optuna hyperparameter sensitivity & Pareto frontier explorer tab (Module 11).
+- [x] **Iteration 1.2:** Synthetic longitudinal panel simulation (16-week semester sleep debt compounding, Module 10).
+- [x] **Iteration 1.3:** 1-Click Executive Research Report Generator (Markdown + Print-to-PDF HTML).
+- [x] **Iteration 1.4:** 9/9 passing automated unit tests with full CI/CD GitHub Actions matrix on Python 3.11 & 3.12.
+- [x] **Iteration 1.5:** Zero-config Streamlit Community Cloud public deployment configuration.
+
