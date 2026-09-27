@@ -53,3 +53,34 @@
 | `Physical_Activity_Hours` | Float | `BEHAVIORAL` | 0.0 – 5.0 hrs | Daily exercise hours |
 | `Mental_Health_Score` | Float | `TARGET` | 32.56 – 91.76 | Psychological wellbeing index |
 | `Physical_Health_Score` | Float | `HEALTH` | 48.03 – 99.98 | Somatic health score |
+
+---
+
+## Derived & Engineered Feature Taxonomy
+
+### Dataset A Engineered Features
+| Name | Type | Semantic Role | Range / Unit | Mathematical Description |
+|:---|:---|:---|:---|:---|
+| `bedtime_intensity_index` | Float | `DIGITAL_INTENSITY` | 0.0 – 180.0 | Optical intensity discounted by blue-light filter: $\frac{\text{brightness}}{100} \times \text{minutes} \times (1 - 0.30 \times \text{filter})$ |
+| `screen_to_sleep_ratio` | Float | `BEHAVIORAL` | 0.0 – 0.94 | Proportion of nocturnal sleep duration consumed by pre-sleep device interaction |
+| `sleep_architecture_efficiency` | Float | `SLEEP` | 0.17 – 0.55 | Restorative sleep fraction: $\frac{\text{deep\_sleep\_pct} + \text{rem\_sleep\_pct}}{100}$ |
+| `cognitive_arousal_weight` | Float | `DIGITAL_PURPOSE` | 0.30 – 1.00 | Biophysical arousal weight assigned to primary bedtime application genre |
+| `arousal_weighted_bedtime_exposure` | Float | `DIGITAL_PURPOSE` | 0.3 – 180.0 | Cognitive stimulus: $\text{bedtime\_minutes} \times \text{arousal\_weight}$ |
+| `sleep_latency_ratio` | Float | `SLEEP` | 0.01 – 0.64 | Fraction of nocturnal sleep window spent attempting to initiate sleep |
+| `caffeine_screen_interaction` | Float | `POTENTIAL_CONFOUNDER` | 0.0 – 45,000.0 | Synergistic evening pharmacological and optical stimulus: $\text{caffeine} \times \text{bedtime\_minutes}$ |
+| `brightness_screen_interaction` | Float | `DIGITAL_INTENSITY` | 10.0 – 18,000.0 | Gross luminous flux exposure: $\text{screen\_brightness\_pct} \times \text{bedtime\_minutes}$ |
+| `screen_sleep_interaction` | Float | `BEHAVIORAL` | 3.2 – 1,764.0 | Exposure displacing duration: $\text{bedtime\_minutes} \times \text{total\_sleep\_hours}$ |
+| `digital_lifestyle_load` (DLL) | Float | `DIGITAL_INTENSITY` | $\approx -2.5$ to $+3.0$ SD | First principal component score from standardized pre-sleep digital behavior |
+
+### Dataset B Engineered Features
+| Name | Type | Semantic Role | Range / Unit | Mathematical Description |
+|:---|:---|:---|:---|:---|
+| `total_digital_hours` | Float | `DIGITAL_INTENSITY` | 0.0 – 23.5 hrs | Aggregate daily digital engagement: $\text{Social\_Media} + \text{AI\_Tools}$ |
+| `digital_composition_ratio` | Float | `DIGITAL_PURPOSE` | 0.0 – 1.0 | Proportion of digital budget allocated to generative/assistive AI tools |
+| `screen_to_sleep_ratio` | Float | `BEHAVIORAL` | 0.0 – 11.75 | Relational ratio: $\frac{\text{total\_digital\_hours}}{\text{Sleep\_Hours} + \epsilon}$ |
+| `active_buffer_ratio` | Float | `BEHAVIORAL` | 0.0 – $\infty$ | Relational restorative buffer: $\frac{\text{Physical\_Activity\_Hours}}{\text{total\_digital\_hours} + \epsilon}$ |
+| `sleep_deficit_hours` | Float | `SLEEP` | 0.0 – 6.0 hrs | Truncation relative to normative 8.0-hour restorative baseline |
+| `social_sleep_interaction` | Float | `BEHAVIORAL` | 0.0 – 156.1 | Cross-modal displacement: $\text{Daily\_Social\_Media\_Hours} \times \text{Sleep\_Hours}$ |
+| `ai_sleep_interaction` | Float | `BEHAVIORAL` | 0.0 – 105.9 | Cross-modal displacement: $\text{Daily\_AI\_Tool\_Usage\_Hours} \times \text{Sleep\_Hours}$ |
+| `social_physical_interaction` | Float | `BEHAVIORAL` | 0.0 – 70.0 | Sedentary screen vs exercise balance: $\text{Social\_Media} \times \text{Physical\_Activity}$ |
+| `digital_lifestyle_load` (DLL) | Float | `DIGITAL_INTENSITY` | $\approx -3.0$ to $+3.5$ SD | First principal component score from standardized daily digital indicators |

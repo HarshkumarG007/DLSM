@@ -157,15 +157,24 @@ dlsm/
 │   ├── methodology.md        # Mathematical specifications
 │   ├── data_dictionary.md    # Semantic feature taxonomy
 │   ├── model_card.md         # Machine learning model cards
-│   └── limitations.md        # Threats to validity
+│   ├── limitations.md        # Threats to validity
+│   └── latex/                # Academic preprint package
+│       ├── manuscript.tex    # Two-column IEEE/Nature-style LaTeX manuscript
+│       ├── references.bib    # BibTeX academic references
+│       └── compile_manuscript.py # Automated LaTeX preprint compiler
+├── src/dlsm/
+│   ├── api/                  # FastAPI REST microservice (app.py, schemas.py)
+│   ├── cli.py                # dlsm batch scoring and simulation CLI
+│   ├── simulation/           # Agent-based longitudinal panel simulation
+│   └── evaluation/           # Small-N noise stress and ablation benchmarks
 ├── DATA_AUDIT_REPORT.md      # Ground-truth machine-generated audit report
 ├── README.md                 # Project documentation & quick start guide
-├── requirements.txt          # Python dependencies
-├── pyproject.toml            # Build tool configuration
+├── requirements.txt          # Python dependencies (pinned)
+├── pyproject.toml            # Build tool configuration & dlsm console entrypoint
 ├── Makefile                  # Lifecycle automation commands
 ├── Dockerfile                # Container image build instructions
-├── docker-compose.yml        # Multi-container orchestration
-└── LICENSE                   # MIT Open Source License
+├── docker-compose.yml        # Multi-container orchestration (Dashboard + API)
+└── LICENSE                   # Apache 2.0 Open Source License
 ```
 
 ---
@@ -194,3 +203,19 @@ dlsm/
 1. All analytical results, metrics, cluster profiles, and model objects are serialized into `artifacts/metrics/`, `artifacts/models/`, and `artifacts/shap/`.
 2. The Streamlit dashboard (`app/dashboard.py`) loads serialized artifacts via cached read functions (`@st.cache_data`).
 3. This architecture guarantees that dashboard rendering is completely decoupled from heavy machine learning recomputation, yielding instantaneous page transitions ($< 200\text{ ms}$).
+
+### 4.5 Production REST Microservice Subsystem (`src/dlsm/api/`)
+1. An asynchronous FastAPI microservice runs on port 8000, presenting automatic OpenAPI / Swagger interactive documentation at `/docs`.
+2. Incoming inference requests (`/api/v1/predict/fatigue`, `/api/v1/predict/mental-health`) and simulation requests (`/api/v1/simulate/policy`) are validated against Pydantic v2 schemas.
+3. Resilient deserialization loaders guarantee model pipeline execution across varying scikit-learn versions with sub-50ms turnaround.
+
+### 4.6 Headless Batch Scoring CLI Subsystem (`src/dlsm/cli.py`)
+1. The `dlsm` console utility enables researchers to batch-score arbitrary cohort CSV files:
+   - `dlsm score --cohort a --input <path> --output <path>`
+   - `dlsm score --cohort b --input <path> --output <path>`
+2. The `dlsm simulate --weeks 16 --output <path>` command executes headless agent-based longitudinal stress and sleep debt simulations.
+
+### 4.7 Academic LaTeX Preprint Subsystem (`docs/latex/`)
+1. The complete two-column IEEE/Nature-styled preprint manuscript (`manuscript.tex`) and BibTeX citations (`references.bib`) are maintained in version-controlled LaTeX source.
+2. The compilation script (`compile_manuscript.py`) validates syntax and executes `pdflatex` / `bibtex` engines where available.
+3. The Streamlit research portal sidebar includes a direct 1-click download button for the LaTeX source package.
