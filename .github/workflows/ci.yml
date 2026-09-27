@@ -42,7 +42,7 @@ jobs:
 
       - name: Run Automated Pytest Suite
         run: |
-          pytest tests/ -v --maxfail=1
+          pytest tests/ -v -s --tb=short
 
       - name: Verify Core Research Pipeline Ingestion
         run: |

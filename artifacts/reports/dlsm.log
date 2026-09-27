@@ -240,3 +240,9 @@
 [2026-09-28 03:30:52,250] [INFO] [dlsm.cli]: Loading input data for Cohort B from C:\Users\Lenovo\AppData\Local\Temp\pytest-of-Lenovo\pytest-2\test_cli_score_cohort_b0\cohort_b_test.csv
 [2026-09-28 03:30:52,409] [INFO] [dlsm.cli]: Batch scoring complete. Scored 1 records saved to C:\Users\Lenovo\AppData\Local\Temp\pytest-of-Lenovo\pytest-2\test_cli_score_cohort_b0\cohort_b_scored.csv
 [2026-09-28 03:30:53,542] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 03:36:46,188] [INFO] [dlsm.cli]: Loading input data for Cohort B from C:\Users\Lenovo\AppData\Local\Temp\pytest-of-Lenovo\pytest-3\test_cli_score_cohort_b0\cohort_b_test.csv
+[2026-09-28 03:36:46,469] [INFO] [dlsm.cli]: Batch scoring complete. Scored 1 records saved to C:\Users\Lenovo\AppData\Local\Temp\pytest-of-Lenovo\pytest-3\test_cli_score_cohort_b0\cohort_b_scored.csv
+[2026-09-28 03:36:48,515] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 03:49:07,496] [INFO] [dlsm.cli]: Loading input data for Cohort B from C:\Users\Lenovo\AppData\Local\Temp\pytest-of-Lenovo\pytest-4\test_cli_score_cohort_b0\cohort_b_test.csv
+[2026-09-28 03:49:07,656] [INFO] [dlsm.cli]: Batch scoring complete. Scored 1 records saved to C:\Users\Lenovo\AppData\Local\Temp\pytest-of-Lenovo\pytest-4\test_cli_score_cohort_b0\cohort_b_scored.csv
+[2026-09-28 03:49:08,819] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True

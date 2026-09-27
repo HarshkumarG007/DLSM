@@ -1,13 +1,22 @@
+import os
 import subprocess
 import sys
 from pathlib import Path
 import pandas as pd
 import pytest
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+SRC_DIR = REPO_ROOT / "src"
+
+def _run_cli(args):
+    cmd = [sys.executable, "-m", "dlsm.cli"] + args
+    env = dict(os.environ, PYTHONPATH=str(SRC_DIR))
+    res = subprocess.run(cmd, cwd=str(REPO_ROOT), env=env, capture_output=True, text=True)
+    return res
+
 def test_cli_help():
-    cmd = [sys.executable, "-m", "dlsm.cli", "--help"]
-    res = subprocess.run(cmd, capture_output=True, text=True)
-    assert res.returncode == 0
+    res = _run_cli(["--help"])
+    assert res.returncode == 0, f"CLI help failed: {res.stderr}"
     assert "score" in res.stdout
     assert "simulate" in res.stdout
 
@@ -29,14 +38,13 @@ def test_cli_score_cohort_b(tmp_path):
     }])
     df.to_csv(test_csv, index=False)
     
-    cmd = [
-        sys.executable, "-m", "dlsm.cli", "score",
+    res = _run_cli([
+        "score",
         "--cohort", "b",
         "--input", str(test_csv),
         "--output", str(out_csv)
-    ]
-    res = subprocess.run(cmd, capture_output=True, text=True)
-    assert res.returncode == 0
+    ])
+    assert res.returncode == 0, f"CLI score failed: {res.stderr}"
     assert out_csv.exists()
     
     df_out = pd.read_csv(out_csv)
@@ -46,14 +54,13 @@ def test_cli_score_cohort_b(tmp_path):
 
 def test_cli_simulate(tmp_path):
     out_csv = tmp_path / "sim_output.csv"
-    cmd = [
-        sys.executable, "-m", "dlsm.cli", "simulate",
+    res = _run_cli([
+        "simulate",
         "--weeks", "8",
         "--shield",
         "--output", str(out_csv)
-    ]
-    res = subprocess.run(cmd, capture_output=True, text=True)
-    assert res.returncode == 0
+    ])
+    assert res.returncode == 0, f"CLI simulate failed: {res.stderr}"
     assert out_csv.exists()
     
     df_sim = pd.read_csv(out_csv)
