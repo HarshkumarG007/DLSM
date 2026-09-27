@@ -62,6 +62,11 @@ The **Digital Lifestyle Spillover Model (DLSM)** research system is fully built,
 - **Decision:** Implement an interactive simulation engine (Page 9) in Streamlit that dynamically recalculates Total Digital Hours, Bedtime Intensity Index, Screen-to-Sleep Ratio, Active Buffer Ratio, and predicted fatigue/mental health based on user-controlled behavioral levers and preset scenarios.
 - **Consequence:** Bridges the gap between static research figures and interactive policy exploration without requiring real-time model retraining.
 
+### ADR-009: Automated Executive Research Report Compilation
+- **Context:** External reviewers, university leadership, and clinicians require self-contained, offline-accessible documentation without having to manually navigate multiple tabs or re-run Jupyter notebooks.
+- **Decision:** Implement an automated generator in `src/dlsm/utils/report_generator.py` that compiles all verified empirical findings, tables, and policy takeaways into clean Markdown and responsive, printable HTML with print-media CSS.
+- **Consequence:** Enables 1-click PDF generation via standard browser print commands and programmatic access across the framework.
+
 ---
 
 ## 3. Empirical Findings Ledger (Exact Verified Figures)

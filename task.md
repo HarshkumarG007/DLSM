@@ -114,3 +114,9 @@
 - [x] **TASK-23.1:** Implement Page 9 (`Lifestyle & Policy Simulator`) in [`app/dashboard.py`](app/dashboard.py) with dynamic biophysical formulas.
 - [x] **TASK-23.2:** Verify real-time intervention scenarios ("Exams Doomscroller" vs "Balanced AI Scholar") via browser subagent.
 - [x] **TASK-23.3:** Embed high-resolution verification screenshots into [`docs/images/`](docs/images/) and [`README.md`](README.md).
+
+## Phase 24: Automated Executive Research Report Generator
+- [x] **TASK-24.1:** Implement [`generate_executive_report_markdown`](src/dlsm/utils/report_generator.py) and [`generate_executive_report_html`](src/dlsm/utils/report_generator.py) with print-to-PDF CSS.
+- [x] **TASK-24.2:** Integrate download buttons in Streamlit sidebar and Page 8 in [`app/dashboard.py`](app/dashboard.py).
+- [x] **TASK-24.3:** Add unit test `test_executive_report_generation` in [`tests/unit/test_core.py`](tests/unit/test_core.py) (7/7 tests passing).
+- [x] **TASK-24.4:** Embed verification screenshot in [`docs/images/07_executive_report_export.png`](docs/images/07_executive_report_export.png) and [`README.md`](README.md).
