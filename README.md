@@ -3,9 +3,10 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Tests Passing](https://img.shields.io/badge/pytest-10%2F10%20passed%20(100%25)-brightgreen.svg)]()
+[![Tests Passing](https://img.shields.io/badge/pytest-19%2F19%20passed%20(100%25)-brightgreen.svg)]()
 [![Code Style: Ruff / PEP8](https://img.shields.io/badge/code%20style-black%20%2F%20pep8-000000.svg)](https://github.com/astral-sh/ruff)
 [![Streamlit UI](https://img.shields.io/badge/Streamlit-11%20Research%20Modules-FF4B4B.svg)](https://streamlit.io/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-REST%20Microservice-009688.svg)](http://localhost:8000/docs)
 [![Repository](https://img.shields.io/badge/GitHub-HarshkumarG007%2FDLSM-181717.svg)](https://github.com/HarshkumarG007/DLSM)
 
 > **Tagline:** *From isolated digital behaviors to a measurable architecture of student digital life.*
@@ -36,6 +37,9 @@ Every aspect of DLSM is governed by formal engineering specifications, architect
 | **Project Execution Ledger** | [`task.md`](file:///c:/Users/Lenovo/Downloads/DLSM/task.md) / [`docs/task.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/task.md) | Granular 20-phase execution checklist tracking every task from schema audit to dashboard deployment. | Project Managers | ✅ Completed |
 | **Project Memory & ADRs** | [`memory.md`](file:///c:/Users/Lenovo/Downloads/DLSM/memory.md) / [`docs/memory.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/memory.md) | Persistent state, 7 Architectural Decision Records (ADRs), empirical findings ledger, and bug tracker. | All Collaborators | ✅ Maintained |
 | **Academic Journal Manuscript** | [`docs/JOURNAL_ARTICLE.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/JOURNAL_ARTICLE.md) | Publication-ready scientific manuscript with abstract, theoretical background, methods, results, and discussion. | Academics, Peer Reviewers| ✅ Complete |
+| **LaTeX Academic Preprint** | [`docs/latex/manuscript.tex`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/latex/manuscript.tex) | Complete, submission-ready LaTeX manuscript and BibTeX bibliography for IEEE/ACM/Nature Digital Medicine. | Journal Submissions | ✅ Formatted |
+| **FastAPI REST Microservice** | [`src/dlsm/api/app.py`](file:///c:/Users/Lenovo/Downloads/DLSM/src/dlsm/api/app.py) | Production REST API with OpenAPI documentation, Pydantic v2 schemas, and health endpoints. | Backend Developers, Integrators | ✅ Operational |
+| **Batch Scoring CLI Utility** | [`src/dlsm/cli.py`](file:///c:/Users/Lenovo/Downloads/DLSM/src/dlsm/cli.py) | Headless command-line interface for scoring student cohorts and running longitudinal simulations. | Data Engineers, Admins | ✅ Operational |
 | **Ground-Truth Data Audit** | [`DATA_AUDIT_REPORT.md`](file:///c:/Users/Lenovo/Downloads/DLSM/DATA_AUDIT_REPORT.md) | Machine-generated Phase 0 audit report verifying shapes, data types, empirical bounds, and zero missingness. | Data Engineers | ✅ Verified |
 | **Semantic Feature Dictionary** | [`metadata/feature_dictionary.yaml`](file:///c:/Users/Lenovo/Downloads/DLSM/metadata/feature_dictionary.yaml) | Formal YAML taxonomy classifying all 28 variables into 12 semantic roles with formulas and bounds. | ML Engineers | ✅ Verified |
 | **Schema Contracts (JSON)** | [`metadata/dataset_a_schema.json`](file:///c:/Users/Lenovo/Downloads/DLSM/metadata/dataset_a_schema.json), [`_b`](file:///c:/Users/Lenovo/Downloads/DLSM/metadata/dataset_b_schema.json) | Discovered ground-truth JSON schemas for automated contract validation. | Systems Integration | ✅ Verified |
@@ -751,10 +755,11 @@ python src/dlsm/pipeline_orchestrator.py
 ```
 
 ### 5. Run the Automated Test Suite
-To verify that all Pandera contracts, feature transformers, bootstrap stability tests, and anti-leakage guards pass:
+To verify that all Pandera contracts, feature transformers, bootstrap stability tests, API endpoints, and CLI utilities pass:
 ```bash
 pytest tests/ -v
 ```
+*(19 / 19 tests pass in ~4 seconds with 100% success rate)*
 
 ### 6. Launch the Interactive Research Portal (Local)
 ```bash
@@ -762,7 +767,36 @@ streamlit run app/dashboard.py
 ```
 *The research portal will open automatically in your browser at `http://localhost:8501`.*
 
-### 7. Deploy to Streamlit Community Cloud (Free Public URL)
+### 7. Launch the Production FastAPI REST API
+```bash
+uvicorn dlsm.api.app:app --host 0.0.0.0 --port 8000 --reload
+```
+*Interactive Swagger / OpenAPI documentation is immediately accessible at `http://localhost:8000/docs`.*
+
+### 8. Use the Headless Batch Scoring CLI
+Score thousands of student records directly from the command line without launching the GUI:
+```bash
+# Batch score Cohort B (Student AI & Social Media)
+python -m dlsm.cli score --cohort b --input cohort_raw.csv --output cohort_scored.csv
+
+# Run 16-week dynamic academic semester longitudinal simulation
+python -m dlsm.cli simulate --weeks 16 --shield --output semester_sim.csv
+```
+
+### 9. Launch via Docker Compose (Multi-Container)
+Run both the Streamlit Dashboard and FastAPI REST service simultaneously:
+```bash
+docker-compose up --build
+```
+- Dashboard: `http://localhost:8501`
+- REST API: `http://localhost:8000/docs`
+
+### 10. Compile the LaTeX Academic Preprint
+```bash
+python docs/latex/compile_manuscript.py
+```
+
+### 11. Deploy to Streamlit Community Cloud (Free Public URL)
 The DLSM repository is pre-configured for **1-click zero-config deployment** on Streamlit Community Cloud:
 1. Navigate to [share.streamlit.io](https://share.streamlit.io) and log in with your GitHub account.
 2. Click **"New app"**.
@@ -772,6 +806,11 @@ The DLSM repository is pre-configured for **1-click zero-config deployment** on 
 6. (Optional) Custom App URL: e.g. `dlsm-research.streamlit.app`
 7. Click **"Deploy!"**
 *The cloud build will automatically detect `requirements.txt` and `.streamlit/config.toml` design tokens, generating a live public HTTPS link in under 2 minutes with zero environment variables needed.*
+
+### 12. Deploy to Hugging Face Spaces (Docker or Streamlit SDK)
+1. Create a new Space on [huggingface.co/spaces](https://huggingface.co/spaces).
+2. Choose **Streamlit** SDK or **Docker**.
+3. Push or link this repository to deploy automatically.
 
 ---
 

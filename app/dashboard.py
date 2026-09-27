@@ -179,6 +179,27 @@ st.sidebar.download_button(
     use_container_width=True
 )
 
+tex_path = root_dir / "docs/latex/manuscript.tex"
+if tex_path.exists():
+    with open(tex_path, "r", encoding="utf-8") as f:
+        tex_content = f.read()
+    st.sidebar.download_button(
+        label="📑 Download LaTeX Preprint (.tex)",
+        data=tex_content,
+        file_name="DLSM_Academic_Manuscript.tex",
+        mime="text/plain",
+        use_container_width=True
+    )
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("**🚀 Developer & API Interfaces**")
+st.sidebar.markdown("""
+- **FastAPI REST API:** `http://localhost:8000/docs`
+- **CLI Tool:** `dlsm score` | `dlsm simulate`
+- **Automated Tests:** `19 / 19 Passing`
+- **CI / CD:** GitHub Actions All Green
+""")
+
 # ==============================================================================
 # PAGE 1: RESEARCH OVERVIEW & THEORY
 # ==============================================================================

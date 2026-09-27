@@ -147,3 +147,27 @@
 - [x] **TASK-28.4:** Audit and calibrate claims across all docs, replacing overclaiming verbs ("proves that") with scientific terminology ("demonstrates that within this predictive model").
 - [x] **TASK-28.5:** Integrate Small-N Stress Benchmark into Page 8 of [`app/dashboard.py`](app/dashboard.py) and unit test suite in [`tests/unit/test_core.py`](tests/unit/test_core.py) (10/10 tests passing).
 
+## Phase 29: Production FastAPI REST Microservice
+- [x] **TASK-29.1:** Author Pydantic v2 schemas in [`src/dlsm/api/schemas.py`](src/dlsm/api/schemas.py) for Cohort A, Cohort B, policy simulation, and phenotypes.
+- [x] **TASK-29.2:** Implement FastAPI application in [`src/dlsm/api/app.py`](src/dlsm/api/app.py) with `/docs`, `/health`, `/api/v1/phenotypes`, `/api/v1/predict/fatigue`, `/api/v1/predict/mental-health`, and `/api/v1/simulate/policy`.
+- [x] **TASK-29.3:** Author unit tests in [`tests/unit/test_api.py`](tests/unit/test_api.py) (6/6 tests passing).
+- [x] **TASK-29.4:** Update `docker-compose.yml` to define `dlsm-api` alongside `dlsm-dashboard`.
+
+## Phase 30: LaTeX Academic Preprint Package
+- [x] **TASK-30.1:** Author IEEE/ACM/Nature Digital Medicine formatted LaTeX manuscript in [`docs/latex/manuscript.tex`](docs/latex/manuscript.tex).
+- [x] **TASK-30.2:** Author BibTeX bibliography in [`docs/latex/references.bib`](docs/latex/references.bib) with literature calibration citations.
+- [x] **TASK-30.3:** Implement compilation script in [`docs/latex/compile_manuscript.py`](docs/latex/compile_manuscript.py).
+- [x] **TASK-30.4:** Add LaTeX preprint download button in [`app/dashboard.py`](app/dashboard.py) sidebar.
+
+## Phase 31: Batch Scoring CLI Utility (`dlsm-cli`)
+- [x] **TASK-31.1:** Implement [`src/dlsm/cli.py`](src/dlsm/cli.py) with `score` (Cohort A/B) and `simulate` (longitudinal policy) subcommands.
+- [x] **TASK-31.2:** Register `dlsm` console script entry point in [`pyproject.toml`](pyproject.toml).
+- [x] **TASK-31.3:** Author unit tests in [`tests/unit/test_cli.py`](tests/unit/test_cli.py) (3/3 tests passing).
+- [x] **TASK-31.4:** Document CLI usage examples in [`README.md`](README.md).
+
+## Phase 32: Live Cloud Deployment & Multi-Platform Readiness
+- [x] **TASK-32.1:** Validate `.streamlit/config.toml` design tokens and zero-secrets environment compatibility.
+- [x] **TASK-32.2:** Author step-by-step guides for Streamlit Community Cloud and Hugging Face Spaces in [`README.md`](README.md).
+- [x] **TASK-32.3:** Verify full 19-test test suite (`pytest tests/ -v`, 19/19 passing).
+- [x] **TASK-32.4:** Synchronize remote branch `main` at `https://github.com/HarshkumarG007/DLSM`.
+
