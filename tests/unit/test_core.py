@@ -161,3 +161,18 @@ def test_optuna_trials_ledger():
     assert len(data["cohort_a_fatigue_xgb"]["trials"]) >= 30
     assert any(t["is_pareto"] for t in data["cohort_a_fatigue_xgb"]["trials"])
 
+def test_noise_stress_benchmark():
+    import json
+    from pathlib import Path
+    stress_path = Path(__file__).resolve().parent.parent.parent / "artifacts" / "metrics" / "methodology_stresstest_results.json"
+    assert stress_path.exists()
+    with open(stress_path, "r") as f:
+        data = json.load(f)
+    assert "synthetic_noise_test" in data
+    assert "real_dlsm_comparison" in data
+    assert data["real_dlsm_comparison"]["dataset_a_telemetry"]["sample_size"] == 8500
+    assert data["real_dlsm_comparison"]["dataset_b_students"]["sample_size"] == 16000
+    assert data["real_dlsm_comparison"]["dataset_a_telemetry"]["clustering_k2"]["bootstrap_ari_mean"] > 0.95
+    assert data["real_dlsm_comparison"]["dataset_b_students"]["clustering_k2"]["bootstrap_ari_mean"] > 0.95
+
+
