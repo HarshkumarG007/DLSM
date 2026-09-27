@@ -191,6 +191,18 @@ if tex_path.exists():
         use_container_width=True
     )
 
+zip_path = root_dir / "docs/latex/dlsm_preprint_package.zip"
+if zip_path.exists():
+    with open(zip_path, "rb") as f:
+        zip_content = f.read()
+    st.sidebar.download_button(
+        label="📦 Download Preprint Submission (.zip)",
+        data=zip_content,
+        file_name="dlsm_preprint_package.zip",
+        mime="application/zip",
+        use_container_width=True
+    )
+
 st.sidebar.markdown("---")
 st.sidebar.markdown("**🚀 Developer & API Interfaces**")
 st.sidebar.markdown("""
