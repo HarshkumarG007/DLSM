@@ -138,3 +138,26 @@ def test_executive_report_generation():
     assert "Digital Lifestyle Spillover Model" in md
     assert len(html) > 2000
     assert "<!DOCTYPE html>" in html
+
+def test_longitudinal_panel_simulator():
+    from dlsm.simulation.longitudinal import LongitudinalPanelSimulator
+    sim = LongitudinalPanelSimulator(weeks=16, random_state=42)
+    df = sim.simulate_semester()
+    assert len(df) == 16
+    assert "Cumulative_Sleep_Debt_Hours" in df.columns
+    assert "Predicted_Fatigue" in df.columns
+    assert "Risk_Status" in df.columns
+    assert (df["Cumulative_Sleep_Debt_Hours"] >= 0).all()
+
+def test_optuna_trials_ledger():
+    import json
+    from pathlib import Path
+    opt_path = Path(__file__).resolve().parent.parent.parent / "artifacts" / "metrics" / "optuna_trials.json"
+    assert opt_path.exists()
+    with open(opt_path, "r") as f:
+        data = json.load(f)
+    assert "cohort_a_fatigue_xgb" in data
+    assert "cohort_b_mental_xgb" in data
+    assert len(data["cohort_a_fatigue_xgb"]["trials"]) >= 30
+    assert any(t["is_pareto"] for t in data["cohort_a_fatigue_xgb"]["trials"])
+

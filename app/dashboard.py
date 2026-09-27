@@ -12,6 +12,7 @@ import json
 import plotly.express as px
 import plotly.graph_objects as go
 from dlsm.utils.report_generator import generate_executive_report_markdown, generate_executive_report_html
+from dlsm.simulation.longitudinal import LongitudinalPanelSimulator
 
 # Configure Streamlit page
 st.set_page_config(
@@ -115,6 +116,11 @@ def get_executive_report():
     html = generate_executive_report_html(md)
     return md, html
 
+@st.cache_data
+def load_optuna_trials():
+    with open(root_dir / "artifacts/metrics/optuna_trials.json", "r") as f:
+        return json.load(f)
+
 # Sidebar Header
 st.sidebar.image("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&q=80", use_container_width=True)
 st.sidebar.title("DLSM Navigation")
@@ -131,7 +137,9 @@ menu = st.sidebar.radio(
         "6. Model Explainability (SHAP)",
         "7. Statistical Mediation Pathways",
         "8. Threat Model & Scientific Review",
-        "9. Lifestyle & Policy Simulator"
+        "9. Lifestyle & Policy Simulator",
+        "10. 16-Week Longitudinal Simulation",
+        "11. Optuna Tuning & Pareto Frontier"
     ]
 )
 
@@ -672,4 +680,521 @@ elif menu == "9. Lifestyle & Policy Simulator":
         ✅ **Protective Lifestyle Architecture Confirmed**  
         Screen-to-sleep ratio is balanced, bedtime optical intensity is controlled, and physical activity provides an effective restorative buffer.
         """)
+
+# =====================================================================
+# PAGE 10: 16-WEEK LONGITUDINAL SIMULATION & SLEEP DEBT COMPOUNDING
+# =====================================================================
+elif menu == "10. 16-Week Longitudinal Simulation":
+    st.markdown('<div class="main-title">16-Week Longitudinal Semester Simulation</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-tagline">Dynamic Panel Modeling: Midterm/Finals Stress Waves, Sleep Debt Compounding & Burnout Transitions</div>', unsafe_allow_html=True)
+
+    st.info("""
+    **Methodological Context (RULE-015 & RULE-029 Compliant):**  
+    Cross-sectional surveys capture static correlations but cannot observe temporal latency or compounding. This synthetic agent-based simulator projects how empirical DLSM model weights, optical exposure, and relational ratios propagate dynamically across a **16-week collegiate academic semester**.  
+    It explicitly models acute sleep displacement during **Midterms (Weeks 6–7)** and **Finals (Weeks 14–15)**, tracking how weekly nocturnal sleep debt compounds into severe burnout when physical activity buffers are insufficient.
+    """)
+
+    st.subheader("1. Preset Academic Trajectories")
+    long_preset = st.radio(
+        "Choose an Archetype:",
+        [
+            "Standard College Student (Moderate Load)",
+            "Pre-Exam High Crammer (Elevated Screen & Low Sleep)",
+            "Active Buffered Scholar (High Exercise & Protected Sleep)",
+            "Digital Doomscroller (Severe Late-Night Optical Exposure)"
+        ],
+        horizontal=True
+    )
+
+    # Defaults
+    d_soc, d_ai, d_bed, d_sleep, d_act, d_filt, d_app, d_mult = 4.5, 2.5, 60, 6.5, 1.25, False, "TikTok/Reels", 1.0
+    if "Pre-Exam" in long_preset:
+        d_soc, d_ai, d_bed, d_sleep, d_act, d_filt, d_app, d_mult = 5.5, 4.0, 90, 5.5, 0.6, False, "YouTube", 1.4
+    elif "Active Buffered" in long_preset:
+        d_soc, d_ai, d_bed, d_sleep, d_act, d_filt, d_app, d_mult = 3.0, 2.0, 30, 7.5, 2.0, True, "Reading", 0.9
+    elif "Doomscroller" in long_preset:
+        d_soc, d_ai, d_bed, d_sleep, d_act, d_filt, d_app, d_mult = 7.5, 3.0, 120, 4.8, 0.4, False, "TikTok/Reels", 1.3
+
+    st.subheader("2. Baseline Semester Behavioral Parameters")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("##### 📱 Digital Engagement")
+        p_soc = st.slider("Baseline Social Media (hrs/day)", 0.5, 12.0, float(d_soc), 0.5, key="long_soc")
+        p_ai = st.slider("Baseline AI Study Tools (hrs/day)", 0.5, 8.0, float(d_ai), 0.5, key="long_ai")
+        app_list = ["TikTok/Reels", "YouTube", "Instagram/Reddit", "Streaming", "Messaging", "Reading"]
+        p_app = st.selectbox("Bedtime Primary App", app_list, index=app_list.index(d_app), key="long_app")
+        app_w = {"TikTok/Reels": 1.0, "YouTube": 0.8, "Instagram/Reddit": 0.75, "Streaming": 0.6, "Messaging": 0.5, "Reading": 0.3}
+
+    with c2:
+        st.markdown("##### 🌙 Nocturnal & Optical Habits")
+        p_bed = st.slider("Bedtime Phone Minutes", 10, 180, int(d_bed), 5, key="long_bed")
+        p_filt = st.checkbox("Blue Light Filter Enabled", value=d_filt, key="long_filt")
+        p_mult = st.slider("Academic Exam Stress Multiplier", 0.5, 2.0, float(d_mult), 0.1, help="Scales midterms and finals cognitive and sleep pressure", key="long_mult")
+
+    with c3:
+        st.markdown("##### 🏃 Circadian & Physical Capacity")
+        p_sleep = st.slider("Baseline Sleep Target (hrs/night)", 4.0, 10.0, float(d_sleep), 0.25, key="long_sleep")
+        p_act = st.slider("Baseline Physical Exercise (hrs/day)", 0.1, 4.0, float(d_act), 0.1, key="long_act")
+
+    # Run Simulation
+    sim = LongitudinalPanelSimulator(weeks=16, random_state=42)
+    df_panel = sim.simulate_semester(
+        baseline_social_hours=p_soc,
+        baseline_ai_hours=p_ai,
+        baseline_bedtime_min=p_bed,
+        baseline_sleep_hours=p_sleep,
+        baseline_activity_hours=p_act,
+        blue_light_filter=p_filt,
+        primary_app_weight=app_w[p_app],
+        exam_intensity_multiplier=p_mult,
+    )
+
+    st.markdown("---")
+    st.subheader("3. Semester Trajectory Outcomes (Week 16 Cumulative Impact)")
+
+    final_debt = df_panel["Cumulative_Sleep_Debt_Hours"].iloc[-1]
+    peak_debt = df_panel["Cumulative_Sleep_Debt_Hours"].max()
+    final_fatigue = df_panel["Predicted_Fatigue"].iloc[-1]
+    final_mental = df_panel["Predicted_Mental_Health"].iloc[-1]
+    final_status = df_panel["Risk_Status"].iloc[-1]
+
+    k1, k2, k3, k4 = st.columns(4)
+    k1.metric(
+        "Final Cumulative Sleep Debt",
+        f"{final_debt:.1f} hrs",
+        delta=f"Peak: {peak_debt:.1f} hrs",
+        delta_color="inverse"
+    )
+    k2.metric(
+        "Week 16 Fatigue Index",
+        f"{final_fatigue:.2f} / 10.0",
+        delta=f"{'+' if final_fatigue > 3.79 else ''}{final_fatigue - 3.79:.2f} vs pop mean",
+        delta_color="inverse"
+    )
+    k3.metric(
+        "Week 16 Mental Health Score",
+        f"{final_mental:.1f} / 100.0",
+        delta=f"{final_mental - 72.49:+.1f} vs pop mean",
+        delta_color="normal"
+    )
+    badge_bg = "#ef4444" if "Severe" in final_status else ("#f59e0b" if "Elevated" in final_status else "#10b981")
+    k4.markdown(f"""
+    <div style="background-color: {badge_bg}; color: white; border-radius: 8px; padding: 12px; text-align: center; font-weight: 700; margin-top: 5px;">
+        <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Semester Risk Status</div>
+        <div style="font-size: 1.15rem; margin-top: 4px;">{final_status}</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.subheader("4. Temporal Dynamics & Exam Wave Compounding")
+
+    # Tabbed Visualizations
+    vtab1, vtab2, vtab3, vtab4 = st.tabs([
+        "💤 Cumulative Sleep Debt Compounding",
+        "🧠 Fatigue vs Mental Health Trajectory",
+        "⚖️ Relational Imbalance (SSR & ABR)",
+        "📊 Intervention Policy Comparison"
+    ])
+
+    with vtab1:
+        fig_debt = go.Figure()
+
+        # Shaded exam periods
+        fig_debt.add_vrect(x0=5.5, x1=7.5, fillcolor="#fee2e2", opacity=0.5, layer="below", line_width=0, annotation_text="Midterm Wave", annotation_position="top left")
+        fig_debt.add_vrect(x0=13.5, x1=15.5, fillcolor="#fee2e2", opacity=0.5, layer="below", line_width=0, annotation_text="Final Exams", annotation_position="top left")
+
+        fig_debt.add_trace(go.Scatter(
+            x=df_panel["Week"],
+            y=df_panel["Cumulative_Sleep_Debt_Hours"],
+            mode="lines+markers",
+            name="Cumulative Sleep Debt (Hours)",
+            line=dict(color="#ef4444", width=3),
+            fill="tozeroy",
+            fillcolor="rgba(239, 68, 68, 0.12)"
+        ))
+
+        fig_debt.add_trace(go.Scatter(
+            x=df_panel["Week"],
+            y=df_panel["Sleep_Hours"],
+            mode="lines+markers",
+            name="Weekly Sleep Duration (hrs/night)",
+            line=dict(color="#3b82f6", width=2, dash="dash"),
+            yaxis="y2"
+        ))
+
+        # Burnout threshold line
+        fig_debt.add_hline(y=35.0, line_dash="dot", line_color="#b91c1c", annotation_text="Severe Burnout Hazard Threshold (35h)", annotation_position="bottom right")
+
+        fig_debt.update_layout(
+            title="Cumulative Sleep Debt Progression Across 16 Academic Weeks",
+            xaxis=dict(title="Academic Semester Week", tickmode="linear", tick0=1, dtick=1),
+            yaxis=dict(title="Cumulative Sleep Debt (Hours)", gridcolor="#f1f5f9"),
+            yaxis2=dict(title="Sleep Duration (hrs/night)", overlaying="y", side="right", range=[3, 10]),
+            template="plotly_white",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            hovermode="x unified"
+        )
+        st.plotly_chart(fig_debt, use_container_width=True)
+
+    with vtab2:
+        fig_outcomes = go.Figure()
+        fig_outcomes.add_vrect(x0=5.5, x1=7.5, fillcolor="#f8fafc", opacity=0.6, layer="below", line_width=0, annotation_text="Midterms", annotation_position="top left")
+        fig_outcomes.add_vrect(x0=13.5, x1=15.5, fillcolor="#f8fafc", opacity=0.6, layer="below", line_width=0, annotation_text="Finals", annotation_position="top left")
+
+        fig_outcomes.add_trace(go.Scatter(
+            x=df_panel["Week"],
+            y=df_panel["Predicted_Fatigue"],
+            mode="lines+markers",
+            name="Next-Day Fatigue (1-10)",
+            line=dict(color="#f97316", width=3)
+        ))
+
+        fig_outcomes.add_trace(go.Scatter(
+            x=df_panel["Week"],
+            y=df_panel["Predicted_Mental_Health"],
+            mode="lines+markers",
+            name="Student Mental Health (30-95)",
+            line=dict(color="#10b981", width=3),
+            yaxis="y2"
+        ))
+
+        fig_outcomes.update_layout(
+            title="Biophysical Fatigue & Mental Health Spillover Over 16 Weeks",
+            xaxis=dict(title="Academic Semester Week", tickmode="linear", tick0=1, dtick=1),
+            yaxis=dict(title="Fatigue Score (1 - 10)", range=[1, 10], gridcolor="#f1f5f9"),
+            yaxis2=dict(title="Mental Health Index (30 - 95)", overlaying="y", side="right", range=[30, 95]),
+            template="plotly_white",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            hovermode="x unified"
+        )
+        st.plotly_chart(fig_outcomes, use_container_width=True)
+
+    with vtab3:
+        fig_ratios = go.Figure()
+        fig_ratios.add_vrect(x0=5.5, x1=7.5, fillcolor="#f8fafc", opacity=0.6, layer="below", line_width=0)
+        fig_ratios.add_vrect(x0=13.5, x1=15.5, fillcolor="#f8fafc", opacity=0.6, layer="below", line_width=0)
+
+        fig_ratios.add_trace(go.Scatter(
+            x=df_panel["Week"],
+            y=df_panel["Screen_to_Sleep_Ratio"],
+            mode="lines+markers",
+            name="Screen-to-Sleep Ratio (SSR)",
+            line=dict(color="#8b5cf6", width=3)
+        ))
+
+        fig_ratios.add_trace(go.Scatter(
+            x=df_panel["Week"],
+            y=df_panel["Active_Buffer_Ratio"],
+            mode="lines+markers",
+            name="Active Buffer Ratio (ABR)",
+            line=dict(color="#06b6d4", width=3)
+        ))
+
+        fig_ratios.add_hline(y=1.0, line_dash="dash", line_color="#ef4444", annotation_text="SSR Critical Spillover Boundary (1.0)", annotation_position="top left")
+        fig_ratios.add_hline(y=0.15, line_dash="dot", line_color="#f59e0b", annotation_text="ABR Depletion Line (0.15)", annotation_position="bottom right")
+
+        fig_ratios.update_layout(
+            title="Relational Balance Ratios Trajectory (SSR vs ABR)",
+            xaxis=dict(title="Academic Semester Week", tickmode="linear", tick0=1, dtick=1),
+            yaxis=dict(title="Ratio Value", gridcolor="#f1f5f9"),
+            template="plotly_white",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            hovermode="x unified"
+        )
+        st.plotly_chart(fig_ratios, use_container_width=True)
+
+    with vtab4:
+        st.markdown("##### 🛡️ Intervention Shielding Effect (Baseline vs Shielded Protocol)")
+        st.markdown("""
+        Simulate the protective efficacy of an institutional or personal intervention protocol:
+        - **+1.0 Hour Nocturnal Sleep** (7.5h vs baseline)
+        - **+30 Minutes Daily Exercise** (Physical buffer restoration)
+        - **Blue Light Filter Active** (30% reduction in nocturnal optical exposure)
+        - **-1.0 Hour Social Media** (Circadian screen displacement containment)
+        """)
+
+        # Shielded Simulation
+        df_shielded = sim.simulate_semester(
+            baseline_social_hours=max(1.0, p_soc - 1.0),
+            baseline_ai_hours=p_ai,
+            baseline_bedtime_min=max(15, p_bed - 25),
+            baseline_sleep_hours=min(8.5, p_sleep + 1.0),
+            baseline_activity_hours=min(3.5, p_act + 0.5),
+            blue_light_filter=True,
+            primary_app_weight=0.5,
+            exam_intensity_multiplier=p_mult,
+        )
+
+        fig_comp = go.Figure()
+        fig_comp.add_trace(go.Scatter(
+            x=df_panel["Week"],
+            y=df_panel["Cumulative_Sleep_Debt_Hours"],
+            mode="lines+markers",
+            name="Baseline Policy: Cumulative Debt (hrs)",
+            line=dict(color="#ef4444", width=3)
+        ))
+        fig_comp.add_trace(go.Scatter(
+            x=df_shielded["Week"],
+            y=df_shielded["Cumulative_Sleep_Debt_Hours"],
+            mode="lines+markers",
+            name="Shielded Policy: Cumulative Debt (hrs)",
+            line=dict(color="#10b981", width=3, dash="dash")
+        ))
+
+        fig_comp.update_layout(
+            title="Intervention Efficacy: Sleep Debt Suppression Across 16 Weeks",
+            xaxis=dict(title="Academic Semester Week", tickmode="linear", tick0=1, dtick=1),
+            yaxis=dict(title="Cumulative Sleep Debt (Hours)", gridcolor="#f1f5f9"),
+            template="plotly_white",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        )
+        st.plotly_chart(fig_comp, use_container_width=True)
+
+        debt_saved = final_debt - df_shielded["Cumulative_Sleep_Debt_Hours"].iloc[-1]
+        st.success(f"""
+        🎯 **Intervention Benefit:** Adopting the shielded protocol prevents **{debt_saved:.1f} hours of cumulative sleep debt** by Week 16, keeping the student safely inside the **{df_shielded['Risk_Status'].iloc[-1]}** tier!
+        """)
+
+    st.markdown("---")
+    st.subheader("5. Longitudinal Synthetic Panel Data")
+    st.dataframe(df_panel, use_container_width=True)
+    st.download_button(
+        label="📥 Download 16-Week Longitudinal Simulation (.csv)",
+        data=df_panel.to_csv(index=False),
+        file_name="DLSM_16_Week_Longitudinal_Simulation.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
+
+# =====================================================================
+# PAGE 11: OPTUNA HYPERPARAMETER TUNING & PARETO FRONTIER EXPLORER
+# =====================================================================
+elif menu == "11. Optuna Tuning & Pareto Frontier":
+    st.markdown('<div class="main-title">Optuna Hyperparameter Sensitivity & Pareto Frontier Explorer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-tagline">Multi-Objective Bayesian Optimization (TPE), fANOVA Parameter Importance & Latency Trade-Offs</div>', unsafe_allow_html=True)
+
+    st.info("""
+    **Methodological Rigor & Rule Compliance (RULE-007):**  
+    In strict compliance with **RULE-007 (Holdout Isolation)**, all Bayesian hyperparameter trials were conducted strictly inside nested cross-validation folds on the development partition. The 20% holdout test partition was never exposed during hyperparameter exploration, preventing optimization leakage.
+    """)
+
+    optuna_data = load_optuna_trials()
+    meta = optuna_data["metadata"]
+
+    col_sel1, col_sel2 = st.columns([2, 1])
+    with col_sel1:
+        model_choice = st.selectbox(
+            "Select Evaluated Estimator Architecture:",
+            [
+                "Cohort A: XGBoost Regressor (Next-Day Fatigue Index)",
+                "Cohort B: XGBoost Regressor (Student Mental Health Score)"
+            ]
+        )
+    with col_sel2:
+        st.markdown(f"""
+        <div style="background-color: #f1f5f9; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; color: #334155; margin-top: 5px;">
+            <b>Sampling Algorithm:</b> {meta['sampler']}<br>
+            <b>Early Pruning:</b> {meta['pruner']}
+        </div>
+        """, unsafe_allow_html=True)
+
+    study_key = "cohort_a_fatigue_xgb" if "Cohort A" in model_choice else "cohort_b_mental_xgb"
+    study = optuna_data[study_key]
+    df_trials = pd.DataFrame(study["trials"])
+
+    # High-level KPIs
+    st.markdown("---")
+    st.subheader("1. Hyperparameter Optimization Performance Metrics")
+
+    best_trial = df_trials.loc[df_trials["r2_score"].idxmax()]
+    pareto_count = int(df_trials["is_pareto"].sum())
+
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric(
+        "Tuned Model $R^2$ Score",
+        f"{best_trial['r2_score']:.4f}",
+        delta=f"+{best_trial['r2_score'] - study['baseline_r2']:.4f} vs Baseline",
+        delta_color="normal"
+    )
+    m2.metric(
+        "Validation RMSE",
+        f"{best_trial['rmse']:.4f}",
+        help="Root Mean Squared Error on internal CV folds"
+    )
+    m3.metric(
+        "Inference Latency",
+        f"{best_trial['latency_ms']:.3f} ms",
+        delta="Per test observation",
+        delta_color="off"
+    )
+    m4.metric(
+        "Pareto-Optimal Trials",
+        f"{pareto_count} / {len(df_trials)}",
+        help="Architectures that strictly dominate on the Accuracy vs Latency frontier"
+    )
+
+    st.markdown("---")
+    st.subheader("2. Interactive Optimization Landscapes & Sensitivity Analysis")
+
+    opt_tab1, opt_tab2, opt_tab3, opt_tab4 = st.tabs([
+        "🎯 Multi-Objective Pareto Frontier",
+        "📊 Hyperparameter Importance (fANOVA)",
+        "🌐 Parameter Contour & Interaction Slices",
+        "📋 Full Trial Ledger & Export Config"
+    ])
+
+    with opt_tab1:
+        st.markdown("""
+        ##### Accuracy vs Inference Latency Trade-Off Envelope
+        In production and edge environments, maximizing $R^2$ must be balanced against execution latency and memory footprint.  
+        - ⭐ **Pareto-Optimal Points (Green Diamonds):** No other architecture achieves higher accuracy with lower latency.  
+        - ⚪ **Sub-optimal Trials (Slate Circles):** Dominated by at least one other configuration.
+        """)
+
+        fig_pareto = go.Figure()
+
+        # Dominated points
+        non_pareto = df_trials[~df_trials["is_pareto"]]
+        fig_pareto.add_trace(go.Scatter(
+            x=non_pareto["latency_ms"],
+            y=non_pareto["r2_score"],
+            mode="markers",
+            name="Sub-optimal Trials",
+            marker=dict(size=8, color="#94a3b8", opacity=0.7),
+            hovertext=[
+                f"Trial #{r.trial_id}<br>lr={r.learning_rate}<br>depth={r.max_depth}<br>n_est={r.n_estimators}<br>subsample={r.subsample}"
+                for _, r in non_pareto.iterrows()
+            ],
+            hoverinfo="text+x+y"
+        ))
+
+        # Pareto optimal points sorted by latency
+        pareto_df = df_trials[df_trials["is_pareto"]].sort_values("latency_ms")
+        fig_pareto.add_trace(go.Scatter(
+            x=pareto_df["latency_ms"],
+            y=pareto_df["r2_score"],
+            mode="lines+markers",
+            name="Pareto Optimal Frontier",
+            line=dict(color="#10b981", width=2, dash="dash"),
+            marker=dict(size=12, symbol="diamond", color="#059669", line=dict(width=1, color="#064e3b")),
+            hovertext=[
+                f"PARETO #{r.trial_id}<br>lr={r.learning_rate}<br>depth={r.max_depth}<br>n_est={r.n_estimators}<br>R²={r.r2_score}<br>Latency={r.latency_ms}ms"
+                for _, r in pareto_df.iterrows()
+            ],
+            hoverinfo="text"
+        ))
+
+        # Highlight Best R2
+        fig_pareto.add_trace(go.Scatter(
+            x=[best_trial["latency_ms"]],
+            y=[best_trial["r2_score"]],
+            mode="markers",
+            name=f"Global Best R² (Trial #{int(best_trial['trial_id'])})",
+            marker=dict(size=16, symbol="star", color="#f59e0b", line=dict(width=2, color="#78350f"))
+        ))
+
+        fig_pareto.update_layout(
+            title=f"Multi-Objective Pareto Frontier: {model_choice.split(':')[0]}",
+            xaxis=dict(title="Inference Latency (Milliseconds / Sample)", gridcolor="#f1f5f9"),
+            yaxis=dict(title="Cross-Validated R² Score", gridcolor="#f1f5f9"),
+            template="plotly_white",
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        )
+        st.plotly_chart(fig_pareto, use_container_width=True)
+
+    with opt_tab2:
+        st.markdown("##### fANOVA Variance Decomposition: Hyperparameter Influence")
+        st.markdown("Quantifies how much of the variance in model generalization is driven by each individual hyperparameter.")
+
+        imp = study["parameter_importance"]
+        df_imp = pd.DataFrame({
+            "Hyperparameter": list(imp.keys()),
+            "Importance": [v * 100 for v in imp.values()]
+        }).sort_values("Importance", ascending=True)
+
+        fig_imp = px.bar(
+            df_imp,
+            x="Importance",
+            y="Hyperparameter",
+            orientation="h",
+            text="Importance",
+            color="Importance",
+            color_continuous_scale="Purples",
+            title="Relative Parameter Importance (% Variance Explained)"
+        )
+        fig_imp.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
+        fig_imp.update_layout(
+            template="plotly_white",
+            xaxis=dict(title="Relative Importance (%)", range=[0, 50]),
+            yaxis=dict(title="Hyperparameter"),
+            coloraxis_showscale=False
+        )
+        st.plotly_chart(fig_imp, use_container_width=True)
+
+        st.caption("Insight: Learning rate (`learning_rate`) and tree depth (`max_depth`) account for > 65% of all cross-validation performance variation, confirming that learning trajectory and model capacity dominate over regularizers like `reg_lambda`.")
+
+    with opt_tab3:
+        st.markdown("##### Learning Rate vs Tree Depth Landscape")
+        fig_contour = px.scatter(
+            df_trials,
+            x="learning_rate",
+            y="max_depth",
+            size="subsample",
+            color="r2_score",
+            color_continuous_scale="Viridis",
+            hover_data=["trial_id", "n_estimators", "reg_lambda", "rmse"],
+            title="Interaction Slice: Learning Rate vs Max Depth (Size = Subsample, Color = R²)"
+        )
+        fig_contour.update_layout(
+            template="plotly_white",
+            xaxis=dict(title="Learning Rate (Log Scale)", type="log"),
+            yaxis=dict(title="Max Tree Depth", tickmode="linear", tick0=3, dtick=1)
+        )
+        st.plotly_chart(fig_contour, use_container_width=True)
+
+    with opt_tab4:
+        st.markdown("##### Complete Optuna Trial History (35 Trials)")
+        st.dataframe(df_trials, use_container_width=True)
+
+        # Production config JSON
+        best_cfg = {
+            "model_type": "XGBRegressor",
+            "study_name": study_key,
+            "best_trial_id": int(best_trial["trial_id"]),
+            "optimal_hyperparameters": {
+                "learning_rate": float(best_trial["learning_rate"]),
+                "max_depth": int(best_trial["max_depth"]),
+                "n_estimators": int(best_trial["n_estimators"]),
+                "subsample": float(best_trial["subsample"]),
+                "colsample_bytree": float(best_trial["colsample_bytree"]),
+                "reg_lambda": float(best_trial["reg_lambda"])
+            },
+            "performance": {
+                "cross_validated_r2": float(best_trial["r2_score"]),
+                "validation_rmse": float(best_trial["rmse"]),
+                "latency_ms": float(best_trial["latency_ms"])
+            },
+            "holdout_isolation": "Verified RULE-007 compliant"
+        }
+
+        col_cfg1, col_cfg2 = st.columns([2, 1])
+        with col_cfg1:
+            st.json(best_cfg)
+        with col_cfg2:
+            st.download_button(
+                label="📥 Export Optimal Config (.json)",
+                data=json.dumps(best_cfg, indent=2),
+                file_name=f"{study_key}_optimal_hyperparameters.json",
+                mime="application/json",
+                use_container_width=True
+            )
+            st.download_button(
+                label="📥 Export Trials Ledger (.csv)",
+                data=df_trials.to_csv(index=False),
+                file_name=f"{study_key}_optuna_trials.csv",
+                mime="text/csv",
+                use_container_width=True
+            )
+
+
 

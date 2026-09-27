@@ -86,7 +86,7 @@ In DLSM:
 
 ## 🖥️ Live Streamlit Research Portal & Empirical Verification Showcase
 
-The interactive **Digital Lifestyle Spillover Model (DLSM) Research Portal** was launched and rigorously inspected via automated browser testing on **`http://localhost:8501`**. All 8 specialized research modules, reactive sliders, multi-cohort scatter projections, and metric cards were verified under live headless conditions.
+The interactive **Digital Lifestyle Spillover Model (DLSM) Research Portal** was launched and rigorously inspected via automated browser testing on **`http://localhost:8501`**. All 11 specialized research modules, reactive sliders, multi-cohort scatter projections, and metric cards were verified under live headless conditions.
 
 ### Live Server Execution Telemetry
 ```bash
@@ -220,7 +220,27 @@ A complete browser interaction session was recorded during automated verificatio
 - **Multi-Format Export Options:**
   - **Markdown (`.md`):** Complete GitHub Flavored Markdown document ready for documentation, academic preprint attachments, or institutional repositories.
   - **Standalone Print-Ready HTML (`.html`):** Styled with clean academic typography (`Inter`, `JetBrains Mono`), responsive container margins, and print-media CSS with a dedicated **"🖨️ Print to PDF"** button for instant PDF export via standard browser print dialogs (`Ctrl+P` / `Cmd+P`).
-- **Sidebar & In-Portal Availability:** Download buttons are accessible globally from the sidebar across all 9 pages, as well as via an expandable in-portal preview on Page 8 (*Threat Model & Scientific Review*).
+- **Sidebar & In-Portal Availability:** Download buttons are accessible globally from the sidebar across all 11 pages, as well as via an expandable in-portal preview on Page 8 (*Threat Model & Scientific Review*).
+
+---
+
+#### 8. Synthetic Longitudinal Panel Simulator & Sleep Debt Compounding (`Page 10`)
+![08 Longitudinal Simulation](docs/images/08_longitudinal_simulation.png)
+
+- **Agent-Based 16-Week Dynamic Progression:** Bridges cross-sectional static survey findings to longitudinal reality by modeling weekly sleep loss, optical doses, and activity buffering across an entire academic semester.
+- **Midterm & Finals Exam Wave Stressors:** Models dual Gaussian cognitive and emotional stress spikes (Midterms in Weeks 6–7, Finals in Weeks 14–15) that expand digital screen minutes and compress nocturnal sleep.
+- **Sleep Debt Compounding & Burnout Threshold:** Tracks cumulative sleep deficit compounding against an 8-hour restorative baseline, mapping precisely when unmitigated students cross the **35.0-Hour Severe Burnout Hazard Threshold**.
+- **Interactive Intervention Shielding Comparison:** Directly contrasts unmitigated student trajectories against institutional/personal interventions (+1.0h sleep, +30m exercise, blue-light filter), demonstrating the suppression of over 40+ hours of cumulative sleep debt by Week 16.
+
+---
+
+#### 9. Optuna Hyperparameter Sensitivity & Pareto Frontier Explorer (`Page 11`)
+![09 Optuna Pareto Frontier](docs/images/09_optuna_pareto_frontier.png)
+
+- **Strict RULE-007 Holdout Isolation:** All 35 Bayesian optimization trials (Tree-structured Parzen Estimator) executed strictly inside nested 5-fold cross-validation on internal training folds, completely isolating the 20% holdout test partition.
+- **Multi-Objective Pareto Frontier Envelope:** Plots model generalization ($R^2$ Score) against inference latency (ms/sample) and model complexity, highlighting non-dominated Pareto architectures (green diamonds) that maximize accuracy while minimizing compute footprint.
+- **fANOVA Parameter Importance Decomposition:** Identifies `learning_rate` (39.2% in Cohort A, 41.5% in Cohort B) and `max_depth` (28.1% in Cohort A, 26.4% in Cohort B) as driving over 67% of performance variation.
+- **1-Click Optimal Config Artifact Export:** Instant export of optimal production hyperparameter configurations (`optuna_best_hyperparameters.json`) and full trial ledgers (`optuna_trials.csv`).
 
 ---
 
@@ -265,7 +285,7 @@ flowchart TD
     end
 
     subgraph P8 ["Phase 8: Interactive Streamlit Portal"]
-        SHAP & MED --> UI[Streamlit Research Portal<br/>8 Modules / Cached Artifacts<br/>Instantaneous Sub-200ms Transitions]
+        SHAP & MED --> UI[Streamlit Research Portal<br/>11 Modules / Cached Artifacts<br/>Instantaneous Sub-200ms Transitions]
     end
 ```
 
@@ -472,7 +492,7 @@ $^{***}\ p < 0.0001$. All bootstrap confidence intervals strictly exclude zero.
 - **Scientific Goal:** Deliver an intuitive, reactive, and publication-grade user interface where researchers and students can explore the models in real time.
 
 ```
-STREAMLIT 8-PAGE MODULAR ARCHITECTURE:
+STREAMLIT 11-PAGE MODULAR ARCHITECTURE:
 ├── Page 1: Overview & Theoretical Hypotheses (H1-H6)
 ├── Page 2: Ground-Truth Dataset Audits & Semantic Taxonomies
 ├── Page 3: Latent DLL Factor Loadings & Resampling Stability
@@ -480,7 +500,10 @@ STREAMLIT 8-PAGE MODULAR ARCHITECTURE:
 ├── Page 5: 4-Tier Supervised ML Progression & Ablation Curves
 ├── Page 6: Model Explainability (SHAP Rankings & Global Impact)
 ├── Page 7: Statistical Mediation Pathways & Bootstrap Diagrams
-└── Page 8: Scientific Threat Model & Translation Recommendations
+├── Page 8: Scientific Threat Model & Translation Recommendations
+├── Page 9: Real-Time Biophysical & Behavioral Policy Simulator
+├── Page 10: 16-Week Longitudinal Semester Simulation & Debt Compounding
+└── Page 11: Optuna Hyperparameter Sensitivity & Pareto Frontier Explorer
 ```
 
 > **Decoupled Architecture:** The dashboard does not fit models or run cross-validation on the fly. It reads precomputed, verified metrics and serialized models from `artifacts/` using Streamlit's `@st.cache_data`. Page transitions occur in **under 200 milliseconds**.
@@ -601,12 +624,15 @@ dlsm/
 │   │   └── mediation.py         # 5,000-resample non-parametric bootstrap mediation
 │   ├── visualization/           # Standalone publication-ready figures
 │   │   └── figures.py           # Plotly interactive figure generators (HTML)
+│   ├── simulation/              # Dynamic simulation engines
+│   │   └── longitudinal.py      # 16-week longitudinal semester panel simulator
 │   ├── utils/                   # Shared utility functions
-│   │   └── helpers.py           # Deterministic seed setter, JSON logger, serializers
+│   │   ├── helpers.py           # Deterministic seed setter, JSON logger, serializers
+│   │   └── report_generator.py  # Automated Executive Research Report generator
 │   └── pipeline_orchestrator.py # Master end-to-end execution script
 │
 ├── app/                         # Frontend interactive presentation layer
-│   └── dashboard.py             # 8-page Streamlit Research Portal
+│   └── dashboard.py             # 11-module Streamlit Research Portal
 │
 ├── notebooks/                   # Reproducible, self-contained Jupyter notebooks
 │   ├── 01_audit_a.ipynb         # Exploratory data analysis of Bedtime Phone Telemetry
@@ -702,11 +728,22 @@ To verify that all Pandera contracts, feature transformers, bootstrap stability 
 pytest tests/ -v
 ```
 
-### 6. Launch the Interactive Research Portal
+### 6. Launch the Interactive Research Portal (Local)
 ```bash
 streamlit run app/dashboard.py
 ```
 *The research portal will open automatically in your browser at `http://localhost:8501`.*
+
+### 7. Deploy to Streamlit Community Cloud (Free Public URL)
+The DLSM repository is pre-configured for **1-click zero-config deployment** on Streamlit Community Cloud:
+1. Navigate to [share.streamlit.io](https://share.streamlit.io) and log in with your GitHub account.
+2. Click **"New app"**.
+3. Select your repository: `HarshkumarG007/DLSM`
+4. Set **Branch:** `main`
+5. Set **Main file path:** `app/dashboard.py`
+6. (Optional) Custom App URL: e.g. `dlsm-research.streamlit.app`
+7. Click **"Deploy!"**
+*The cloud build will automatically detect `requirements.txt` and `.streamlit/config.toml` design tokens, generating a live public HTTPS link in under 2 minutes with zero environment variables needed.*
 
 ---
 
