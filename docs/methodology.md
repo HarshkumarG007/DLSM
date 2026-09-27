@@ -62,3 +62,61 @@ $$\bar{s} = \frac{1}{B} \sum_{b=1}^B \frac{w_1 \cdot w_{1,b}}{\|w_1\|_2 \|w_{1,b
 - **Proportion Mediated:** $\hat{P}_M = \frac{\hat{a} \times \hat{b}}{\hat{c}}$
 
 Non-parametric percentile bootstrap intervals $[CI_{2.5\%}, CI_{97.5\%}]$ are computed over $B = 5,000$ resamples.
+
+---
+
+## 5. Definitional Leakage Guard Formulation
+
+In supervised classification tasks where the target is clinically derived from a subset of features, including those features generates circular definitional leakage (**RULE-014**).
+
+In Dataset A, `sleep_debt_category` is a categorical binning of accumulated sleep debt:
+$$\text{Sleep\_Debt}_i \approx 8.0 - \text{total\_sleep\_hours}_i$$
+
+To eliminate circular leakage, all nocturnal sleep architecture parameters are strictly excluded from the predictor feature set $\mathcal{F}_{\text{pred}}$:
+$$\mathcal{F}_{\text{excluded}} = \{\text{total\_sleep\_hours}, \text{deep\_sleep\_pct}, \text{rem\_sleep\_pct}, \text{sleep\_latency\_min}\}$$
+$$\mathcal{F}_{\text{pred}} = \mathcal{X}_A \setminus \mathcal{F}_{\text{excluded}}$$
+
+This forces models to predict sleep disruption solely from observable pre-sleep digital telemetry (screen duration, brightness, filter status, bedtime apps) and daytime lifestyle habits.
+
+---
+
+## 6. Small-N Noise Stress Benchmark Mathematical Specification
+
+To formally benchmark models against spurious pattern exploitation, an adversarial null hypothesis baseline is constructed:
+
+$$X_{\text{null}} \in \mathbb{R}^{220 \times 10}, \quad X_{ij} \sim \mathcal{N}(0, 1)$$
+$$Y_{\text{null}} \in \mathbb{R}^{220}, \quad Y_i \sim \mathcal{N}(0, 1)$$
+
+Under rigorous 5-fold cross-validation, models evaluated on $(X_{\text{null}}, Y_{\text{null}})$ must yield:
+$$\mathbb{E}[R^2_{\text{CV}}] \le 0.0, \quad \text{ROC-AUC}_{\text{CV}} \approx 0.50$$
+
+DLSM models trained on empirical cohorts $(X_A, Y_A)$ and $(X_B, Y_B)$ must demonstrate statistically distinguishable generalization metrics ($R^2 > 0.24$, $\text{ROC-AUC} > 0.68$), confirming robust signal-to-noise separation.
+
+---
+
+## 7. 16-Week Longitudinal Semester Dynamic Simulation
+
+The synthetic dynamic semester simulator models weekly stress evolution across $t \in [1, 16]$:
+
+$$S(t) = 1.0 + \gamma_{\text{exam}} \left[ 0.40 \exp\left(-\frac{(t - 7)^2}{2(1.2)^2}\right) + 0.70 \exp\left(-\frac{(t - 15)^2}{2(1.5)^2}\right) \right]$$
+
+Weekly nocturnal sleep truncation:
+$$\Delta_{\text{trunc}}(t) = 0.25 (\text{TDH}(t) - \text{TDH}_{\text{base}}) + 0.015 (\text{BedMin}(t) - \text{BedMin}_{\text{base}}) + 0.50 (S(t) - 1.0)$$
+
+Compounded cumulative sleep debt recursion:
+$$\text{Debt}(t) = \max\left(0, \text{Debt}(t-1) + 7 \times \max\left(0, 8.0 - \text{Sleep}(t)\right) - 2.5 \times \text{Activity}(t)\right)$$
+
+Burnout condition hazard:
+$$\mathcal{H}_{\text{burnout}}(t) = \mathbb{I}\left(\text{Debt}(t) > 35.0 \lor \text{SSR}(t) > 1.25\right)$$
+
+---
+
+## 8. Multi-Objective Bayesian Hyperparameter Optimization & Pareto Frontier
+
+Hyperparameter optimization is executed via Tree-structured Parzen Estimators (TPE) under nested cross-validation:
+
+$$\max_{\theta \in \Theta} \left\{ R^2_{\text{CV}}(\theta), -\tau_{\text{inf}}(\theta) \right\}$$
+
+Where $R^2_{\text{CV}}$ is 5-fold cross-validated coefficient of determination and $\tau_{\text{inf}}$ is single-sample inference latency in milliseconds.
+A candidate parameter vector $\theta_1$ Pareto-dominates $\theta_2$ ($\theta_1 \succ \theta_2$) if and only if:
+$$R^2(\theta_1) \ge R^2(\theta_2) \land \tau_{\text{inf}}(\theta_1) \le \tau_{\text{inf}}(\theta_2) \land (R^2(\theta_1) > R^2(\theta_2) \lor \tau_{\text{inf}}(\theta_1) < \tau_{\text{inf}}(\theta_2))$$

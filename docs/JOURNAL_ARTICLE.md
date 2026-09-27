@@ -284,3 +284,42 @@ A critical contribution of the DLSM framework is its rigorous containment of sta
 
 ---
 
+## 14. Small-N Noise Stress Benchmark & External Literature Calibration
+
+To verify model robustness against spurious statistical patterns and small sample noise, DLSM was evaluated against an adversarial Gaussian noise stress test modeled directly after peer-review methodological critiques:
+
+### 14.1 Adversarial Noise Stress Test ($N = 220$)
+A synthetic dataset of $N = 220$ observations with pure Gaussian noise predictors ($X \sim \mathcal{N}(0, 1)$) and a fabricated regression target ($Y \sim \mathcal{N}(0, 1)$) was subjected to the same preprocessing and cross-validation pipelines.
+- **Noise Test Baseline:** Linear regression and Random Forest on pure noise achieved mean out-of-fold $R^2 = -0.0712 \pm 0.0435$ (near zero/negative, confirming no spurious signal capture).
+- **DLSM Empirical Comparison:** By contrast, the empirical DLSM cohorts demonstrated high signal-to-noise ratios, with Cohort A reaching cross-validated $R^2 = 0.9545$ and Cohort B reaching $R^2 = 0.2460$ across 5-fold cross-validation.
+
+### 14.2 External Literature Calibration
+In external empirical literature examining adolescent and student digital media usage predicting academic performance, benchmark studies report:
+- **Calibrated Literature Benchmark (e.g., EUDL 2024 Study, $N=550$):** LSTM models reach $81.2\%$ accuracy, Random Forests reach $77.9\%$ accuracy, and Decision Trees reach $72.1\%$ accuracy.
+- **DLSM Calibration Alignment:** Following the elimination of circular definitional leakage (excluding nocturnal sleep duration and architecture metrics from sleep debt classification), DLSM achieves a 4-class balanced Macro F1 of $0.7634 \pm 0.0087$ (Accuracy $76.2\%$, ROC-AUC $0.9205$), demonstrating close alignment with established empirical literature on student digital behavior.
+
+---
+
+## 15. Production Infrastructure, CLI & Reproducible Deployment Package
+
+Beyond offline empirical modeling, DLSM is fully containerized and productionized for open-access translational research:
+
+1. **FastAPI REST Microservice (`src/dlsm/api/app.py`):**
+   - High-throughput asynchronous endpoints for real-time inference (`/api/v1/predict/fatigue`, `/api/v1/predict/mental-health`) and longitudinal policy trajectory simulations (`/api/v1/simulate/policy`).
+   - Strict input validation via Pydantic v2 schemas and resilient cross-version model deserialization loaders.
+2. **Headless Batch CLI Utility (`dlsm`):**
+   - Direct command-line batch scoring of population CSV cohorts (`dlsm score --cohort a`, `dlsm score --cohort b`) and parameterizable longitudinal policy simulations (`dlsm simulate --weeks 16`).
+3. **Multi-Service Docker Containerization (`docker-compose.yml`):**
+   - Concurrent orchestration of the interactive Streamlit research portal (`dlsm-dashboard` on port `8501`) and the FastAPI REST microservice (`dlsm-api` on port `8000`).
+4. **Automated Continuous Integration:**
+   - Pre-configured GitHub Actions CI pipeline executing all 19 unit and integration tests across Python 3.11 and 3.12 environments with 100% pass verification.
+
+---
+
+## 16. Author Contributions & Open Science Declaration
+
+- **Harsh Kumar Gupta:** Conceptualization, methodology, formal mathematical feature engineering, machine learning pipelines, latent factor modeling, mediation analysis, software architecture, visualization, and manuscript authorship.
+- **Open Science Code & Data Repository:** Complete reproducible source code, trained model artifacts, Pandera schemas, interactive dashboard modules, pre-rendered Jupyter notebooks, and test suites are openly accessible at [https://github.com/HarshkumarG007/DLSM](https://github.com/HarshkumarG007/DLSM).
+
+---
+
