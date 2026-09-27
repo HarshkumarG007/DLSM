@@ -8,8 +8,9 @@ version = "1.0.0"
 description = "Digital Lifestyle Spillover Model (DLSM): Cross-Dataset AI/ML Research Framework"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
+license = { text = "Apache-2.0" }
 authors = [
+  { name = "Harsh Kumar Gupta", email = "hrslsha007@gmail.com" },
   { name = "Antigravity ML Research Core" }
 ]
 dependencies = [

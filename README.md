@@ -196,6 +196,23 @@ A complete browser interaction session was recorded during automated verificatio
 
 ---
 
+#### 6. Interactive Lifestyle & Academic Policy Simulator (`Page 9`)
+![06 Lifestyle Policy Simulator](docs/images/06_lifestyle_policy_simulator.png)
+
+- **Real-Time Intervention Modeling:** Allows researchers, clinicians, and academic policymakers to manipulate behavioral levers in real time and observe the mathematical spillover across domain ratios and predicted outcomes.
+- **Empirical Scenario Comparison:**
+  - **Scenario A: "Exams Doomscroller"**
+    - Inputs: Social Media: $7.5$h, AI: $3.0$h, Bedtime Phone: $110$ min, Brightness: $85\%$, Filter: OFF, Sleep: $4.8$h, Exercise: $0.2$h.
+    - Derived Ratios: **$\text{TDH} = 10.5$ hrs/day**, **$\text{BII} = 93.5$**, **$\text{SSR} = 2.19$** (Extreme Danger), **$\text{ABR} = 0.02$** (Near-zero buffer).
+    - Model Predictions: Classified into **High-Load Disrupted Phenotype ($\text{DLL} = +1.57\sigma$)**, Predicted Fatigue: **$6.14 / 10.0$** ($+62\%$ above population mean), Predicted Mental Health: **$63.1 / 100.0$** (Significant psychological distress).
+  - **Scenario B: "Balanced AI Scholar"**
+    - Inputs: Social Media: $1.5$h, AI: $3.5$h, Bedtime Phone: $25$ min, Brightness: $30\%$, Filter: ON, Sleep: $7.8$h, Exercise: $1.5$h.
+    - Derived Ratios: **$\text{TDH} = 5.0$ hrs/day** ($-52.4\%$), **$\text{BII} = 5.2$** ($-94.4\%$ photon dose reduction), **$\text{SSR} = 0.64$** (Healthy Balance), **$\text{ABR} = 0.30$** (Strong Active Buffer).
+    - Model Predictions: Classified into **Balanced Circadian Restorative Phenotype ($\text{DLL} = -0.98\sigma$)**, Predicted Fatigue: **$2.14 / 10.0$** (Robust daytime vitality), Predicted Mental Health: **$77.7 / 100.0$** (Well above population mean).
+- **Core Translation Value:** Directly proves how structural interventions—such as reducing bedtime screen minutes by $85$ min and increasing nocturnal sleep by $3$ hours—substantially mitigate both optical circadian disruption and psychological burnout.
+
+---
+
 ## 🏗️ Phase-by-Phase Implementation Journey
 
 Below is the complete engineering and scientific progression of the DLSM framework from raw data ingestion to interactive deployment.

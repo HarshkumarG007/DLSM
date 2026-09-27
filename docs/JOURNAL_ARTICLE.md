@@ -1,10 +1,10 @@
 # Digital Lifestyle Spillover Model (DLSM): A Cross-Dataset AI/ML Research Framework for Student Digital Behavior, Sleep Architecture, and Psychological Wellbeing
 
-**Authors:** Senior ML Research Engineer, Antigravity AI Research Core  
+**Authors:** Harsh Kumar Gupta, Senior ML Research Engineer, Antigravity AI Research Core  
 **Affiliation:** Advanced AI/ML Systems & Cognitive Informatics Lab  
 **Date:** September 2026  
-**Repository Working Directory:** `c:/Users/Lenovo/Downloads/DLSM`  
-**License:** MIT License / Open Academic Research  
+**Repository:** https://github.com/HarshkumarG007/DLSM  
+**License:** Apache License 2.0 / Open Academic Research  
 
 ---
 
