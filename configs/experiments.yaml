@@ -1,0 +1,26 @@
+experiments:
+  ablation_tiers:
+    - id: "exp_a_raw"
+      name: "Experiment A: Raw Features Only"
+      description: "Baseline raw observed features without any engineering or latent variables."
+    - id: "exp_b_engineered"
+      name: "Experiment B: Raw + Domain Engineered Features"
+      description: "Raw features augmented with biophysical/temporal ratios and indices."
+    - id: "exp_c_interactions"
+      name: "Experiment C: Raw + Engineered + Explicit Interactions"
+      description: "Features augmented with cross-modal behavioral and physiological interactions."
+    - id: "exp_d_latent_dll"
+      name: "Experiment D: Full DLSM Framework (Raw + Eng + Int + Latent DLL)"
+      description: "Complete feature space including the independently constructed Digital Lifestyle Load (DLL)."
+
+metrics:
+  regression:
+    - "mae"
+    - "rmse"
+    - "r2"
+  classification:
+    - "roc_auc_ovr"
+    - "f1_weighted"
+    - "precision_weighted"
+    - "recall_weighted"
+    - "balanced_accuracy"

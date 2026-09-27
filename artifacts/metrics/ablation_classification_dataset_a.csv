@@ -1,0 +1,17 @@
+experiment,model,feature_count,f1_mean,f1_std,balanced_acc_mean,balanced_acc_std,roc_auc_mean,roc_auc_std
+Exp_A_Raw,baseline,15,0.3614,0.0003,0.25,0.0,0.5,0.0
+Exp_A_Raw,logistic,15,0.9653,0.0059,0.9416,0.0077,0.9975,0.0005
+Exp_A_Raw,random_forest,15,0.9686,0.0041,0.9167,0.0092,0.9979,0.0003
+Exp_A_Raw,xgboost,15,0.972,0.003,0.9481,0.004,0.9987,0.0002
+Exp_B_Engineered,baseline,21,0.3614,0.0003,0.25,0.0,0.5,0.0
+Exp_B_Engineered,logistic,21,0.9654,0.0048,0.9404,0.0065,0.9973,0.0005
+Exp_B_Engineered,random_forest,21,0.9732,0.0028,0.9366,0.0081,0.9978,0.0002
+Exp_B_Engineered,xgboost,21,0.9722,0.0038,0.9503,0.0056,0.9987,0.0002
+Exp_C_Interactions,baseline,24,0.3614,0.0003,0.25,0.0,0.5,0.0
+Exp_C_Interactions,logistic,24,0.9653,0.004,0.9399,0.0061,0.9972,0.0005
+Exp_C_Interactions,random_forest,24,0.9741,0.0034,0.9393,0.0101,0.9977,0.0003
+Exp_C_Interactions,xgboost,24,0.9718,0.0047,0.9498,0.0082,0.9987,0.0002
+Exp_D_Full_DLL,baseline,25,0.3614,0.0003,0.25,0.0,0.5,0.0
+Exp_D_Full_DLL,logistic,25,0.9656,0.0042,0.9406,0.0063,0.9973,0.0005
+Exp_D_Full_DLL,random_forest,25,0.9716,0.0043,0.9354,0.0109,0.9977,0.0003
+Exp_D_Full_DLL,xgboost,25,0.972,0.0037,0.9512,0.0057,0.9987,0.0001

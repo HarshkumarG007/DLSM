@@ -1,0 +1,450 @@
+{
+  "dataset": "A",
+  "file_name": "bedtime_screentime_sleep_debt.csv",
+  "row_count": 8500,
+  "column_count": 18,
+  "columns": [
+    {
+      "name": "user_id",
+      "dtype": "object",
+      "semantic_role": "IDENTIFIER",
+      "description": "Unique participant alphanumeric identifier",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 8500,
+      "allowed_range": null,
+      "empirical_range": null,
+      "mean": null,
+      "median": null,
+      "std": null,
+      "example_values": [
+        "USR-00001",
+        "USR-00002",
+        "USR-00003",
+        "USR-00004",
+        "USR-00005"
+      ]
+    },
+    {
+      "name": "age",
+      "dtype": "int64",
+      "semantic_role": "DEMOGRAPHIC",
+      "description": "Participant age in years (18-65)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 48,
+      "allowed_range": [
+        18,
+        65
+      ],
+      "empirical_range": [
+        18.0,
+        65.0
+      ],
+      "mean": 34.3556,
+      "median": 32.0,
+      "std": 11.5843,
+      "example_values": [
+        29,
+        58,
+        41,
+        36,
+        23
+      ]
+    },
+    {
+      "name": "gender",
+      "dtype": "object",
+      "semantic_role": "DEMOGRAPHIC",
+      "description": "Self-reported gender identity (Female, Male, Non-Binary)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 3,
+      "allowed_range": null,
+      "empirical_range": null,
+      "mean": null,
+      "median": null,
+      "std": null,
+      "example_values": [
+        "Female",
+        "Non-Binary",
+        "Male"
+      ]
+    },
+    {
+      "name": "occupation_type",
+      "dtype": "object",
+      "semantic_role": "POTENTIAL_CONFOUNDER",
+      "description": "Employment category (Corporate 9-to-5, Remote Tech, Student, Healthcare/Shift Worker, Freelance/Creative)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 5,
+      "allowed_range": null,
+      "empirical_range": null,
+      "mean": null,
+      "median": null,
+      "std": null,
+      "example_values": [
+        "Healthcare / Shift Worker",
+        "Student",
+        "Remote Tech",
+        "Freelance / Creative",
+        "Corporate 9-to-5"
+      ]
+    },
+    {
+      "name": "chronotype",
+      "dtype": "object",
+      "semantic_role": "POTENTIAL_CONFOUNDER",
+      "description": "Circadian chronotype preference (Intermediate, Night Owl, Morning Lark)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 3,
+      "allowed_range": null,
+      "empirical_range": null,
+      "mean": null,
+      "median": null,
+      "std": null,
+      "example_values": [
+        "Intermediate",
+        "Night Owl",
+        "Morning Lark"
+      ]
+    },
+    {
+      "name": "bedtime_phone_minutes",
+      "dtype": "int64",
+      "semantic_role": "DIGITAL_TIMING",
+      "description": "Minutes actively using smartphone immediately before attempting sleep (1-180 min)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 179,
+      "allowed_range": [
+        0,
+        240
+      ],
+      "empirical_range": [
+        1.0,
+        180.0
+      ],
+      "mean": 59.25,
+      "median": 51.0,
+      "std": 36.932,
+      "example_values": [
+        179,
+        163,
+        100,
+        34,
+        27
+      ]
+    },
+    {
+      "name": "primary_bedtime_app",
+      "dtype": "object",
+      "semantic_role": "DIGITAL_PURPOSE",
+      "description": "Dominant app category used before sleep",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 6,
+      "allowed_range": null,
+      "empirical_range": null,
+      "mean": null,
+      "median": null,
+      "std": null,
+      "example_values": [
+        "Instagram / Reddit",
+        "YouTube",
+        "TikTok / Reels",
+        "News / Reading",
+        "Streaming (Netflix/Hulu)"
+      ]
+    },
+    {
+      "name": "screen_brightness_pct",
+      "dtype": "int64",
+      "semantic_role": "DIGITAL_INTENSITY",
+      "description": "Display brightness percentage during bedtime usage (10-100%)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 91,
+      "allowed_range": [
+        0,
+        100
+      ],
+      "empirical_range": [
+        10.0,
+        100.0
+      ],
+      "mean": 55.1539,
+      "median": 55.0,
+      "std": 19.8505,
+      "example_values": [
+        54,
+        76,
+        59,
+        52,
+        82
+      ]
+    },
+    {
+      "name": "blue_light_filter_active",
+      "dtype": "int64",
+      "semantic_role": "BEHAVIORAL",
+      "description": "Hardware/software blue light filter status (0=inactive, 1=active)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 2,
+      "allowed_range": [
+        0,
+        1
+      ],
+      "empirical_range": [
+        0.0,
+        1.0
+      ],
+      "mean": 0.4678,
+      "median": 0.0,
+      "std": 0.499,
+      "example_values": [
+        1,
+        0
+      ]
+    },
+    {
+      "name": "caffeine_post_5pm_mg",
+      "dtype": "int64",
+      "semantic_role": "POTENTIAL_CONFOUNDER",
+      "description": "Evening caffeine consumption in milligrams post 5 PM (0-250 mg)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 218,
+      "allowed_range": [
+        0,
+        500
+      ],
+      "empirical_range": [
+        0.0,
+        250.0
+      ],
+      "mean": 33.2225,
+      "median": 0.0,
+      "std": 51.9356,
+      "example_values": [
+        0,
+        92,
+        45,
+        97,
+        136
+      ]
+    },
+    {
+      "name": "physical_activity_min",
+      "dtype": "int64",
+      "semantic_role": "BEHAVIORAL",
+      "description": "Daily moderate-to-vigorous physical activity in minutes (0-112 min)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 107,
+      "allowed_range": [
+        0,
+        300
+      ],
+      "empirical_range": [
+        0.0,
+        112.0
+      ],
+      "mean": 35.7014,
+      "median": 35.0,
+      "std": 20.8194,
+      "example_values": [
+        21,
+        72,
+        23,
+        49,
+        38
+      ]
+    },
+    {
+      "name": "sleep_latency_min",
+      "dtype": "float64",
+      "semantic_role": "SLEEP",
+      "description": "Time elapsed from lights out to objective sleep onset (6-123.3 min)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 893,
+      "allowed_range": [
+        0,
+        240
+      ],
+      "empirical_range": [
+        6.0,
+        123.3
+      ],
+      "mean": 40.6715,
+      "median": 37.6,
+      "std": 17.4449,
+      "example_values": [
+        84.4,
+        86.7,
+        70.5,
+        38.1,
+        32.3
+      ]
+    },
+    {
+      "name": "total_sleep_hours",
+      "dtype": "float64",
+      "semantic_role": "SLEEP",
+      "description": "Total nocturnal sleep duration in hours (3.2-9.8 hrs)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 640,
+      "allowed_range": [
+        0,
+        16
+      ],
+      "empirical_range": [
+        3.2,
+        9.8
+      ],
+      "mean": 6.2662,
+      "median": 6.33,
+      "std": 1.4463,
+      "example_values": [
+        3.2,
+        4.06,
+        6.99,
+        4.58,
+        5.87
+      ]
+    },
+    {
+      "name": "deep_sleep_pct",
+      "dtype": "float64",
+      "semantic_role": "SLEEP",
+      "description": "Percentage of total sleep time spent in slow-wave deep sleep (8.1-28%)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 172,
+      "allowed_range": [
+        0,
+        100
+      ],
+      "empirical_range": [
+        8.1,
+        28.0
+      ],
+      "mean": 21.7357,
+      "median": 21.9,
+      "std": 3.0694,
+      "example_values": [
+        23.5,
+        18.0,
+        18.1,
+        21.6,
+        24.1
+      ]
+    },
+    {
+      "name": "rem_sleep_pct",
+      "dtype": "float64",
+      "semantic_role": "SLEEP",
+      "description": "Percentage of total sleep time spent in REM sleep (9.6-27%)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 170,
+      "allowed_range": [
+        0,
+        100
+      ],
+      "empirical_range": [
+        9.6,
+        27.0
+      ],
+      "mean": 19.1059,
+      "median": 19.1,
+      "std": 2.5465,
+      "example_values": [
+        22.2,
+        21.5,
+        20.5,
+        22.4,
+        22.8
+      ]
+    },
+    {
+      "name": "morning_alarm_snoozes",
+      "dtype": "int64",
+      "semantic_role": "SLEEP",
+      "description": "Frequency of alarm snoozes before waking up (0-7)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 8,
+      "allowed_range": [
+        0,
+        20
+      ],
+      "empirical_range": [
+        0.0,
+        7.0
+      ],
+      "mean": 2.766,
+      "median": 3.0,
+      "std": 1.6954,
+      "example_values": [
+        7,
+        1,
+        4,
+        6,
+        3
+      ]
+    },
+    {
+      "name": "next_day_fatigue_score",
+      "dtype": "float64",
+      "semantic_role": "TARGET",
+      "description": "Self-reported next-day fatigue level scale 1-10 (continuous regression target)",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 91,
+      "allowed_range": [
+        1.0,
+        10.0
+      ],
+      "empirical_range": [
+        1.0,
+        10.0
+      ],
+      "mean": 3.7947,
+      "median": 3.2,
+      "std": 2.6852,
+      "example_values": [
+        10.0,
+        1.7,
+        5.3,
+        5.0,
+        6.4
+      ]
+    },
+    {
+      "name": "sleep_debt_category",
+      "dtype": "object",
+      "semantic_role": "TARGET",
+      "description": "Categorical classification of accumulated sleep debt severity",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "unique_count": 4,
+      "allowed_range": null,
+      "empirical_range": null,
+      "mean": null,
+      "median": null,
+      "std": null,
+      "example_values": [
+        "Severe Sleep Debt",
+        "Mild Deficit",
+        "Moderate Debt",
+        "Optimal Recovery"
+      ]
+    }
+  ]
+}

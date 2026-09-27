@@ -1,0 +1,28 @@
+project:
+  name: "Digital Lifestyle Spillover Model (DLSM)"
+  tagline: "From isolated digital behaviors to a measurable architecture of student digital life."
+  version: "1.0.0"
+  random_seed: 42
+
+paths:
+  data_raw_a: "data/raw/dataset_a/bedtime_screentime_sleep_debt.csv"
+  data_raw_b: "data/raw/dataset_b/AI_SocialMedia_Student_Dataset.csv"
+  data_interim: "data/interim"
+  data_processed: "data/processed"
+  artifacts_models: "artifacts/models"
+  artifacts_metrics: "artifacts/metrics"
+  artifacts_figures: "artifacts/figures"
+  artifacts_shap: "artifacts/shap"
+  artifacts_reports: "artifacts/reports"
+  metadata_dir: "metadata"
+
+validation:
+  cv_folds: 5
+  repeated_cv_repeats: 3
+  test_size: 0.20
+  shuffle: true
+
+bootstrap:
+  n_resamples_pca: 1000
+  n_resamples_mediation: 5000
+  ci_level: 0.95

@@ -1,0 +1,45 @@
+models:
+  baseline:
+    strategy_regression: "mean"
+    strategy_classification: "most_frequent"
+
+  linear:
+    regression:
+      type: "Ridge"
+      alpha: 1.0
+    classification:
+      type: "LogisticRegression"
+      C: 1.0
+      max_iter: 1000
+
+  tree_ensemble:
+    regression:
+      type: "RandomForestRegressor"
+      n_estimators: 150
+      max_depth: 10
+      random_state: 42
+    classification:
+      type: "RandomForestClassifier"
+      n_estimators: 150
+      max_depth: 10
+      random_state: 42
+
+  gradient_boosting:
+    regression:
+      type: "XGBRegressor"
+      n_estimators: 200
+      learning_rate: 0.05
+      max_depth: 5
+      subsample: 0.8
+      random_state: 42
+    classification:
+      type: "XGBClassifier"
+      n_estimators: 200
+      learning_rate: 0.05
+      max_depth: 5
+      subsample: 0.8
+      random_state: 42
+
+optuna:
+  n_trials: 30
+  timeout_seconds: 300

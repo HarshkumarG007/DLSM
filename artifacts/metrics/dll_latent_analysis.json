@@ -1,0 +1,156 @@
+{
+  "dataset_a": {
+    "loadings": {
+      "PC1": {
+        "bedtime_phone_minutes": 0.5804397516804415,
+        "screen_brightness_pct": 0.15895383868825097,
+        "bedtime_intensity_index": 0.5681909031503551,
+        "arousal_weighted_bedtime_exposure": 0.5612329903102635
+      },
+      "PC2": {
+        "bedtime_phone_minutes": -0.2412621689273888,
+        "screen_brightness_pct": 0.8983890521237371,
+        "bedtime_intensity_index": 0.2554312925164012,
+        "arousal_weighted_bedtime_exposure": -0.2635233038500888
+      }
+    },
+    "fa_loadings": {
+      "FA1": {
+        "bedtime_phone_minutes": 0.9941860653155917,
+        "screen_brightness_pct": 0.04365517379593496,
+        "bedtime_intensity_index": 0.8234198002828322,
+        "arousal_weighted_bedtime_exposure": 0.8935161700519554
+      }
+    },
+    "fa_correlation": 0.9906281248135428,
+    "explained_variance_ratio": [
+      0.6596849060251367,
+      0.28252202879207733
+    ],
+    "stability_metrics": {
+      "mean_cosine_similarity": 1.0,
+      "std_cosine_similarity": 0.0001,
+      "explained_variance_ratio_pc1": 0.6597,
+      "factor_analysis_concordance": 0.9906,
+      "feature_stability": {
+        "bedtime_phone_minutes": {
+          "original_loading": 0.5804,
+          "bootstrap_mean": 0.5804,
+          "bootstrap_std": 0.0017,
+          "ci_95": [
+            0.5769,
+            0.5836
+          ],
+          "sign_stable": true
+        },
+        "screen_brightness_pct": {
+          "original_loading": 0.159,
+          "bootstrap_mean": 0.1595,
+          "bootstrap_std": 0.0088,
+          "ci_95": [
+            0.1413,
+            0.1778
+          ],
+          "sign_stable": true
+        },
+        "bedtime_intensity_index": {
+          "original_loading": 0.5682,
+          "bootstrap_mean": 0.5682,
+          "bootstrap_std": 0.0007,
+          "ci_95": [
+            0.5666,
+            0.5695
+          ],
+          "sign_stable": true
+        },
+        "arousal_weighted_bedtime_exposure": {
+          "original_loading": 0.5612,
+          "bootstrap_mean": 0.5611,
+          "bootstrap_std": 0.0017,
+          "ci_95": [
+            0.5578,
+            0.5643
+          ],
+          "sign_stable": true
+        }
+      }
+    }
+  },
+  "dataset_b": {
+    "loadings": {
+      "PC1": {
+        "Daily_Social_Media_Hours": 0.4834545405820741,
+        "Daily_AI_Tool_Usage_Hours": 0.33105317126344525,
+        "total_digital_hours": 0.585079951705415,
+        "screen_to_sleep_ratio": 0.560675445422199
+      },
+      "PC2": {
+        "Daily_Social_Media_Hours": -0.5631305399174337,
+        "Daily_AI_Tool_Usage_Hours": 0.8261603828158155,
+        "total_digital_hours": 0.011651221717677962,
+        "screen_to_sleep_ratio": -0.014396732629675113
+      }
+    },
+    "fa_loadings": {
+      "FA1": {
+        "Daily_Social_Media_Hours": 0.8196515104389102,
+        "Daily_AI_Tool_Usage_Hours": 0.5753452928720304,
+        "total_digital_hours": 0.9999994659934169,
+        "screen_to_sleep_ratio": 0.8859005468934752
+      }
+    },
+    "fa_correlation": 0.9840038074214047,
+    "explained_variance_ratio": [
+      0.7129519697462909,
+      0.24936849139289505
+    ],
+    "stability_metrics": {
+      "mean_cosine_similarity": 1.0,
+      "std_cosine_similarity": 0.0,
+      "explained_variance_ratio_pc1": 0.713,
+      "factor_analysis_concordance": 0.984,
+      "feature_stability": {
+        "Daily_Social_Media_Hours": {
+          "original_loading": 0.4835,
+          "bootstrap_mean": 0.4835,
+          "bootstrap_std": 0.0014,
+          "ci_95": [
+            0.4806,
+            0.486
+          ],
+          "sign_stable": true
+        },
+        "Daily_AI_Tool_Usage_Hours": {
+          "original_loading": 0.3311,
+          "bootstrap_mean": 0.331,
+          "bootstrap_std": 0.0035,
+          "ci_95": [
+            0.3238,
+            0.3378
+          ],
+          "sign_stable": true
+        },
+        "total_digital_hours": {
+          "original_loading": 0.5851,
+          "bootstrap_mean": 0.5851,
+          "bootstrap_std": 0.0008,
+          "ci_95": [
+            0.5837,
+            0.5866
+          ],
+          "sign_stable": true
+        },
+        "screen_to_sleep_ratio": {
+          "original_loading": 0.5607,
+          "bootstrap_mean": 0.5607,
+          "bootstrap_std": 0.0008,
+          "ci_95": [
+            0.5592,
+            0.5623
+          ],
+          "sign_stable": true
+        }
+      }
+    }
+  }
+}

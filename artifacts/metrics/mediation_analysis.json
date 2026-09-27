@@ -1,0 +1,160 @@
+{
+  "dataset_a": {
+    "latency_mediator": {
+      "predictor_X": "digital_lifestyle_load",
+      "mediator_M": "sleep_latency_min",
+      "outcome_Y": "next_day_fatigue_score",
+      "covariates": [
+        "age",
+        "caffeine_post_5pm_mg",
+        "physical_activity_min"
+      ],
+      "sample_size": 8500,
+      "a_path": {
+        "coef": 9.4894,
+        "se": 0.0492,
+        "p_value": 0.0
+      },
+      "b_path": {
+        "coef": 0.0577,
+        "se": 0.0025,
+        "p_value": 0.0
+      },
+      "direct_effect_c_prime": {
+        "coef": 0.6519,
+        "se": 0.0268,
+        "p_value": 0.0
+      },
+      "total_effect_c": {
+        "coef": 1.1998,
+        "se": 0.0119,
+        "p_value": 0.0
+      },
+      "indirect_effect_ab": 0.5479,
+      "proportion_mediated": 0.4567,
+      "bootstrap_ci_95": [
+        0.4998,
+        0.5954
+      ],
+      "statistically_significant": true,
+      "scientific_qualification": "Statistical mediation confirmed under observational cross-sectional assumptions; cannot establish chronological or causal directionality without longitudinal intervention."
+    },
+    "duration_mediator": {
+      "predictor_X": "digital_lifestyle_load",
+      "mediator_M": "total_sleep_hours",
+      "outcome_Y": "next_day_fatigue_score",
+      "covariates": [
+        "age",
+        "caffeine_post_5pm_mg",
+        "physical_activity_min"
+      ],
+      "sample_size": 8500,
+      "a_path": {
+        "coef": -0.4834,
+        "se": 0.0081,
+        "p_value": 0.0
+      },
+      "b_path": {
+        "coef": -1.2622,
+        "se": 0.0081,
+        "p_value": 0.0
+      },
+      "direct_effect_c_prime": {
+        "coef": 0.5897,
+        "se": 0.0072,
+        "p_value": 0.0
+      },
+      "total_effect_c": {
+        "coef": 1.1998,
+        "se": 0.0119,
+        "p_value": 0.0
+      },
+      "indirect_effect_ab": 0.6102,
+      "proportion_mediated": 0.5085,
+      "bootstrap_ci_95": [
+        0.5913,
+        0.629
+      ],
+      "statistically_significant": true,
+      "scientific_qualification": "Statistical mediation confirmed under observational cross-sectional assumptions; cannot establish chronological or causal directionality without longitudinal intervention."
+    }
+  },
+  "dataset_b": {
+    "hours_via_sleep": {
+      "predictor_X": "total_digital_hours",
+      "mediator_M": "Sleep_Hours",
+      "outcome_Y": "Mental_Health_Score",
+      "covariates": [
+        "Age",
+        "Physical_Activity_Hours"
+      ],
+      "sample_size": 16000,
+      "a_path": {
+        "coef": -0.1401,
+        "se": 0.0033,
+        "p_value": 0.0
+      },
+      "b_path": {
+        "coef": 1.5008,
+        "se": 0.0533,
+        "p_value": 0.0
+      },
+      "direct_effect_c_prime": {
+        "coef": -0.9532,
+        "se": 0.0232,
+        "p_value": 0.0
+      },
+      "total_effect_c": {
+        "coef": -1.1634,
+        "se": 0.0225,
+        "p_value": 0.0
+      },
+      "indirect_effect_ab": -0.2102,
+      "proportion_mediated": 0.1807,
+      "bootstrap_ci_95": [
+        -0.2273,
+        -0.1931
+      ],
+      "statistically_significant": true,
+      "scientific_qualification": "Statistical mediation confirmed under observational cross-sectional assumptions; cannot establish chronological or causal directionality without longitudinal intervention."
+    },
+    "dll_via_sleep": {
+      "predictor_X": "digital_lifestyle_load",
+      "mediator_M": "Sleep_Hours",
+      "outcome_Y": "Mental_Health_Score",
+      "covariates": [
+        "Age",
+        "Physical_Activity_Hours"
+      ],
+      "sample_size": 16000,
+      "a_path": {
+        "coef": -0.3321,
+        "se": 0.0054,
+        "p_value": 0.0
+      },
+      "b_path": {
+        "coef": 1.1893,
+        "se": 0.0561,
+        "p_value": 0.0
+      },
+      "direct_effect_c_prime": {
+        "coef": -1.752,
+        "se": 0.0425,
+        "p_value": 0.0
+      },
+      "total_effect_c": {
+        "coef": -2.147,
+        "se": 0.0387,
+        "p_value": 0.0
+      },
+      "indirect_effect_ab": -0.395,
+      "proportion_mediated": 0.184,
+      "bootstrap_ci_95": [
+        -0.4321,
+        -0.3581
+      ],
+      "statistically_significant": true,
+      "scientific_qualification": "Statistical mediation confirmed under observational cross-sectional assumptions; cannot establish chronological or causal directionality without longitudinal intervention."
+    }
+  }
+}

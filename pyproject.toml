@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dlsm"
+version = "1.0.0"
+description = "Digital Lifestyle Spillover Model (DLSM): Cross-Dataset AI/ML Research Framework"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+  { name = "Antigravity ML Research Core" }
+]
+dependencies = [
+  "numpy>=1.26.0",
+  "pandas>=2.2.0",
+  "scikit-learn>=1.4.0",
+  "xgboost>=2.0.0",
+  "statsmodels>=0.14.0",
+  "pandera>=0.20.0",
+  "shap>=0.45.0",
+  "streamlit>=1.35.0",
+  "plotly>=5.20.0",
+  "pyyaml>=6.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v"

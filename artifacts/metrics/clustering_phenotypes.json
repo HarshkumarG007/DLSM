@@ -1,0 +1,134 @@
+{
+  "dataset_a": {
+    "optimal_k": 2,
+    "k_metrics": {
+      "2": {
+        "k": 2,
+        "silhouette_score": 0.2789,
+        "calinski_harabasz": 3184.37,
+        "davies_bouldin": 1.496,
+        "inertia": 37098.52
+      },
+      "3": {
+        "k": 3,
+        "silhouette_score": 0.2649,
+        "calinski_harabasz": 2638.31,
+        "davies_bouldin": 1.4137,
+        "inertia": 31462.17
+      },
+      "4": {
+        "k": 4,
+        "silhouette_score": 0.1969,
+        "calinski_harabasz": 2479.09,
+        "davies_bouldin": 1.4874,
+        "inertia": 27194.5
+      },
+      "5": {
+        "k": 5,
+        "silhouette_score": 0.1812,
+        "calinski_harabasz": 2278.28,
+        "davies_bouldin": 1.4455,
+        "inertia": 24604.87
+      }
+    },
+    "mean_profiles": {
+      "digital_lifestyle_load": {
+        "0": 1.694046369834828,
+        "1": -0.8193755438666971
+      },
+      "total_sleep_hours": {
+        "0": 5.083763984121256,
+        "1": 6.838134054808867
+      },
+      "sleep_latency_min": {
+        "0": 59.27683146878383,
+        "1": 31.672438470937337
+      },
+      "deep_sleep_pct": {
+        "0": 19.86676290147961,
+        "1": 22.639727701169488
+      },
+      "caffeine_post_5pm_mg": {
+        "0": 49.408516780945504,
+        "1": 25.393611450514925
+      },
+      "physical_activity_min": {
+        "0": 32.78130638758571,
+        "1": 37.113806947111186
+      },
+      "cluster_size": {
+        "0": 2771,
+        "1": 5729
+      },
+      "cluster_pct": {
+        "0": 32.6,
+        "1": 67.4
+      }
+    },
+    "cluster_stability_ari": 0.9832
+  },
+  "dataset_b": {
+    "optimal_k": 2,
+    "k_metrics": {
+      "2": {
+        "k": 2,
+        "silhouette_score": 0.2432,
+        "calinski_harabasz": 6538.56,
+        "davies_bouldin": 1.4774,
+        "inertia": 56789.6
+      },
+      "3": {
+        "k": 3,
+        "silhouette_score": 0.2071,
+        "calinski_harabasz": 4955.87,
+        "davies_bouldin": 1.5943,
+        "inertia": 49395.06
+      },
+      "4": {
+        "k": 4,
+        "silhouette_score": 0.186,
+        "calinski_harabasz": 4471.98,
+        "davies_bouldin": 1.4812,
+        "inertia": 43509.03
+      },
+      "5": {
+        "k": 5,
+        "silhouette_score": 0.1919,
+        "calinski_harabasz": 4234.12,
+        "davies_bouldin": 1.3643,
+        "inertia": 38856.61
+      }
+    },
+    "mean_profiles": {
+      "digital_lifestyle_load": {
+        "0": -1.2504565729057564,
+        "1": 1.4069089691970598
+      },
+      "Daily_Social_Media_Hours": {
+        "0": 3.0381631448471254,
+        "1": 6.233547615885243
+      },
+      "Daily_AI_Tool_Usage_Hours": {
+        "0": 1.966263723291229,
+        "1": 3.2931013414796118
+      },
+      "Sleep_Hours": {
+        "0": 7.098382717506788,
+        "1": 5.923169079559038
+      },
+      "Physical_Activity_Hours": {
+        "0": 1.4016892928815958,
+        "1": 1.0758440695975562
+      },
+      "cluster_size": {
+        "0": 8471,
+        "1": 7529
+      },
+      "cluster_pct": {
+        "0": 52.94,
+        "1": 47.06
+      }
+    },
+    "cluster_stability_ari": 0.9887
+  }
+}

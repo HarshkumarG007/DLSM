@@ -1,0 +1,44 @@
+dataset_a:
+  name: "Dataset A (Bedtime Screen Time & Sleep Debt)"
+  raw_file: "data/raw/dataset_a/bedtime_screentime_sleep_debt.csv"
+  id_column: "user_id"
+  n_records: 8500
+  targets:
+    regression: "next_day_fatigue_score"
+    classification: "sleep_debt_category"
+  categorical_features:
+    - "gender"
+    - "occupation_type"
+    - "chronotype"
+    - "primary_bedtime_app"
+  numeric_features:
+    - "age"
+    - "bedtime_phone_minutes"
+    - "screen_brightness_pct"
+    - "blue_light_filter_active"
+    - "caffeine_post_5pm_mg"
+    - "physical_activity_min"
+    - "sleep_latency_min"
+    - "total_sleep_hours"
+    - "deep_sleep_pct"
+    - "rem_sleep_pct"
+    - "morning_alarm_snoozes"
+
+dataset_b:
+  name: "Dataset B (AI & Social Media Impact on Students)"
+  raw_file: "data/raw/dataset_b/AI_SocialMedia_Student_Dataset.csv"
+  id_column: "Student_ID"
+  n_records: 16000
+  targets:
+    regression_primary: "Mental_Health_Score"
+    regression_secondary: "Physical_Health_Score"
+    classification: "mental_health_risk"
+  categorical_features:
+    - "Gender"
+    - "Education_Level"
+  numeric_features:
+    - "Age"
+    - "Daily_Social_Media_Hours"
+    - "Daily_AI_Tool_Usage_Hours"
+    - "Sleep_Hours"
+    - "Physical_Activity_Hours"

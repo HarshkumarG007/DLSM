@@ -1,0 +1,50 @@
+dataset_a:
+  engineered_features:
+    - name: "bedtime_intensity_index"
+      formula: "(screen_brightness_pct / 100.0) * bedtime_phone_minutes * (1.0 - 0.3 * blue_light_filter_active)"
+      description: "Biophysical optical load discounted by active blue light filtering"
+    - name: "screen_to_sleep_ratio"
+      formula: "(bedtime_phone_minutes / 60.0) / (total_sleep_hours + 1e-5)"
+      description: "Ratio of pre-sleep screen duration to total sleep duration"
+    - name: "sleep_architecture_efficiency"
+      formula: "(deep_sleep_pct + rem_sleep_pct) / 100.0"
+      description: "Combined restorative sleep percentage (Deep + REM)"
+    - name: "caffeine_latency_interaction"
+      formula: "caffeine_post_5pm_mg * bedtime_phone_minutes"
+      description: "Synergy of chemical stimulant and digital cognitive arousal"
+    - name: "evening_arousal_burden"
+      formula: "bedtime_phone_minutes * screen_brightness_pct"
+      description: "Total uncalibrated screen exposure mass"
+
+dataset_b:
+  engineered_features:
+    - name: "total_digital_hours"
+      formula: "Daily_Social_Media_Hours + Daily_AI_Tool_Usage_Hours"
+      description: "Aggregate daily screen exposure across social and AI modalities"
+    - name: "digital_composition_ratio"
+      formula: "Daily_AI_Tool_Usage_Hours / (total_digital_hours + 1e-5)"
+      description: "Proportion of digital exposure dedicated to generative/assistive AI tools"
+    - name: "screen_to_sleep_ratio"
+      formula: "total_digital_hours / (Sleep_Hours + 1e-5)"
+      description: "Daily screen exposure relative to sleep duration"
+    - name: "active_buffer_ratio"
+      formula: "Physical_Activity_Hours / (total_digital_hours + 1e-5)"
+      description: "Physical activity buffering against digital sedentary exposure"
+    - name: "social_sleep_interaction"
+      formula: "Daily_Social_Media_Hours * Sleep_Hours"
+      description: "Interaction of social media volume and sleep deficit"
+    - name: "ai_sleep_interaction"
+      formula: "Daily_AI_Tool_Usage_Hours * Sleep_Hours"
+      description: "Interaction of AI usage volume and sleep duration"
+
+latent_dll:
+  dataset_a_inputs:
+    - "bedtime_phone_minutes"
+    - "screen_brightness_pct"
+    - "bedtime_intensity_index"
+    - "evening_arousal_burden"
+  dataset_b_inputs:
+    - "Daily_Social_Media_Hours"
+    - "Daily_AI_Tool_Usage_Hours"
+    - "total_digital_hours"
+    - "screen_to_sleep_ratio"

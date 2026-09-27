@@ -1,0 +1,35 @@
+feature,mean_abs_shap,relative_attribution_pct
+sleep_latency_ratio,1.0411673,34.98
+total_sleep_hours,0.77894306,26.17
+morning_alarm_snoozes,0.5885464,19.78
+deep_sleep_pct,0.12622373,4.24
+caffeine_screen_interaction,0.09564213,3.21
+bedtime_intensity_index,0.08292486,2.79
+caffeine_post_5pm_mg,0.06935324,2.33
+sleep_architecture_efficiency,0.03261575,1.1
+screen_brightness_pct,0.021939643,0.74
+sleep_latency_min,0.02155357,0.72
+blue_light_filter_active,0.01937849,0.65
+screen_to_sleep_ratio,0.01658164,0.56
+arousal_weighted_bedtime_exposure,0.01217255,0.41
+screen_sleep_interaction,0.010998713,0.37
+digital_lifestyle_load,0.00995498,0.33
+brightness_screen_interaction,0.009010814,0.3
+rem_sleep_pct,0.0081608305,0.27
+occupation_type_Healthcare / Shift Worker,0.005842226,0.2
+physical_activity_min,0.004298146,0.14
+age,0.0042729108,0.14
+bedtime_phone_minutes,0.003624675,0.12
+cognitive_arousal_weight,0.0030558405,0.1
+chronotype_Night Owl,0.0019336627,0.06
+occupation_type_Remote Tech,0.0015852712,0.05
+primary_bedtime_app_Messaging / Chat,0.001546925,0.05
+gender_Male,0.001347953,0.05
+occupation_type_Student,0.0013301123,0.04
+primary_bedtime_app_YouTube,0.0007084979,0.02
+occupation_type_Freelance / Creative,0.000571236,0.02
+primary_bedtime_app_Streaming (Netflix/Hulu),0.00039766968,0.01
+chronotype_Morning Lark,0.0003524433,0.01
+gender_Non-Binary,6.219794e-05,0.0
+primary_bedtime_app_News / Reading,0.0,0.0
+primary_bedtime_app_TikTok / Reels,0.0,0.0

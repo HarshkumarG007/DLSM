@@ -1,0 +1,19 @@
+feature,mean_abs_shap,relative_attribution_pct
+screen_to_sleep_ratio,2.4692643,37.09
+active_buffer_ratio,1.2901664,19.38
+Sleep_Hours,0.51285577,7.7
+Daily_Social_Media_Hours,0.5062508,7.61
+Physical_Activity_Hours,0.3722104,5.59
+ai_sleep_interaction,0.29789436,4.48
+digital_composition_ratio,0.22694959,3.41
+total_digital_hours,0.17663886,2.65
+social_sleep_interaction,0.16236515,2.44
+Daily_AI_Tool_Usage_Hours,0.15104797,2.27
+sleep_deficit_hours,0.13714634,2.06
+digital_lifestyle_load,0.11204884,1.68
+social_physical_interaction,0.10328791,1.55
+Age,0.09992649,1.5
+Gender_Male,0.020944936,0.31
+Gender_Non-binary,0.017661996,0.27
+Education_Level_High School,0.0,0.0
+Education_Level_University,0.0,0.0
