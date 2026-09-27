@@ -19,6 +19,50 @@ logger = setup_logger("dlsm.cli")
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MODELS_DIR = PROJECT_ROOT / "artifacts/models"
 
+def _load_or_fit_prep_a(fe_a, dll_a):
+    try:
+        return joblib.load(MODELS_DIR / "preprocessor_dataset_a.pkl")
+    except Exception:
+        from dlsm.data.loader import load_dataset_a
+        from dlsm.models.pipeline import build_preprocessing_pipeline
+        df = load_dataset_a()
+        df_eng = fe_a.transform(df)
+        df_full = dll_a.transform(df_eng)
+        num_cols = [
+            "age", "bedtime_phone_minutes", "screen_brightness_pct", "blue_light_filter_active",
+            "caffeine_post_5pm_mg", "physical_activity_min", "sleep_latency_min",
+            "total_sleep_hours", "deep_sleep_pct", "rem_sleep_pct", "morning_alarm_snoozes",
+            "bedtime_intensity_index", "screen_to_sleep_ratio", "sleep_architecture_efficiency",
+            "cognitive_arousal_weight", "arousal_weighted_bedtime_exposure", "sleep_latency_ratio",
+            "caffeine_screen_interaction", "brightness_screen_interaction", "screen_sleep_interaction",
+            "digital_lifestyle_load"
+        ]
+        cat_cols = ["gender", "occupation_type", "chronotype", "primary_bedtime_app"]
+        prep = build_preprocessing_pipeline(num_cols, cat_cols)
+        prep.fit(df_full)
+        return prep
+
+def _load_or_fit_prep_b(fe_b, dll_b):
+    try:
+        return joblib.load(MODELS_DIR / "preprocessor_dataset_b.pkl")
+    except Exception:
+        from dlsm.data.loader import load_dataset_b
+        from dlsm.models.pipeline import build_preprocessing_pipeline
+        df = load_dataset_b()
+        df_eng = fe_b.transform(df)
+        df_full = dll_b.transform(df_eng)
+        num_cols = [
+            "Age", "Daily_Social_Media_Hours", "Daily_AI_Tool_Usage_Hours", "Sleep_Hours",
+            "Physical_Activity_Hours", "total_digital_hours", "digital_composition_ratio",
+            "screen_to_sleep_ratio", "active_buffer_ratio", "sleep_deficit_hours",
+            "social_sleep_interaction", "ai_sleep_interaction", "social_physical_interaction",
+            "digital_lifestyle_load"
+        ]
+        cat_cols = ["Gender", "Education_Level"]
+        prep = build_preprocessing_pipeline(num_cols, cat_cols)
+        prep.fit(df_full)
+        return prep
+
 def score_cohort_a(input_path: Path, output_path: Path):
     logger.info(f"Loading input data for Cohort A from {input_path}")
     df = pd.read_csv(input_path)
@@ -29,7 +73,7 @@ def score_cohort_a(input_path: Path, output_path: Path):
     dll = joblib.load(MODELS_DIR / "dll_extractor_a.pkl")
     df_full = dll.transform(df_eng)
     
-    prep = joblib.load(MODELS_DIR / "preprocessor_dataset_a.pkl")
+    prep = _load_or_fit_prep_a(fe, dll)
     model = joblib.load(MODELS_DIR / "xgb_fatigue_model_dataset_a.pkl")
     
     X_mat = prep.transform(df_full)
@@ -59,7 +103,7 @@ def score_cohort_b(input_path: Path, output_path: Path):
     dll = joblib.load(MODELS_DIR / "dll_extractor_b.pkl")
     df_full = dll.transform(df_eng)
     
-    prep = joblib.load(MODELS_DIR / "preprocessor_dataset_b.pkl")
+    prep = _load_or_fit_prep_b(fe, dll)
     model = joblib.load(MODELS_DIR / "xgb_mental_health_model_dataset_b.pkl")
     
     X_mat = prep.transform(df_full)

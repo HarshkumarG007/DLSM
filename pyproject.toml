@@ -16,7 +16,7 @@ authors = [
 dependencies = [
   "numpy>=1.26.0",
   "pandas>=2.2.0",
-  "scikit-learn>=1.4.0",
+  "scikit-learn>=1.4.0,<=1.6.1",
   "xgboost>=2.0.0",
   "statsmodels>=0.14.0",
   "pandera>=0.20.0",

@@ -37,5 +37,5 @@ notebooks/artifacts/
 
 # IDE
 .vscode/
-.idea/
-*.swp
+# Logs
+*.log
