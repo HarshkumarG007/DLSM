@@ -11,7 +11,7 @@ dataset_a:
     - "occupation_type"
     - "chronotype"
     - "primary_bedtime_app"
-  numeric_features:
+  numeric_features_fatigue_regression:
     - "age"
     - "bedtime_phone_minutes"
     - "screen_brightness_pct"
@@ -23,6 +23,17 @@ dataset_a:
     - "deep_sleep_pct"
     - "rem_sleep_pct"
     - "morning_alarm_snoozes"
+  numeric_features_sleep_debt_classification:
+    # CRITICAL LEAKAGE GUARD: sleep_debt_category is definitionally derived from total_sleep_hours.
+    # We strictly drop all nocturnal sleep composition columns to evaluate whether PRE-SLEEP DIGITAL BEHAVIOR
+    # genuinely predicts sleep debt risk without circular definitional leakage.
+    - "age"
+    - "bedtime_phone_minutes"
+    - "screen_brightness_pct"
+    - "blue_light_filter_active"
+    - "caffeine_post_5pm_mg"
+    - "physical_activity_min"
+    - "morning_alarm_snoozes"
 
 dataset_b:
   name: "Dataset B (AI & Social Media Impact on Students)"
@@ -33,6 +44,7 @@ dataset_b:
     regression_primary: "Mental_Health_Score"
     regression_secondary: "Physical_Health_Score"
     classification: "mental_health_risk"
+  target_disclosure: "Dataset B raw CSV contains no academic grades or GPA column. Mental_Health_Score serves as the empirical proxy for student wellbeing, and academic spillover is modeled conceptually rather than measured directly."
   categorical_features:
     - "Gender"
     - "Education_Level"
@@ -42,3 +54,4 @@ dataset_b:
     - "Daily_AI_Tool_Usage_Hours"
     - "Sleep_Hours"
     - "Physical_Activity_Hours"
+

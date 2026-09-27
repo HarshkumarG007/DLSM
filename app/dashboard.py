@@ -400,6 +400,42 @@ elif menu == "5. Predictive Modeling & Ablation":
     )
     st.plotly_chart(fig_ab_b, use_container_width=True)
 
+    st.markdown("---")
+    st.subheader("3. Discrete Risk Classification (5-Fold CV — Definitional Leakage Guarded)")
+    
+    st.info("""
+    🛡️ **Definitional Leakage Barrier (RULE-014):** In Dataset A, nocturnal sleep composition variables (`total_sleep_hours`, `deep_sleep_pct`, `rem_sleep_pct`, `sleep_latency_min`) are strictly excluded when predicting `sleep_debt_category`. Because sleep debt is clinically derived from sleep duration, including sleep duration produces circular definitional leakage. Evaluated purely on pre-sleep digital behavior, optical settings, and lifestyle indicators, the models achieve literature-calibrated performance (F1 ~0.76–0.77, ROC-AUC ~0.92–0.93).
+    """)
+
+    col_clf1, col_clf2 = st.columns(2)
+    with col_clf1:
+        st.markdown("**Dataset A: Sleep Debt Category (4 Classes)**")
+        st.dataframe(clf_a, use_container_width=True)
+        fig_clf_a = px.bar(
+            clf_a[clf_a["model"] != "baseline"],
+            x="experiment",
+            y="f1_mean",
+            color="model",
+            barmode="group",
+            title="Dataset A Classification: Macro F1 by Tier",
+            labels={"f1_mean": "Macro F1 Score", "experiment": "Ablation Tier"}
+        )
+        st.plotly_chart(fig_clf_a, use_container_width=True)
+
+    with col_clf2:
+        st.markdown("**Dataset B: Mental Health Risk Tier (3 Classes)**")
+        st.dataframe(clf_b, use_container_width=True)
+        fig_clf_b = px.bar(
+            clf_b[clf_b["model"] != "baseline"],
+            x="experiment",
+            y="f1_mean",
+            color="model",
+            barmode="group",
+            title="Dataset B Classification: Macro F1 by Tier",
+            labels={"f1_mean": "Macro F1 Score", "experiment": "Ablation Tier"}
+        )
+        st.plotly_chart(fig_clf_b, use_container_width=True)
+
 # ==============================================================================
 # PAGE 6: MODEL EXPLAINABILITY (SHAP)
 # ==============================================================================
@@ -445,7 +481,7 @@ elif menu == "6. Model Explainability (SHAP)":
     st.success("""
     **Core Empirical Finding:**  
     In Dataset B, the domain-engineered features **`screen_to_sleep_ratio` (37.09%)** and **`active_buffer_ratio` (19.38%)** account for **56.47%** of the model's total predictive attribution.  
-    Raw screen hours alone accounted for under 10%. This directly proves that relational lifestyle composition contains far more predictive signal than aggregate screen exposure!
+    Raw screen hours alone accounted for under 10%. This directly demonstrates that within this predictive model, relational lifestyle composition contains far more predictive signal than aggregate screen exposure!
     """)
 
 # ==============================================================================

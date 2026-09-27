@@ -104,3 +104,126 @@
 [2026-09-27 22:47:34,216] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
 [2026-09-27 22:56:14,737] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
 [2026-09-27 22:57:07,904] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-27 23:04:37,382] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-27 23:09:47,659] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 02:36:54,547] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 02:43:43,489] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 02:49:00,724] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 02:55:38,302] [INFO] [dlsm.data.loader]: Loaded Dataset A (bedtime_screentime_sleep_debt.csv) with shape (8500, 18)
+[2026-09-28 02:55:38,322] [INFO] [dlsm.data.loader]: Loaded Dataset B (AI_SocialMedia_Student_Dataset.csv) with shape (16000, 10)
+[2026-09-28 02:56:05,866] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 03:06:10,283] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True
+[2026-09-28 03:10:21,051] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:10:21,338] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [logistic] F1: 0.7720, AUC: 0.9257
+[2026-09-28 03:10:22,150] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [random_forest] F1: 0.7519, AUC: 0.9160
+[2026-09-28 03:10:23,608] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [xgboost] F1: 0.7610, AUC: 0.9211
+[2026-09-28 03:10:23,693] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:10:24,036] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [logistic] F1: 0.7728, AUC: 0.9255
+[2026-09-28 03:10:24,829] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [random_forest] F1: 0.7498, AUC: 0.9163
+[2026-09-28 03:10:26,184] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [xgboost] F1: 0.7617, AUC: 0.9207
+[2026-09-28 03:10:26,272] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:10:26,626] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [logistic] F1: 0.7713, AUC: 0.9255
+[2026-09-28 03:10:27,495] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [random_forest] F1: 0.7547, AUC: 0.9172
+[2026-09-28 03:10:28,986] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [xgboost] F1: 0.7609, AUC: 0.9201
+[2026-09-28 03:10:29,072] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:10:29,451] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [logistic] F1: 0.7714, AUC: 0.9255
+[2026-09-28 03:10:30,309] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [random_forest] F1: 0.7547, AUC: 0.9165
+[2026-09-28 03:10:31,866] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [xgboost] F1: 0.7634, AUC: 0.9205
+[2026-09-28 03:11:32,430] [INFO] [dlsm.pipeline]: ==================================================================
+[2026-09-28 03:11:32,430] [INFO] [dlsm.pipeline]: STARTING DLSM CROSS-DATASET AI/ML RESEARCH EXECUTION PIPELINE
+[2026-09-28 03:11:32,430] [INFO] [dlsm.pipeline]: ==================================================================
+[2026-09-28 03:11:32,430] [INFO] [dlsm.pipeline]: --- STAGE 1: Loading & Pandera Validation ---
+[2026-09-28 03:11:32,443] [INFO] [dlsm.data.loader]: Loaded Dataset A (bedtime_screentime_sleep_debt.csv) with shape (8500, 18)
+[2026-09-28 03:11:32,456] [INFO] [dlsm.data.loader]: Loaded Dataset B (AI_SocialMedia_Student_Dataset.csv) with shape (16000, 10)
+[2026-09-28 03:11:32,511] [INFO] [dlsm.pipeline]: Pandera schemas validated successfully with 0 missing values.
+[2026-09-28 03:11:32,511] [INFO] [dlsm.pipeline]: --- STAGE 2: Feature Engineering (Domain & Interactions) ---
+[2026-09-28 03:11:32,522] [INFO] [dlsm.pipeline]: --- STAGE 3: Constructing Latent Digital Lifestyle Load (DLL) ---
+[2026-09-28 03:11:34,296] [INFO] [dlsm.latent.dll]: Latent DLL stability evaluation complete. Mean Cosine Similarity: 1.0
+[2026-09-28 03:11:35,949] [INFO] [dlsm.latent.dll]: Latent DLL stability evaluation complete. Mean Cosine Similarity: 1.0
+[2026-09-28 03:11:35,961] [INFO] [dlsm.pipeline]: --- STAGE 4: Behavioral Phenotype Discovery ---
+[2026-09-28 03:11:37,126] [INFO] [dlsm.clustering.phenotypes]: Optimal k selected: 2 (Silhouette: 0.2789)
+[2026-09-28 03:11:39,636] [INFO] [dlsm.clustering.phenotypes]: Cluster stability evaluation across 50 resamples: Mean ARI = 0.9832
+[2026-09-28 03:11:41,065] [INFO] [dlsm.clustering.phenotypes]: Optimal k selected: 2 (Silhouette: 0.2432)
+[2026-09-28 03:11:43,545] [INFO] [dlsm.clustering.phenotypes]: Cluster stability evaluation across 50 resamples: Mean ARI = 0.9887
+[2026-09-28 03:11:43,547] [INFO] [dlsm.pipeline]: --- STAGE 5: Supervised Modeling & The Central Feature Ablation Study ---
+[2026-09-28 03:11:43,547] [INFO] [dlsm.pipeline]: Evaluating Dataset A Regression (next_day_fatigue_score)...
+[2026-09-28 03:11:43,639] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [baseline] R2: -0.0013 (+/- 0.0013), MAE: 2.2499
+[2026-09-28 03:11:43,704] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [ridge] R2: 0.9129 (+/- 0.0040), MAE: 0.6301
+[2026-09-28 03:11:44,793] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [random_forest] R2: 0.9475 (+/- 0.0017), MAE: 0.4405
+[2026-09-28 03:11:45,326] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [xgboost] R2: 0.9534 (+/- 0.0022), MAE: 0.4207
+[2026-09-28 03:11:45,399] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [baseline] R2: -0.0013 (+/- 0.0013), MAE: 2.2499
+[2026-09-28 03:11:45,472] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [ridge] R2: 0.9185 (+/- 0.0036), MAE: 0.6083
+[2026-09-28 03:11:46,951] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [random_forest] R2: 0.9477 (+/- 0.0013), MAE: 0.4395
+[2026-09-28 03:11:47,551] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [xgboost] R2: 0.9543 (+/- 0.0018), MAE: 0.4133
+[2026-09-28 03:11:47,639] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [baseline] R2: -0.0013 (+/- 0.0013), MAE: 2.2499
+[2026-09-28 03:11:47,725] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [ridge] R2: 0.9255 (+/- 0.0036), MAE: 0.5823
+[2026-09-28 03:11:49,520] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [random_forest] R2: 0.9479 (+/- 0.0015), MAE: 0.4386
+[2026-09-28 03:11:50,131] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [xgboost] R2: 0.9544 (+/- 0.0018), MAE: 0.4136
+[2026-09-28 03:11:50,219] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [baseline] R2: -0.0013 (+/- 0.0013), MAE: 2.2499
+[2026-09-28 03:11:50,296] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [ridge] R2: 0.9255 (+/- 0.0036), MAE: 0.5823
+[2026-09-28 03:11:52,250] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [random_forest] R2: 0.9479 (+/- 0.0014), MAE: 0.4384
+[2026-09-28 03:11:52,875] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [xgboost] R2: 0.9545 (+/- 0.0018), MAE: 0.4128
+[2026-09-28 03:11:52,891] [INFO] [dlsm.pipeline]: Evaluating Dataset A Classification (sleep_debt_category, un-leaked behavioral features)...
+[2026-09-28 03:11:52,979] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:11:53,258] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [logistic] F1: 0.7720, AUC: 0.9257
+[2026-09-28 03:11:54,077] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [random_forest] F1: 0.7519, AUC: 0.9160
+[2026-09-28 03:11:55,468] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [xgboost] F1: 0.7610, AUC: 0.9211
+[2026-09-28 03:11:55,555] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:11:55,896] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [logistic] F1: 0.7728, AUC: 0.9255
+[2026-09-28 03:11:56,726] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [random_forest] F1: 0.7498, AUC: 0.9163
+[2026-09-28 03:11:58,174] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [xgboost] F1: 0.7617, AUC: 0.9207
+[2026-09-28 03:11:58,282] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:11:58,636] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [logistic] F1: 0.7713, AUC: 0.9255
+[2026-09-28 03:11:59,517] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [random_forest] F1: 0.7547, AUC: 0.9172
+[2026-09-28 03:12:01,142] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [xgboost] F1: 0.7609, AUC: 0.9201
+[2026-09-28 03:12:01,242] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [baseline] F1: 0.3614, AUC: 0.5000
+[2026-09-28 03:12:01,632] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [logistic] F1: 0.7714, AUC: 0.9255
+[2026-09-28 03:12:02,503] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [random_forest] F1: 0.7547, AUC: 0.9165
+[2026-09-28 03:12:04,154] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [xgboost] F1: 0.7634, AUC: 0.9205
+[2026-09-28 03:12:04,158] [INFO] [dlsm.pipeline]: Evaluating Dataset B Regression (Mental_Health_Score)...
+[2026-09-28 03:12:04,227] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [baseline] R2: -0.0007 (+/- 0.0004), MAE: 7.4395
+[2026-09-28 03:12:04,290] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [ridge] R2: 0.2437 (+/- 0.0135), MAE: 6.3692
+[2026-09-28 03:12:05,339] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [random_forest] R2: 0.2433 (+/- 0.0167), MAE: 6.3665
+[2026-09-28 03:12:05,854] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [xgboost] R2: 0.2408 (+/- 0.0172), MAE: 6.3668
+[2026-09-28 03:12:05,932] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [baseline] R2: -0.0007 (+/- 0.0004), MAE: 7.4395
+[2026-09-28 03:12:06,005] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [ridge] R2: 0.2443 (+/- 0.0138), MAE: 6.3644
+[2026-09-28 03:12:07,953] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [random_forest] R2: 0.2423 (+/- 0.0149), MAE: 6.3713
+[2026-09-28 03:12:08,489] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [xgboost] R2: 0.2403 (+/- 0.0159), MAE: 6.3760
+[2026-09-28 03:12:08,573] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [baseline] R2: -0.0007 (+/- 0.0004), MAE: 7.4395
+[2026-09-28 03:12:08,648] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [ridge] R2: 0.2460 (+/- 0.0147), MAE: 6.3534
+[2026-09-28 03:12:11,205] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [random_forest] R2: 0.2433 (+/- 0.0145), MAE: 6.3649
+[2026-09-28 03:12:11,837] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [xgboost] R2: 0.2421 (+/- 0.0153), MAE: 6.3647
+[2026-09-28 03:12:11,929] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [baseline] R2: -0.0007 (+/- 0.0004), MAE: 7.4395
+[2026-09-28 03:12:12,006] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [ridge] R2: 0.2460 (+/- 0.0147), MAE: 6.3534
+[2026-09-28 03:12:14,933] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [random_forest] R2: 0.2430 (+/- 0.0145), MAE: 6.3657
+[2026-09-28 03:12:15,618] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [xgboost] R2: 0.2412 (+/- 0.0149), MAE: 6.3675
+[2026-09-28 03:12:15,632] [INFO] [dlsm.pipeline]: Evaluating Dataset B Classification (mental_health_risk)...
+[2026-09-28 03:12:15,725] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [baseline] F1: 0.1721, AUC: 0.5000
+[2026-09-28 03:12:15,890] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [logistic] F1: 0.4733, AUC: 0.6845
+[2026-09-28 03:12:17,101] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [random_forest] F1: 0.4937, AUC: 0.6916
+[2026-09-28 03:12:18,378] [INFO] [dlsm.evaluation.ablation]: [Exp_A_Raw] [xgboost] F1: 0.4898, AUC: 0.6886
+[2026-09-28 03:12:18,468] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [baseline] F1: 0.1721, AUC: 0.5000
+[2026-09-28 03:12:18,752] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [logistic] F1: 0.4790, AUC: 0.6846
+[2026-09-28 03:12:19,981] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [random_forest] F1: 0.4952, AUC: 0.6910
+[2026-09-28 03:12:21,520] [INFO] [dlsm.evaluation.ablation]: [Exp_B_Engineered] [xgboost] F1: 0.4906, AUC: 0.6871
+[2026-09-28 03:12:21,636] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [baseline] F1: 0.1721, AUC: 0.5000
+[2026-09-28 03:12:22,071] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [logistic] F1: 0.4867, AUC: 0.6863
+[2026-09-28 03:12:23,459] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [random_forest] F1: 0.4964, AUC: 0.6908
+[2026-09-28 03:12:25,212] [INFO] [dlsm.evaluation.ablation]: [Exp_C_Interactions] [xgboost] F1: 0.4906, AUC: 0.6882
+[2026-09-28 03:12:25,325] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [baseline] F1: 0.1721, AUC: 0.5000
+[2026-09-28 03:12:25,804] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [logistic] F1: 0.4868, AUC: 0.6863
+[2026-09-28 03:12:27,209] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [random_forest] F1: 0.4929, AUC: 0.6906
+[2026-09-28 03:12:28,897] [INFO] [dlsm.evaluation.ablation]: [Exp_D_Full_DLL] [xgboost] F1: 0.4921, AUC: 0.6888
+[2026-09-28 03:12:28,909] [INFO] [dlsm.pipeline]: --- STAGE 6: SHAP & Permutation Importance Analysis ---
+[2026-09-28 03:12:29,110] [INFO] [dlsm.explainability.shap_analysis]: SHAP explanation completed. Top feature: sleep_latency_ratio (34.97999954223633%)
+[2026-09-28 03:12:29,301] [INFO] [dlsm.explainability.shap_analysis]: SHAP explanation completed. Top feature: screen_to_sleep_ratio (37.09000015258789%)
+[2026-09-28 03:12:29,302] [INFO] [dlsm.pipeline]: --- STAGE 7: Bootstrap Statistical Mediation Modeling ---
+[2026-09-28 03:12:32,770] [INFO] [dlsm.statistics.mediation]: Mediation [digital_lifestyle_load -> sleep_latency_min -> next_day_fatigue_score]: Indirect=0.5479 (95% CI: [0.4998, 0.5954]), Significant=True
+[2026-09-28 03:12:36,189] [INFO] [dlsm.statistics.mediation]: Mediation [digital_lifestyle_load -> total_sleep_hours -> next_day_fatigue_score]: Indirect=0.6102 (95% CI: [0.5913, 0.6290]), Significant=True
+[2026-09-28 03:12:40,498] [INFO] [dlsm.statistics.mediation]: Mediation [total_digital_hours -> Sleep_Hours -> Mental_Health_Score]: Indirect=-0.2102 (95% CI: [-0.2273, -0.1931]), Significant=True
+[2026-09-28 03:12:45,040] [INFO] [dlsm.statistics.mediation]: Mediation [digital_lifestyle_load -> Sleep_Hours -> Mental_Health_Score]: Indirect=-0.3950 (95% CI: [-0.4321, -0.3581]), Significant=True
+[2026-09-28 03:12:45,252] [INFO] [dlsm.pipeline]: Processed datasets saved to data/processed/
+[2026-09-28 03:12:45,253] [INFO] [dlsm.pipeline]: ==================================================================
+[2026-09-28 03:12:45,253] [INFO] [dlsm.pipeline]: DLSM RESEARCH EXECUTION PIPELINE COMPLETED SUCCESSFULLY!
+[2026-09-28 03:12:45,253] [INFO] [dlsm.pipeline]: ==================================================================
+[2026-09-28 03:16:36,100] [INFO] [dlsm.statistics.mediation]: Mediation [X -> M -> Y]: Indirect=0.2703 (95% CI: [0.2035, 0.3388]), Significant=True

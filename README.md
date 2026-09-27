@@ -3,14 +3,22 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Tests Passing](https://img.shields.io/badge/pytest-6%2F6%20passed%20(100%25)-brightgreen.svg)]()
+[![Tests Passing](https://img.shields.io/badge/pytest-10%2F10%20passed%20(100%25)-brightgreen.svg)]()
 [![Code Style: Ruff / PEP8](https://img.shields.io/badge/code%20style-black%20%2F%20pep8-000000.svg)](https://github.com/astral-sh/ruff)
-[![Streamlit UI](https://img.shields.io/badge/Streamlit-8%20Research%20Modules-FF4B4B.svg)](https://streamlit.io/)
+[![Streamlit UI](https://img.shields.io/badge/Streamlit-11%20Research%20Modules-FF4B4B.svg)](https://streamlit.io/)
 [![Repository](https://img.shields.io/badge/GitHub-HarshkumarG007%2FDLSM-181717.svg)](https://github.com/HarshkumarG007/DLSM)
 
 > **Tagline:** *From isolated digital behaviors to a measurable architecture of student digital life.*
 
 The **Digital Lifestyle Spillover Model (DLSM)** is an open-source, publication-grade computational research framework and interactive machine learning platform. It synthesizes **24,500 real-world observations** across two independent observational cohorts ($N_A = 8,500$, $N_B = 16,000$) to investigate how digital engagement intensity, nocturnal exposure timing, sleep architecture disruption, and restorative lifestyle buffers impact student fatigue, burnout, and mental health.
+
+> [!IMPORTANT]
+> **Target Outcome Disclosure & Scope Clarification (Dataset B):**  
+> Although Dataset B is indexed on Kaggle as *"AI & Social Media Student Health and Grades"*, an exhaustive ground-truth schema audit reveals that **the raw CSV contains no academic grades, GPA, or exam score column** (verified 10 headers: `Student_ID`, `Age`, `Gender`, `Education_Level`, `Daily_Social_Media_Hours`, `Daily_AI_Tool_Usage_Hours`, `Sleep_Hours`, `Physical_Activity_Hours`, `Mental_Health_Score`, `Physical_Health_Score`). Consequently, **`Mental_Health_Score` serves as the empirical supervised target**, and downstream academic spillover is modeled conceptually rather than measured directly.
+
+> [!NOTE]
+> **Methodological Leakage Guard (Dataset A Classification):**  
+> Because `sleep_debt_category` is definitionally constructed from nocturnal sleep duration, all sleep-composition columns (`total_sleep_hours`, `deep_sleep_pct`, `rem_sleep_pct`, `sleep_latency_min`) are strictly excluded from classification feature sets. Models are evaluated purely on pre-sleep digital behavior, optical dose, and lifestyle variables (`bedtime_phone_minutes`, `screen_brightness_pct`, `blue_light_filter_active`, `caffeine_post_5pm_mg`, `primary_bedtime_app`, `physical_activity_min`), yielding an authentic un-leaked F1 of **$0.7634$** and ROC-AUC of **$0.9205$** (calibrated against published literature, avoiding the circular $0.998$ achieved if sleep duration were erroneously included).
 
 ---
 
@@ -129,7 +137,7 @@ A complete browser interaction session was recorded during automated verificatio
   - **PC1 Explained Variance:** **$71.30\%$** ($\lambda = 2.85$).
   - **Factor Analysis Concordance:** **$r = 0.9840$**.
   - **1,000-Resample Bootstrap Stability:** Mean cosine similarity **$\bar{s} = 1.0000 \pm 0.0000$** with **zero sign inversions**.
-- **Scientific Takeaway:** Proves that disparate digital indicators reliably collapse into an immutable, reproducible one-dimensional **Digital Lifestyle Load (DLL)** construct in both populations.
+- **Scientific Takeaway:** Demonstrates that disparate digital indicators reliably collapse into an immutable, reproducible one-dimensional **Digital Lifestyle Load (DLL)** construct in both populations.
 
 ---
 
@@ -209,7 +217,7 @@ A complete browser interaction session was recorded during automated verificatio
     - Inputs: Social Media: $1.5$h, AI: $3.5$h, Bedtime Phone: $25$ min, Brightness: $30\%$, Filter: ON, Sleep: $7.8$h, Exercise: $1.5$h.
     - Derived Ratios: **$\text{TDH} = 5.0$ hrs/day** ($-52.4\%$), **$\text{BII} = 5.2$** ($-94.4\%$ photon dose reduction), **$\text{SSR} = 0.64$** (Healthy Balance), **$\text{ABR} = 0.30$** (Strong Active Buffer).
     - Model Predictions: Classified into **Balanced Circadian Restorative Phenotype ($\text{DLL} = -0.98\sigma$)**, Predicted Fatigue: **$2.14 / 10.0$** (Robust daytime vitality), Predicted Mental Health: **$77.7 / 100.0$** (Well above population mean).
-- **Core Translation Value:** Directly proves how structural interventions—such as reducing bedtime screen minutes by $85$ min and increasing nocturnal sleep by $3$ hours—substantially mitigate both optical circadian disruption and psychological burnout.
+- **Core Translation Value:** Directly illustrates how structural interventions—such as reducing bedtime screen minutes by $85$ min and increasing nocturnal sleep by $3$ hours—substantially mitigate both optical circadian disruption and psychological burnout.
 
 ---
 
@@ -400,7 +408,7 @@ flowchart TD
 
 ### Phase 5: Supervised ML Progression & 4-Tier Feature Ablation
 - **Implementation:** [`src/dlsm/models/pipeline.py`](file:///c:/Users/Lenovo/Downloads/DLSM/src/dlsm/models/pipeline.py), [`src/dlsm/evaluation/ablation.py`](file:///c:/Users/Lenovo/Downloads/DLSM/src/dlsm/evaluation/ablation.py)
-- **Scientific Goal:** Never throw all features into a complex algorithm blindly. Prove that each layer of feature engineering adds measurable predictive value over a naive baseline.
+- **Scientific Goal:** Never throw all features into a complex algorithm blindly. Quantify whether each layer of feature engineering adds measurable predictive value over a naive baseline.
 
 ```
 THE 4-TIER FEATURE ABLATION LADDER:
@@ -415,6 +423,8 @@ THE 4-TIER FEATURE ABLATION LADDER:
 
 #### Empirical Cross-Validation Benchmarks (5-Fold CV)
 
+##### Regression Tasks (Continuous Endpoints)
+
 | Cohort & Task | Model Family | Exp A: Raw ($R^2$) | Exp B: Eng ($R^2$) | Exp C: Int ($R^2$) | Exp D: Full DLL ($R^2$) | $\Delta R^2$ (D vs A) |
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
 | **Dataset A** | Naive Baseline (Mean) | $-0.0013$ | $-0.0013$ | $-0.0013$ | $-0.0013$ | $0.0000$ |
@@ -426,9 +436,27 @@ THE 4-TIER FEATURE ABLATION LADDER:
 | | Random Forest | $0.2433$ | $0.2423$ | $0.2433$ | $0.2430$ | $-0.0003$ |
 | | XGBoost | $0.2408$ | $0.2403$ | $0.2421$ | $0.2412$ | $+0.0004$ |
 
+##### Classification Tasks (Discrete Risk Categorization — Definitional Leakage Guarded)
+
+> [!NOTE]
+> **Definitional Leakage Barrier:** In strict compliance with RULE-014, nocturnal sleep composition metrics (`total_sleep_hours`, `deep_sleep_pct`, `rem_sleep_pct`, `sleep_latency_min`) were excluded when predicting `sleep_debt_category` in Dataset A. Because sleep debt is clinically and mathematically derived from sleep duration, using sleep duration to predict sleep debt creates circular definitional leakage (which previously produced an inflated ROC-AUC of 0.998). When evaluated strictly on pre-sleep digital telemetry, lifestyle behaviors, and circadian optical properties, the models achieve literature-calibrated performance:
+
+| Cohort & Task | Model Family | Exp A: Raw (F1) | Exp B: Eng (F1) | Exp C: Int (F1) | Exp D: Full DLL (F1) | ROC-AUC (Exp D) |
+|:---|:---|:---:|:---:|:---:|:---:|:---:|
+| **Dataset A** | Naive Baseline | $0.3614$ | $0.3614$ | $0.3614$ | $0.3614$ | $0.5000$ |
+| (Sleep Debt Category — | **Logistic Regression** | $0.7720$ | **$0.7728$** | $0.7713$ | $0.7714$ | **$0.9255$** |
+| 4 Balanced Classes) | Random Forest | $0.7519$ | $0.7498$ | $0.7547$ | $0.7547$ | $0.9165$ |
+| | **XGBoost (Champion)** | $0.7610$ | $0.7617$ | $0.7609$ | **$0.7634$** | **$0.9205$** |
+| **Dataset B** | Naive Baseline | $0.1721$ | $0.1721$ | $0.1721$ | $0.1721$ | $0.5000$ |
+| (Mental Health Risk — | Logistic Regression | $0.4733$ | $0.4790$ | $0.4867$ | $0.4868$ | $0.6863$ |
+| 3 Quantile Tiers) | **Random Forest (Champion)**| $0.4937$ | $0.4952$ | **$0.4964$** | $0.4929$ | **$0.6916$** |
+| | XGBoost | $0.4898$ | $0.4906$ | $0.4906$ | $0.4921$ | $0.6888$ |
+
+*Literature Calibration:* Dataset A's un-leaked Macro F1 of **$0.7634$** (Balanced Accuracy $0.7186$) and Dataset B's ROC-AUC of **$0.6916$** calibrate directly against published student lifestyle research (e.g., benchmark studies reporting $77.9\%$ Random Forest and $72.1\%$ Decision Tree accuracy on student digital behavior and performance).
+
 > **Layman's Explanation:**  
-> In science, you must prove that complex tools are actually necessary. If a bicycle gets you to work in 10 minutes, you shouldn't buy a sports car just to arrive in 9 minutes and 59 seconds.  
-> Our tests showed that in Dataset A, gradient boosting (XGBoost) genuinely captures complex non-linear sleep interactions ($R^2 = 0.9545$). In Dataset B, however, a simpler regularized linear model (Ridge) performed just as well as complex tree ensembles, demonstrating that student mental health follows smooth, broad population trends.
+> In science, you must demonstrate that complex tools are actually necessary. If a bicycle gets you to work in 10 minutes, you shouldn't buy a sports car just to arrive in 9 minutes and 59 seconds.  
+> Our tests showed that in Dataset A, gradient boosting (XGBoost) captures non-linear sleep interactions ($R^2 = 0.9545$). In Dataset B, however, a simpler regularized linear model (Ridge) performed just as well as complex tree ensembles, demonstrating that student mental health follows smooth, broad population trends.
 
 ---
 
@@ -450,7 +478,7 @@ SHAP Global Attribution Breakdown (Dataset B Student Mental Health):
 ```
 
 > **The Big Discovery:**  
-> Look at the table above! When predicting student mental health distress, **`screen_to_sleep_ratio`** and **`active_buffer_ratio`** accounted for **$56.47\%$ of all predictive power combined**. Raw daily social media hours contributed less than $8\%$. This proves that the **relationship between screen time, sleep, and exercise** matters five times more than raw screen time alone!
+> Look at the table above! When predicting student mental health distress, **`screen_to_sleep_ratio`** and **`active_buffer_ratio`** accounted for **$56.47\%$ of all predictive power combined**. Raw daily social media hours contributed less than $8\%$. This demonstrates that within this predictive model, the **relationship between screen time, sleep, and exercise** accounts for five times more predictive attribution than raw screen time alone!
 
 ---
 
@@ -550,8 +578,8 @@ Our engineering choices follow established data science design patterns:
 - **ADR-001 (Zero Row-Wise Merging):** Preserves sample independence. Cohort A and B are never joined at the record level.
 - **ADR-002 (PCA + Factor Analysis over Deep Autoencoders):** Tabular data with 4-5 digital indicators benefits from transparent, deterministic, and inspectable eigenvectors. Deep autoencoders introduce unneeded complexity, hyperparameter sensitivity, and uninterpretable latent spaces.
 - **ADR-003 (Strict Pipeline Encapsulation):** All scalers and transformers are encapsulated in Scikit-learn `Pipeline` objects to guarantee mathematical zero-leakage across folds.
-- **ADR-004 (Empirical $k$-Selection):** Rather than forcing $k=4$, multi-metric optimization proved that $k=2$ is the mathematically robust cluster structure in both populations ($\text{ARI} > 0.98$).
-- **ADR-005 (4-Tier Feature Ablation):** Supervised modeling requires an ablation study (Exp A through D) to prove that domain-engineered ratios add true predictive value over raw features.
+- **ADR-004 (Empirical $k$-Selection):** Rather than forcing $k=4$, multi-metric optimization confirmed that $k=2$ is the mathematically robust cluster structure in both populations ($\text{ARI} > 0.98$).
+- **ADR-005 (4-Tier Feature Ablation):** Supervised modeling requires an ablation study (Exp A through D) to evaluate whether domain-engineered ratios add true predictive value over raw features.
 - **ADR-006 (5,000 Bootstrap Resamples for Mediation):** OLS path modeling with non-parametric bootstrap confidence intervals provides robust inference without assuming normality for indirect effect products.
 - **ADR-007 (Decoupled Artifact Caching):** Serializing models and metrics to `artifacts/` enables lightning-fast, reproducible Streamlit rendering without retraining.
 

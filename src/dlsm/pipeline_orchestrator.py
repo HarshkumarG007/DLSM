@@ -138,36 +138,52 @@ def run_dlsm_pipeline():
     logger.info("--- STAGE 5: Supervised Modeling & The Central Feature Ablation Study ---")
     evaluator = AblationEvaluator(random_state=42, cv_folds=5)
     
-    # Feature sets definitions for Dataset A
-    raw_num_a = ["age", "bedtime_phone_minutes", "screen_brightness_pct", "blue_light_filter_active",
-                 "caffeine_post_5pm_mg", "physical_activity_min", "sleep_latency_min", "total_sleep_hours",
-                 "deep_sleep_pct", "rem_sleep_pct", "morning_alarm_snoozes"]
+    # Feature sets definitions for Dataset A Regression (next_day_fatigue_score)
+    raw_num_a_reg = ["age", "bedtime_phone_minutes", "screen_brightness_pct", "blue_light_filter_active",
+                     "caffeine_post_5pm_mg", "physical_activity_min", "sleep_latency_min", "total_sleep_hours",
+                     "deep_sleep_pct", "rem_sleep_pct", "morning_alarm_snoozes"]
     raw_cat_a = ["gender", "occupation_type", "chronotype", "primary_bedtime_app"]
     
-    eng_num_a = ["bedtime_intensity_index", "screen_to_sleep_ratio", "sleep_architecture_efficiency",
-                 "cognitive_arousal_weight", "arousal_weighted_bedtime_exposure", "sleep_latency_ratio"]
-    
-    int_num_a = ["caffeine_screen_interaction", "brightness_screen_interaction", "screen_sleep_interaction"]
-    
+    eng_num_a_reg = ["bedtime_intensity_index", "screen_to_sleep_ratio", "sleep_architecture_efficiency",
+                     "cognitive_arousal_weight", "arousal_weighted_bedtime_exposure", "sleep_latency_ratio"]
+    int_num_a_reg = ["caffeine_screen_interaction", "brightness_screen_interaction", "screen_sleep_interaction"]
     dll_num_a = ["digital_lifestyle_load"]
     
-    feature_sets_a = {
-        "Exp_A_Raw": (raw_num_a, raw_cat_a),
-        "Exp_B_Engineered": (raw_num_a + eng_num_a, raw_cat_a),
-        "Exp_C_Interactions": (raw_num_a + eng_num_a + int_num_a, raw_cat_a),
-        "Exp_D_Full_DLL": (raw_num_a + eng_num_a + int_num_a + dll_num_a, raw_cat_a)
+    feature_sets_a_reg = {
+        "Exp_A_Raw": (raw_num_a_reg, raw_cat_a),
+        "Exp_B_Engineered": (raw_num_a_reg + eng_num_a_reg, raw_cat_a),
+        "Exp_C_Interactions": (raw_num_a_reg + eng_num_a_reg + int_num_a_reg, raw_cat_a),
+        "Exp_D_Full_DLL": (raw_num_a_reg + eng_num_a_reg + int_num_a_reg + dll_num_a, raw_cat_a)
+    }
+
+    # Feature sets definitions for Dataset A Classification (sleep_debt_category)
+    # CRITICAL METHODOLOGICAL LEAKAGE GUARD:
+    # Sleep debt is definitionally derived from total sleep hours.
+    # To test whether PRE-SLEEP DIGITAL BEHAVIOR genuinely predicts sleep debt risk,
+    # we strictly drop all nocturnal sleep composition columns (total_sleep_hours, deep_sleep_pct,
+    # rem_sleep_pct, sleep_latency_min, etc.) preventing circular definitional leakage.
+    raw_num_a_clf = ["age", "bedtime_phone_minutes", "screen_brightness_pct", "blue_light_filter_active",
+                     "caffeine_post_5pm_mg", "physical_activity_min", "morning_alarm_snoozes"]
+    eng_num_a_clf = ["bedtime_intensity_index", "cognitive_arousal_weight", "arousal_weighted_bedtime_exposure"]
+    int_num_a_clf = ["caffeine_screen_interaction", "brightness_screen_interaction"]
+    
+    feature_sets_a_clf = {
+        "Exp_A_Raw": (raw_num_a_clf, raw_cat_a),
+        "Exp_B_Engineered": (raw_num_a_clf + eng_num_a_clf, raw_cat_a),
+        "Exp_C_Interactions": (raw_num_a_clf + eng_num_a_clf + int_num_a_clf, raw_cat_a),
+        "Exp_D_Full_DLL": (raw_num_a_clf + eng_num_a_clf + int_num_a_clf + dll_num_a, raw_cat_a)
     }
     
     logger.info("Evaluating Dataset A Regression (next_day_fatigue_score)...")
     reg_results_a = evaluator.evaluate_regression(
-        df_a_full, feature_sets_a, target_col="next_day_fatigue_score",
+        df_a_full, feature_sets_a_reg, target_col="next_day_fatigue_score",
         model_types=["baseline", "ridge", "random_forest", "xgboost"]
     )
     reg_results_a.to_csv("artifacts/metrics/ablation_regression_dataset_a.csv", index=False)
     
-    logger.info("Evaluating Dataset A Classification (sleep_debt_category)...")
+    logger.info("Evaluating Dataset A Classification (sleep_debt_category, un-leaked behavioral features)...")
     clf_results_a = evaluator.evaluate_classification(
-        df_a_full, feature_sets_a, target_col="sleep_debt_category",
+        df_a_full, feature_sets_a_clf, target_col="sleep_debt_category",
         model_types=["baseline", "logistic", "random_forest", "xgboost"]
     )
     clf_results_a.to_csv("artifacts/metrics/ablation_classification_dataset_a.csv", index=False)
@@ -204,7 +220,7 @@ def run_dlsm_pipeline():
     # 6. EXPLAINABILITY & SHAP (Phase 6)
     logger.info("--- STAGE 6: SHAP & Permutation Importance Analysis ---")
     # Fit final representative XGBoost model on Dataset A for fatigue prediction
-    num_cols_final_a, cat_cols_final_a = feature_sets_a["Exp_D_Full_DLL"]
+    num_cols_final_a, cat_cols_final_a = feature_sets_a_reg["Exp_D_Full_DLL"]
     prep_a = build_preprocessing_pipeline(num_cols_final_a, cat_cols_final_a)
     X_a_mat = prep_a.fit_transform(df_a_full)
     y_a = df_a_full["next_day_fatigue_score"].values

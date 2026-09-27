@@ -77,7 +77,7 @@ The **Digital Lifestyle Spillover Model (DLSM)** research system is fully built,
 
 ### 3.2 Supervised Feature Ablation Progression
 - **Dataset A (Fatigue Regression $R^2$):** Baseline: $-0.0013 \rightarrow$ Exp A: $0.9534 \rightarrow$ Exp B: $0.9543 \rightarrow$ Exp C: $0.9544 \rightarrow$ Exp D: **$0.9545$** (XGBoost).
-- **Dataset A (Sleep Debt Classification F1):** Baseline: $0.3614 \rightarrow$ XGBoost: **$0.9720$** ($\text{ROC-AUC} = 0.9987$).
+- **Dataset A (Sleep Debt Classification F1 - Un-leaked):** Baseline: $0.3614 \rightarrow$ Logistic: **$0.7728$** ($\text{ROC-AUC} = 0.9255$), XGBoost: **$0.7634$** ($\text{ROC-AUC} = 0.9205$). Definitional leakage barrier applied (sleep duration features excluded).
 - **Dataset B (Mental Health Regression $R^2$):** Baseline: $-0.0007 \rightarrow$ Exp A: $0.2437 \rightarrow$ Exp B: $0.2443 \rightarrow$ Exp C: **$0.2460$** $\rightarrow$ Exp D: **$0.2460$** (Ridge).
 - **Dataset B (Mental Health Risk Classification F1):** Baseline: $0.1721 \rightarrow$ Random Forest: **$0.4964$** ($\text{ROC-AUC} = 0.6916$).
 

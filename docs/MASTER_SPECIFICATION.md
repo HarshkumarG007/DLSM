@@ -121,6 +121,7 @@ Both datasets were audited directly from the raw Kaggle CSV files. Zero missing 
   8. `Physical_Activity_Hours` (Float64, range: 0.0–5.0 hrs, $\mu = 1.25 \pm 0.94$): `BEHAVIORAL`
   9. `Mental_Health_Score` (Float64, range: 32.56–91.76, $\mu = 72.49 \pm 9.24$): `TARGET (Regression)`
   10. `Physical_Health_Score` (Float64, range: 48.03–99.98, $\mu = 88.02 \pm 8.65$): `HEALTH`
+  *(Note on Target Outcome Disclosure: Despite the Kaggle title referencing academic performance and grades, raw schema auditing verifies 0 grades/GPA columns. `Mental_Health_Score` is the empirical target, while downstream academic impacts are framed conceptually).*
 
 ### 3.2 Semantic Feature Taxonomy
 Every discovered variable is bound to one of 12 immutable semantic roles:
@@ -260,9 +261,9 @@ Exp D: Full DLSM Framework
 | | Random Forest | $0.2433 \pm 0.0167$ | $0.2423 \pm 0.0149$ | $0.2433 \pm 0.0145$ | $0.2430 \pm 0.0145$ | $-0.0003$ |
 | | XGBoost | $0.2408 \pm 0.0172$ | $0.2403 \pm 0.0159$ | $0.2421 \pm 0.0153$ | $0.2412 \pm 0.0149$ | $+0.0004$ |
 
-- **Classification Benchmarks:**
-  - Dataset A (`sleep_debt_category`): XGBoost achieved **$\text{F1} = 0.9720 \pm 0.0014$**, **$\text{ROC-AUC} = 0.9987$** (Baseline F1: $0.3614$).
-  - Dataset B (`mental_health_risk`): Random Forest achieved **$\text{F1} = 0.4964 \pm 0.0082$**, **$\text{ROC-AUC} = 0.6916$** (Baseline F1: $0.1721$).
+- **Classification Benchmarks (Definitional Leakage Guarded):**
+  - Dataset A (`sleep_debt_category` — 4 balanced classes): XGBoost achieved **$\text{Macro F1} = 0.7634 \pm 0.0087$**, **$\text{ROC-AUC} = 0.9205 \pm 0.0031$**; Logistic Regression achieved **$\text{Macro F1} = 0.7728 \pm 0.0076$**, **$\text{ROC-AUC} = 0.9255 \pm 0.0032$** (Baseline F1: $0.3614$). *Guarded against definitional leakage by strictly excluding sleep duration/composition features.*
+  - Dataset B (`mental_health_risk` — 3 quantile tiers): Random Forest achieved **$\text{Macro F1} = 0.4964 \pm 0.0075$**, **$\text{ROC-AUC} = 0.6916 \pm 0.0054$** (Baseline F1: $0.1721$).
 
 ---
 
@@ -534,7 +535,7 @@ Phase 10: Academic Manuscript & Cards      ──▶  COMPLETED (docs/JOURNAL_AR
 3. **"Is your mediation model claiming causality?"**  
    *Response:* Absolutely not. The manuscript and portal designate the models as *statistical mediation* compatible with hypothesized pathways, explicitly citing cross-sectional limitations (**RULE-015**, **RULE-029**).
 4. **"Does feature engineering actually add value or just noise?"**  
-   *Response:* Proven via the 5-fold cross-validation ablation study: in Dataset B, engineered relational ratios (`screen_to_sleep_ratio` and `active_buffer_ratio`) account for **$56.47\%$ of total SHAP predictive credit**, outperforming raw screen hours by 5x.
+   *Response:* Demonstrated via the 5-fold cross-validation ablation study: in Dataset B, engineered relational ratios (`screen_to_sleep_ratio` and `active_buffer_ratio`) account for **$56.47\%$ of total SHAP predictive credit**, outperforming raw screen hours by 5x.
 
 ### 16.2 Acceptance Checklist
 - [x] Pandera schema contracts pass with 0 errors.

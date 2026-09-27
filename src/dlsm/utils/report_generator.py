@@ -46,7 +46,7 @@ def generate_executive_report_markdown(project_root: Path) -> str:
 
 ## 1. Executive Summary
 
-The **Digital Lifestyle Spillover Model (DLSM)** resolves a long-standing challenge in student health informatics: evaluating the holistic impact of modern technology engagement beyond uncalibrated volumetric "screen time". Across **24,500 real-world observations** drawn from two independent cohorts ($N_A = 8,500$ bedtime telemetry records; $N_B = 16,000$ student digital life records), the framework proves that **relational behavioral composition** (e.g., the ratio of screen time to nocturnal sleep duration and exercise buffers) accounts for **over five times more predictive attribution** than aggregate screen hours alone.
+The **Digital Lifestyle Spillover Model (DLSM)** resolves a long-standing challenge in student health informatics: evaluating the holistic impact of modern technology engagement beyond uncalibrated volumetric "screen time". Across **24,500 real-world observations** drawn from two independent cohorts ($N_A = 8,500$ bedtime telemetry records; $N_B = 16,000$ student digital life records), the framework demonstrates that **relational behavioral composition** (e.g., the ratio of screen time to nocturnal sleep duration and exercise buffers) accounts for **over five times more predictive attribution** than aggregate screen hours alone.
 
 ### Central Research Findings:
 1. **The Latent Behavioral Construct (H4):** Principal Component Analysis independently compressed correlated digital indicators into a single, standardized **Digital Lifestyle Load (DLL)** construct explaining **65.97%** of variance in Cohort A ($\lambda = 2.64$) and **71.30%** in Cohort B ($\lambda = 2.85$). Factor Analysis concordance was $r > 0.98$, and 1,000 bootstrap resamples confirmed $\bar{s} = 1.0000 \pm 0.0001$ cosine stability with zero sign inversions.
@@ -67,7 +67,8 @@ $$\text{DLL}_A = f(X_A), \quad \text{DLL}_B = f(X_B)$$
 
 ### 2.2 Population Schemas
 - **Dataset A (Bedtime Screen Time & Sleep Debt):** $N = 8,500$ rows, 18 attributes, $0.00\%$ missingness. Mean bedtime phone use: $59.25 \pm 38.64$ min; mean sleep latency: $40.67 \pm 19.82$ min; mean sleep duration: $6.27 \pm 1.28$ hrs.
-- **Dataset B (Student AI & Social Media Wellbeing):** $N = 16,000$ rows, 10 attributes, $0.00\%$ missingness. Mean daily social media hours: $4.54 \pm 2.31$ hrs; mean daily AI tool hours: $2.59 \pm 1.62$ hrs; mean sleep duration: $6.55 \pm 1.48$ hrs; mean mental health score: $72.49 \pm 9.24$.
+- **Dataset B (Student AI & Social Media Wellbeing):** $N = 16,000$ rows, 10 attributes, $0.00\%$ missingness. Mean daily social media hours: $4.54 \pm 2.31$ hrs; mean daily AI tool hours: $2.59 \pm 1.62$ hrs; mean sleep duration: $6.55 \pm 1.48$ hrs; mean mental health score: $72.49 \pm 9.24$.  
+  *(Target Outcome Disclosure: Despite the Kaggle repository title referencing student academic performance and grades, raw schema auditing verifies 0 grades or GPA columns. Mental_Health_Score is the empirical supervised target, measuring psychological strain, while downstream academic impacts are framed conceptually).*
 
 ---
 
@@ -93,6 +94,7 @@ $$\text{DLL}_A = f(X_A), \quad \text{DLL}_B = f(X_B)$$
 
 All models were evaluated using 5-fold cross-validation encapsulated inside Scikit-learn Pipelines (**RULE-006**):
 
+### 4.1 Regression Progression ($R^2$)
 | Task & Population | Algorithm | Exp A: Raw | Exp B: Eng | Exp C: Int | Exp D: Full DLL | Net Improvement ($\Delta$) |
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
 | **Cohort A Fatigue ($R^2$)** | Naive Baseline | $-0.0013$ | $-0.0013$ | $-0.0013$ | $-0.0013$ | $0.0000$ |
@@ -103,6 +105,10 @@ All models were evaluated using 5-fold cross-validation encapsulated inside Scik
 | | **Ridge (Champion)** | $0.2437$ | $0.2443$ | **$0.2460$** | **$0.2460$** | **$+0.0023$** |
 | | Random Forest | $0.2433$ | $0.2423$ | $0.2433$ | $0.2430$ | $-0.0003$ |
 | | XGBoost | $0.2408$ | $0.2403$ | $0.2421$ | $0.2412$ | $+0.0004$ |
+
+### 4.2 Discrete Classification Progression (Definitional Leakage Guarded)
+- **Cohort A (Sleep Debt Category — 4 Balanced Classes):** Naive Baseline F1: $0.3614$. Logistic Regression achieved Macro F1: **$0.7728 \pm 0.0076$** ($\text{ROC-AUC} = 0.9255$). XGBoost achieved Macro F1: **$0.7634 \pm 0.0087$** ($\text{ROC-AUC} = 0.9205$). *(Note: Nocturnal sleep composition metrics were excluded to prevent circular definitional leakage).*
+- **Cohort B (Mental Health Risk Tier — 3 Quantile Tiers):** Naive Baseline F1: $0.1721$. Random Forest achieved Macro F1: **$0.4964 \pm 0.0075$** ($\text{ROC-AUC} = 0.6916$).
 
 ---
 

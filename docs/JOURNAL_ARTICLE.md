@@ -10,7 +10,7 @@
 
 ## Abstract
 
-Modern student life is defined by pervasive digital interaction spanning social media feeds, algorithmic video, and generative artificial intelligence tools. While aggregate screen-time has traditionally served as a crude metric in behavioral studies, it fails to capture critical dimensions such as temporal exposure concentration, biophysical optical intensity, and behavioral composition. Here, we present the **Digital Lifestyle Spillover Model (DLSM)**, a rigorous, cross-dataset AI/ML research framework designed to synthesize latent digital behavior constructs across two disjoint, non-concatenated observational cohorts ($N_{\text{total}} = 24,500$): Dataset A ($N = 8,500$, polysomnographic lifestyle telemetry) and Dataset B ($N = 16,000$, student AI and social media academic wellbeing). 
+Modern student life is defined by pervasive digital interaction spanning social media feeds, algorithmic video, and generative artificial intelligence tools. While aggregate screen-time has traditionally served as a crude metric in behavioral studies, it fails to capture critical dimensions such as temporal exposure concentration, biophysical optical intensity, and behavioral composition. Here, we present the **Digital Lifestyle Spillover Model (DLSM)**, a rigorous, cross-dataset AI/ML research framework designed to synthesize latent digital behavior constructs across two disjoint, non-concatenated observational cohorts ($N_{\text{total}} = 24,500$): Dataset A ($N = 8,500$, polysomnographic lifestyle telemetry) and Dataset B ($N = 16,000$, student AI and social media academic wellbeing; Note: Dataset B contains no grades or academic achievement column; `Mental_Health_Score` is the empirical target, while downstream academic impacts are framed conceptually based on cognitive spillover literature). 
 
 Rather than executing an invalid row-wise merge across distinct populations, DLSM constructs independent, comparable latent dimensions of **Digital Lifestyle Load (DLL)** via Principal Component Analysis (PCA) with Factor Analysis (FA) sensitivity checking and 1,000 bootstrap resample stability validation. Across both populations, a single dominant latent factor emerged accounting for $>65\%$ of behavioral variance ($65.97\%$ in Dataset A, $71.30\%$ in Dataset B) with near-perfect Factor Analysis concordance ($r > 0.98$) and bootstrap cosine similarity stability ($\bar{s} = 1.0000$). Unsupervised behavioral profiling identified two reproducible phenotypes in each cohort (Bootstrap Adjusted Rand Index $> 0.98$): a *High-Load Nocturnally Disrupted* profile vs a *Regulated Circadian Restorative* profile in Cohort A, and an *Intensive Dual-Screen Digital Load* profile vs a *Balanced Digital Moderates* profile in Cohort B. 
 
@@ -79,6 +79,9 @@ In strict compliance with **RULE-001**, **RULE-002**, and **RULE-003**, Dataset 
   - `Physical_Activity_Hours` ($\mu = 1.25$, range: $0.0-5.0$ hrs)
   - `Mental_Health_Score` ($\mu = 72.49$, range: $32.56-91.76$)
   - `Physical_Health_Score` ($\mu = 88.02$, range: $48.03-99.98$).
+
+> [!IMPORTANT]
+> **Dataset B Target Outcome Disclosure:** Despite the Kaggle dataset title referencing student academic performance and grades, direct schema auditing verifies that Dataset B contains no grades, GPA, or exam score column. In strict alignment with scientific transparency (RULE-026), `Mental_Health_Score` serves as the empirical supervised target, measuring psychological strain and cognitive exhaustion, while downstream academic implications are modeled conceptually.
 
 ---
 
@@ -165,9 +168,13 @@ To determine whether the DLSM domain features and latent representation provide 
 | | Random Forest | $0.2433 \pm 0.0167$ | $0.2423 \pm 0.0149$ | $0.2433 \pm 0.0145$ | $0.2430 \pm 0.0145$ | $-0.0003$ |
 | | XGBoost | $0.2408 \pm 0.0172$ | $0.2403 \pm 0.0159$ | $0.2421 \pm 0.0153$ | $0.2412 \pm 0.0149$ | $+0.0004$ |
 
-### 7.2 Classification Performance Summary (5-Fold CV)
-- **Dataset A (Sleep Debt Category):** Baseline F1 $= 0.3614$. XGBoost achieved **$\text{F1} = 0.9720 \pm 0.0014$** and **$\text{ROC-AUC} = 0.9987$**.
-- **Dataset B (Mental Health Risk Tier):** Baseline F1 $= 0.1721$. Random Forest and XGBoost achieved **$\text{F1} = 0.4964 \pm 0.0082$** and **$\text{ROC-AUC} = 0.6916$**.
+### 7.2 Classification Performance Summary (5-Fold CV — Definitional Leakage Guarded)
+
+> [!NOTE]
+> **Definitional Leakage Barrier (RULE-014):** In Dataset A, nocturnal sleep composition variables (`total_sleep_hours`, `deep_sleep_pct`, `rem_sleep_pct`, and `sleep_latency_min`) were strictly excluded when predicting `sleep_debt_category`. Because sleep debt is clinically and mathematically derived from nocturnal sleep duration, including sleep duration produces circular definitional leakage (which previously caused an inflated ROC-AUC of 0.998). When evaluated strictly on pre-sleep digital telemetry, lifestyle behaviors, and circadian optical properties:
+
+- **Dataset A (Sleep Debt Category — 4-Class Balanced Classification):** Baseline Macro F1 $= 0.3614$ (Balanced Acc $= 0.2500$, ROC-AUC $= 0.5000$). XGBoost achieved **$\text{Macro F1} = 0.7634 \pm 0.0087$** (Balanced Acc $= 0.7186 \pm 0.0100$, **$\text{ROC-AUC} = 0.9205 \pm 0.0031$**). Logistic Regression achieved **$\text{Macro F1} = 0.7728 \pm 0.0076$** ($\text{ROC-AUC} = 0.9255 \pm 0.0032$). Random Forest achieved **$\text{Macro F1} = 0.7547 \pm 0.0130$** ($\text{ROC-AUC} = 0.9165 \pm 0.0043$). This un-leaked $+0.40$ macro F1 lift over baseline calibrates directly against published literature on student digital behavior (e.g., benchmark studies reporting $77.9\%$ Random Forest and $72.1\%$ Decision Tree accuracy).
+- **Dataset B (Mental Health Risk Tier — 3-Class Quantile Classification):** Baseline Macro F1 $= 0.1721$ (Balanced Acc $= 0.3333$, ROC-AUC $= 0.5000$). Random Forest achieved **$\text{Macro F1} = 0.4964 \pm 0.0075$** and **$\text{ROC-AUC} = 0.6916 \pm 0.0054$**; XGBoost achieved **$\text{Macro F1} = 0.4921 \pm 0.0064$** and **$\text{ROC-AUC} = 0.6888 \pm 0.0048$**, reflecting honest predictive limits in cross-sectional survey data.
 
 ---
 
