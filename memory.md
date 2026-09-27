@@ -57,6 +57,11 @@ The **Digital Lifestyle Spillover Model (DLSM)** research system is fully built,
 - **Decision:** Decouple modeling execution from visualization. All results are serialized to `artifacts/metrics/`, `artifacts/models/`, and `artifacts/shap/`. Streamlit reads saved artifacts using `@st.cache_data`.
 - **Consequence:** Sub-200ms instantaneous page transitions in the dashboard.
 
+### ADR-008: Real-Time Policy & Lifestyle Intervention Simulator
+- **Context:** Translating empirical regression weights and biophysical formulas into actionable decision tools for educators, students, and clinicians.
+- **Decision:** Implement an interactive simulation engine (Page 9) in Streamlit that dynamically recalculates Total Digital Hours, Bedtime Intensity Index, Screen-to-Sleep Ratio, Active Buffer Ratio, and predicted fatigue/mental health based on user-controlled behavioral levers and preset scenarios.
+- **Consequence:** Bridges the gap between static research figures and interactive policy exploration without requiring real-time model retraining.
+
 ---
 
 ## 3. Empirical Findings Ledger (Exact Verified Figures)

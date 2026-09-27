@@ -101,3 +101,16 @@
 - [x] **TASK-20.1:** Implement automated test suite in [`tests/unit/test_core.py`](tests/unit/test_core.py) (6/6 tests passing).
 - [x] **TASK-20.2:** Author containerization configs [`Dockerfile`](Dockerfile) and [`docker-compose.yml`](docker-compose.yml).
 - [x] **TASK-20.3:** Author academic manuscript [`docs/JOURNAL_ARTICLE.md`](docs/JOURNAL_ARTICLE.md).
+
+## Phase 21: CI/CD Automation & GitHub Remote Synchronization
+- [x] **TASK-21.1:** Author GitHub Actions workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) testing Python 3.11 & 3.12.
+- [x] **TASK-21.2:** Synchronize remote repository at `https://github.com/HarshkumarG007/DLSM` on `main`.
+
+## Phase 22: Pre-Rendered Executable Research Notebooks
+- [x] **TASK-22.1:** Resolve Windows asyncio libzmq event loop policy in [`notebooks/generate_notebooks.py`](notebooks/generate_notebooks.py).
+- [x] **TASK-22.2:** Execute and pre-render all 8 notebooks (`01` to `08`) with outputs for direct viewing on GitHub.
+
+## Phase 23: Interactive Lifestyle & Academic Policy Simulator
+- [x] **TASK-23.1:** Implement Page 9 (`Lifestyle & Policy Simulator`) in [`app/dashboard.py`](app/dashboard.py) with dynamic biophysical formulas.
+- [x] **TASK-23.2:** Verify real-time intervention scenarios ("Exams Doomscroller" vs "Balanced AI Scholar") via browser subagent.
+- [x] **TASK-23.3:** Embed high-resolution verification screenshots into [`docs/images/`](docs/images/) and [`README.md`](README.md).
