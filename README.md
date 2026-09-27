@@ -213,6 +213,17 @@ A complete browser interaction session was recorded during automated verificatio
 
 ---
 
+#### 7. Automated 1-Click Executive Research Report Generator & Certified Audit (`Page 8 & Sidebar`)
+![07 Executive Report Export](docs/images/07_executive_report_export.png)
+
+- **Instantaneous Certified Compilation:** Automatically synthesizes the entire experimental ledger, data governance boundaries, latent factor statistics, 4-tier ablation tables, and policy takeaways into a publication-grade executive summary report.
+- **Multi-Format Export Options:**
+  - **Markdown (`.md`):** Complete GitHub Flavored Markdown document ready for documentation, academic preprint attachments, or institutional repositories.
+  - **Standalone Print-Ready HTML (`.html`):** Styled with clean academic typography (`Inter`, `JetBrains Mono`), responsive container margins, and print-media CSS with a dedicated **"🖨️ Print to PDF"** button for instant PDF export via standard browser print dialogs (`Ctrl+P` / `Cmd+P`).
+- **Sidebar & In-Portal Availability:** Download buttons are accessible globally from the sidebar across all 9 pages, as well as via an expandable in-portal preview on Page 8 (*Threat Model & Scientific Review*).
+
+---
+
 ## 🏗️ Phase-by-Phase Implementation Journey
 
 Below is the complete engineering and scientific progression of the DLSM framework from raw data ingestion to interactive deployment.

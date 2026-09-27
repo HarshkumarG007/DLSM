@@ -126,3 +126,15 @@ def test_no_pipeline_leakage():
     # Train mean of x1 is 2.0, std is sqrt(2/3)=0.816. Test x1=100 scaled with train mean/std:
     expected_scaled_x1 = (100.0 - 2.0) / np.std([1.0, 2.0, 3.0])
     assert np.isclose(test_proc[0, 0], expected_scaled_x1, atol=1e-3)
+
+def test_executive_report_generation():
+    from dlsm.utils.report_generator import generate_executive_report_markdown, generate_executive_report_html
+    project_root = Path(__file__).resolve().parent.parent.parent
+    md = generate_executive_report_markdown(project_root)
+    html = generate_executive_report_html(md)
+    
+    assert len(md) > 1000
+    assert "Executive Research Report" in md
+    assert "Digital Lifestyle Spillover Model" in md
+    assert len(html) > 2000
+    assert "<!DOCTYPE html>" in html

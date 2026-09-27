@@ -11,6 +11,7 @@ import numpy as np
 import json
 import plotly.express as px
 import plotly.graph_objects as go
+from dlsm.utils.report_generator import generate_executive_report_markdown, generate_executive_report_html
 
 # Configure Streamlit page
 st.set_page_config(
@@ -108,6 +109,12 @@ def load_processed_samples():
     df_b = pd.read_csv(root_dir / "data/processed/dataset_b_processed.csv")
     return df_a, df_b
 
+@st.cache_data
+def get_executive_report():
+    md = generate_executive_report_markdown(root_dir)
+    html = generate_executive_report_html(md)
+    return md, html
+
 # Sidebar Header
 st.sidebar.image("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&q=80", use_container_width=True)
 st.sidebar.title("DLSM Navigation")
@@ -137,6 +144,24 @@ st.sidebar.markdown("""
 - Independent Populations: **2**  
 - Total Observations ($N$): **24,500**
 """)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("**📄 Executive Research Report**")
+rep_md, rep_html = get_executive_report()
+st.sidebar.download_button(
+    label="📥 Download Report (.md)",
+    data=rep_md,
+    file_name="DLSM_Executive_Research_Report.md",
+    mime="text/markdown",
+    use_container_width=True
+)
+st.sidebar.download_button(
+    label="🌐 Download Report (.html)",
+    data=rep_html,
+    file_name="DLSM_Executive_Research_Report.html",
+    mime="text/html",
+    use_container_width=True
+)
 
 # ==============================================================================
 # PAGE 1: RESEARCH OVERVIEW & THEORY
@@ -469,6 +494,32 @@ elif menu == "8. Threat Model & Scientific Review":
     3. **Sleep is the Primary Behavioral Conduit:** Statistical mediation confirms that 45.7% to 50.8% of digital lifestyle fatigue operates through sleep latency and nocturnal duration disruption.
     4. **Reproducible Latent Construct:** Across both disjoint populations, a single stable Digital Lifestyle Load (DLL) latent dimension emerges with >65% explained variance and $r > 0.98$ Factor Analysis concordance.
     """)
+
+    st.markdown("---")
+    st.subheader("Executive Research Report Export & Certified Audit")
+    st.markdown("""
+    Download the authoritative, self-contained executive summary report containing all formal equations,
+    ablation benchmarks, latent construct validation metrics, and educational policy takeaways.
+    """)
+
+    rep_col1, rep_col2 = st.columns(2)
+    rep_col1.download_button(
+        label="📥 Download Executive Summary (Markdown .md)",
+        data=rep_md,
+        file_name="DLSM_Executive_Research_Report.md",
+        mime="text/markdown",
+        use_container_width=True
+    )
+    rep_col2.download_button(
+        label="🌐 Download Print-Ready Report (HTML / PDF Print)",
+        data=rep_html,
+        file_name="DLSM_Executive_Research_Report.html",
+        mime="text/html",
+        use_container_width=True
+    )
+
+    with st.expander("📖 Click to Preview Certified Executive Research Report In-Portal"):
+        st.markdown(rep_md)
 
 # ==============================================================================
 # PAGE 9: LIFESTYLE & ACADEMIC POLICY SIMULATOR
