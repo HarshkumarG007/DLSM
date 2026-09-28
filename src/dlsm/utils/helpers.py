@@ -47,5 +47,20 @@ def save_pickle(obj: Any, filepath: str | Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(obj, path)
 
-def load_pickle(filepath: str | Path) -> Any:
-    return joblib.load(filepath)
+def load_pickle(filepath: str | Path, verify_checksum: bool = True) -> Any:
+    path = Path(filepath)
+    if verify_checksum:
+        checksums_file = path.parent / "checksums.json"
+        if checksums_file.exists():
+            import hashlib
+            with open(checksums_file, "r", encoding="utf-8") as f:
+                checksums = json.load(f)
+            expected = checksums.get(path.name)
+            if expected:
+                actual = hashlib.sha256(path.read_bytes()).hexdigest()
+                if actual != expected:
+                    raise ValueError(
+                        f"Security Alert: Checksum mismatch for {path.name} (possible model tampering). "
+                        f"Expected {expected}, got {actual}"
+                    )
+    return joblib.load(path)

@@ -23,16 +23,15 @@ client = TestClient(app)
 class TestSecurityRegression:
     """Security regression test cases mapped to Red-Team findings."""
 
-    def test_sec_01_api_authentication_posture(self):
+    def test_sec_01_api_authentication_posture(self, monkeypatch):
         """
-        [SEC-01] Broken Authentication / Open Endpoints Audit.
+        [SEC-01] Broken Authentication & API Key Enforcement Audit.
         EXPECTED SECURE BEHAVIOR: Sensitive inference endpoints should require authentication (API key or Bearer token).
-        CURRENT FINDING: Endpoints are open/unauthenticated. This test documents the open attack surface.
+        Remediated with optional env-driven X-API-Key enforcement.
         """
         resp_health = client.get("/health")
-        assert resp_health.status_code == 200, "Health check should be accessible"
+        assert resp_health.status_code == 200, "Health check should be accessible unauthenticated"
         
-        # Test that predict endpoint currently responds without auth headers
         payload = {
             "age": 21,
             "gender": "Female",
@@ -50,8 +49,22 @@ class TestSecurityRegression:
             "deep_sleep_pct": 21.0,
             "rem_sleep_pct": 19.0
         }
+        # In default local/dev mode without DLSM_API_KEY configured, access is permitted
         resp_pred = client.post("/api/v1/predict/fatigue", json=payload)
-        assert resp_pred.status_code == 200, "Documents unauthenticated access allowed"
+        assert resp_pred.status_code == 200, "Documents access allowed in development"
+
+        # When DLSM_API_KEY is configured, requests without key must receive 401 Unauthorized
+        monkeypatch.setenv("DLSM_API_KEY", "dlsm-test-secret-key-2026")
+        resp_unauth = client.post("/api/v1/predict/fatigue", json=payload)
+        assert resp_unauth.status_code == 401, "Protected endpoint must reject unauthenticated requests when DLSM_API_KEY set"
+
+        # Requests with wrong key must receive 401 Unauthorized
+        resp_wrong = client.post("/api/v1/predict/fatigue", json=payload, headers={"X-API-Key": "wrong-key"})
+        assert resp_wrong.status_code == 401, "Protected endpoint must reject invalid API key"
+
+        # Requests with valid key must receive 200 OK
+        resp_auth = client.post("/api/v1/predict/fatigue", json=payload, headers={"X-API-Key": "dlsm-test-secret-key-2026"})
+        assert resp_auth.status_code == 200, "Protected endpoint must allow valid API key"
 
     def test_sec_02_cors_configuration_hygiene(self):
         """
@@ -132,7 +145,8 @@ class TestSecurityRegression:
     def test_sec_06_model_artifact_checksum_verification(self):
         """
         [SEC-06] Model Serialization & Insecure Deserialization Audit.
-        EXPECTED SECURE BEHAVIOR: Artifacts loaded via joblib/pickle must have recorded SHA-256 checksums.
+        EXPECTED SECURE BEHAVIOR: Artifacts loaded via joblib/pickle must have recorded SHA-256 checksums,
+        and helpers.load_pickle must raise ValueError on checksum tampering.
         """
         assert MODELS_DIR.exists(), "Models directory must exist"
         pkl_files = list(MODELS_DIR.glob("*.pkl"))
@@ -147,6 +161,25 @@ class TestSecurityRegression:
         
         # Verify dll_extractor_a.pkl has a non-empty valid hash
         assert "dll_extractor_a.pkl" in checksums
+
+        # Verify baseline checksums.json exists and matches disk artifacts
+        checksums_manifest = MODELS_DIR / "checksums.json"
+        assert checksums_manifest.exists(), "artifacts/models/checksums.json must exist"
+        recorded = json.loads(checksums_manifest.read_text(encoding="utf-8"))
+        for pkl in pkl_files:
+            assert pkl.name in recorded, f"{pkl.name} must be cataloged in checksums.json"
+            assert checksums[pkl.name] == recorded[pkl.name], f"Checksum mismatch for {pkl.name}"
+
+        # Verify load_pickle actively prevents deserialization of tampered artifacts
+        from dlsm.utils.helpers import load_pickle
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmppath = Path(tmpdir)
+            dummy_pkl = tmppath / "model.pkl"
+            dummy_pkl.write_bytes(b"tampered content")
+            (tmppath / "checksums.json").write_text(json.dumps({"model.pkl": "0" * 64}))
+            with pytest.raises(ValueError, match="Security Alert: Checksum mismatch"):
+                load_pickle(dummy_pkl)
 
     def test_sec_07_privacy_identifier_separation(self):
         """
@@ -171,6 +204,10 @@ class TestSecurityRegression:
         """
         dockerfile = REPO_ROOT / "Dockerfile"
         assert dockerfile.exists()
+        content = dockerfile.read_text(encoding="utf-8")
+        assert "USER dlsm" in content, "Dockerfile must execute under non-root user dlsm"
+        assert "HEALTHCHECK" in content, "Dockerfile must declare container HEALTHCHECK"
+
         dockerignore = REPO_ROOT / ".dockerignore"
         assert dockerignore.exists(), "Remediated: .dockerignore must exist to prevent context leakage"
         ignore_content = dockerignore.read_text(encoding="utf-8")

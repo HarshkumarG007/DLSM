@@ -1,8 +1,11 @@
+import os
 from pathlib import Path
 import json
+from typing import Optional
 import joblib
 import pandas as pd
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Security, Depends, status
+from fastapi.security import APIKeyHeader
 from fastapi.middleware.cors import CORSMiddleware
 
 from dlsm.api.schemas import (
@@ -17,6 +20,7 @@ from dlsm.api.schemas import (
 )
 from dlsm.features.engineer import DatasetAFeatureEngineer, DatasetBFeatureEngineer
 from dlsm.simulation.longitudinal import LongitudinalPanelSimulator
+from dlsm.utils.helpers import load_pickle
 
 app = FastAPI(
     title="Digital Lifestyle Spillover Model (DLSM) REST API",
@@ -42,12 +46,29 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 MODELS_DIR = PROJECT_ROOT / "artifacts/models"
 METRICS_DIR = PROJECT_ROOT / "artifacts/metrics"
 
+# API Key Header definition for authentication
+api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
+
+def verify_api_key(api_key: Optional[str] = Security(api_key_header)):
+    """
+    Enforces API key authentication if DLSM_API_KEY environment variable is configured.
+    If DLSM_API_KEY is unset (default local dev/test environment), allows unauthenticated access.
+    """
+    expected_key = os.getenv("DLSM_API_KEY")
+    if expected_key:
+        if not api_key or api_key != expected_key:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or missing API key in X-API-Key header."
+            )
+    return api_key
+
 # Cache loaded artifacts
 _cache = {}
 
 def _load_or_fit_prep_a(fe_a, dll_a):
     try:
-        return joblib.load(MODELS_DIR / "preprocessor_dataset_a.pkl")
+        return load_pickle(MODELS_DIR / "preprocessor_dataset_a.pkl")
     except Exception:
         from dlsm.data.loader import load_dataset_a
         from dlsm.models.pipeline import build_preprocessing_pipeline
@@ -70,7 +91,7 @@ def _load_or_fit_prep_a(fe_a, dll_a):
 
 def _load_or_fit_prep_b(fe_b, dll_b):
     try:
-        return joblib.load(MODELS_DIR / "preprocessor_dataset_b.pkl")
+        return load_pickle(MODELS_DIR / "preprocessor_dataset_b.pkl")
     except Exception:
         from dlsm.data.loader import load_dataset_b
         from dlsm.models.pipeline import build_preprocessing_pipeline
@@ -93,14 +114,14 @@ def get_artifacts():
     if "models_loaded" not in _cache:
         try:
             _cache["fe_a"] = DatasetAFeatureEngineer()
-            _cache["dll_a"] = joblib.load(MODELS_DIR / "dll_extractor_a.pkl")
+            _cache["dll_a"] = load_pickle(MODELS_DIR / "dll_extractor_a.pkl")
             _cache["prep_a"] = _load_or_fit_prep_a(_cache["fe_a"], _cache["dll_a"])
-            _cache["xgb_a"] = joblib.load(MODELS_DIR / "xgb_fatigue_model_dataset_a.pkl")
+            _cache["xgb_a"] = load_pickle(MODELS_DIR / "xgb_fatigue_model_dataset_a.pkl")
 
             _cache["fe_b"] = DatasetBFeatureEngineer()
-            _cache["dll_b"] = joblib.load(MODELS_DIR / "dll_extractor_b.pkl")
+            _cache["dll_b"] = load_pickle(MODELS_DIR / "dll_extractor_b.pkl")
             _cache["prep_b"] = _load_or_fit_prep_b(_cache["fe_b"], _cache["dll_b"])
-            _cache["xgb_b"] = joblib.load(MODELS_DIR / "xgb_mental_health_model_dataset_b.pkl")
+            _cache["xgb_b"] = load_pickle(MODELS_DIR / "xgb_mental_health_model_dataset_b.pkl")
 
             with open(METRICS_DIR / "clustering_phenotypes.json", "r") as f:
                 _cache["clustering"] = json.load(f)
@@ -135,7 +156,7 @@ def health_check():
         "version": "1.0.0"
     }
 
-@app.get("/api/v1/phenotypes", response_model=PhenotypesResponse)
+@app.get("/api/v1/phenotypes", response_model=PhenotypesResponse, dependencies=[Depends(verify_api_key)])
 def get_phenotypes():
     art = get_artifacts()
     cl_data = art.get("clustering", {})
@@ -203,7 +224,7 @@ def get_phenotypes():
         cohort_b_phenotypes=cohort_b_list
     )
 
-@app.post("/api/v1/predict/fatigue", response_model=CohortAPredictionResponse)
+@app.post("/api/v1/predict/fatigue", response_model=CohortAPredictionResponse, dependencies=[Depends(verify_api_key)])
 def predict_fatigue(payload: CohortAInput):
     art = get_artifacts()
     
@@ -258,7 +279,7 @@ def predict_fatigue(payload: CohortAInput):
         risk_assessment=risk
     )
 
-@app.post("/api/v1/predict/mental-health", response_model=CohortBPredictionResponse)
+@app.post("/api/v1/predict/mental-health", response_model=CohortBPredictionResponse, dependencies=[Depends(verify_api_key)])
 def predict_mental_health(payload: CohortBInput):
     art = get_artifacts()
     
@@ -309,7 +330,7 @@ def predict_mental_health(payload: CohortBInput):
         target_outcome_disclosure=disclosure
     )
 
-@app.post("/api/v1/simulate/policy", response_model=PolicySimulationResponse)
+@app.post("/api/v1/simulate/policy", response_model=PolicySimulationResponse, dependencies=[Depends(verify_api_key)])
 def simulate_policy(payload: PolicySimulationRequest):
     sim = LongitudinalPanelSimulator(weeks=payload.weeks, random_state=42)
     
