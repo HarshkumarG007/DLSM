@@ -458,17 +458,20 @@ The assessment was executed under explicit authorization strictly against the lo
 An automated security regression test suite has been established at:
 [`tests/security/test_security_regression.py`](file:///c:/Users/Lenovo/Downloads/DLSM/tests/security/test_security_regression.py)
 
-### Test Coverage Summary (9 Passed / 9 Executed):
+### Test Coverage Summary (12 Passed / 12 Executed, 31/31 Full Suite):
 
-- `test_sec_01_api_authentication_posture`: Documents unauthenticated endpoint posture.
-- `test_sec_02_cors_configuration_hygiene`: Asserts CORS origin and credentials settings.
-- `test_sec_03_input_validation_boundary_enforcement`: Tests rejection of negative and out-of-bounds inputs.
-- `test_sec_04_policy_simulation_parameter_bounds`: Verifies rejection of excessive simulation durations.
+- `test_sec_01_api_authentication_posture`: Documents unauthenticated endpoint posture & verifies strict `X-API-Key` 401 enforcement.
+- `test_sec_02_cors_configuration_hygiene`: Asserts CORS origin and credentials settings (`allow_credentials=False`).
+- `test_sec_03_input_validation_boundary_enforcement`: Tests rejection (HTTP 422) of negative and out-of-bounds inputs.
+- `test_sec_04_policy_simulation_parameter_bounds`: Verifies rejection of excessive simulation durations to prevent compute DoS.
 - `test_sec_05_secrets_scanner_regression`: Scans repo for credentials, private keys, and API tokens.
-- `test_sec_06_model_artifact_checksum_verification`: Validates SHA-256 hashes of all serialized model files.
+- `test_sec_06_model_artifact_checksum_verification`: Validates SHA-256 hashes of all serialized model files & tests tampering detection.
 - `test_sec_07_privacy_identifier_separation`: Asserts primary keys are tagged as `IDENTIFIER` and excluded from features.
-- `test_sec_08_docker_security_posture`: Monitors non-root user and container hardening status.
-- `test_sec_09_ci_permissions_audit`: Verifies least-privilege token permissions in GitHub Actions.
+- `test_sec_08_docker_security_posture`: Monitors non-root user `dlsm`, `HEALTHCHECK`, and `.dockerignore`.
+- `test_sec_09_ci_permissions_audit`: Verifies least-privilege token permissions (`contents: read`) in GitHub Actions.
+- `test_sec_10_rate_limiting_enforcement`: Verifies sliding-window rate limiter returns HTTP 429 and `Retry-After` on query bursts.
+- `test_sec_11_k_anonymity_preservation`: Audits dataset anonymization engine to guarantee $k \ge 5$ equivalence classes and zero direct identifiers.
+- `test_sec_12_dependency_lockfile_integrity`: Asserts existence of `requirements.lock` with cryptographic SHA-256 hashes.
 
 ---
 
