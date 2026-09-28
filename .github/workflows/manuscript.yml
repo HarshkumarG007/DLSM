@@ -1,0 +1,33 @@
+name: Compile Academic Manuscript
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "docs/latex/**"
+      - ".github/workflows/manuscript.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_latex:
+    name: Compile Academic PDF (IEEE/Nature)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX Document
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: manuscript.tex
+          working_directory: docs/latex
+
+      - name: Upload Compiled PDF Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dlsm_academic_manuscript
+          path: docs/latex/manuscript.pdf
+          retention-days: 90
