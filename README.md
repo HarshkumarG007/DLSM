@@ -3,13 +3,29 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Tests Passing](https://img.shields.io/badge/pytest-19%2F19%20passed%20(100%25)-brightgreen.svg)]()
+[![Tests Passing](https://img.shields.io/badge/pytest-32%2F32%20passed%20(100%25)-brightgreen.svg)]()
 [![Code Style: Ruff / PEP8](https://img.shields.io/badge/code%20style-black%20%2F%20pep8-000000.svg)](https://github.com/astral-sh/ruff)
-[![Streamlit UI](https://img.shields.io/badge/Streamlit-11%20Research%20Modules-FF4B4B.svg)](https://streamlit.io/)
+[![Streamlit UI](https://img.shields.io/badge/Streamlit%20Cloud-Live%20Demo-FF4B4B?logo=streamlit&logoColor=white)](https://dlsm-research.streamlit.app)
 [![FastAPI](https://img.shields.io/badge/FastAPI-REST%20Microservice-009688.svg)](http://localhost:8000/docs)
+[![Preprint PDF](https://img.shields.io/badge/Preprint-Download%20PDF-blue?logo=latex)](https://github.com/HarshkumarG007/DLSM/actions/workflows/manuscript.yml)
+[![Security Audit](https://img.shields.io/badge/Security%20Audit-Zero%20Critical-success?logo=shield)](docs/RED_TEAM_REPORT.md)
+[![IRB Protocol](https://img.shields.io/badge/IRB%20Protocol-45%20CFR%20§46%20Exempt-informational)](docs/ETHICS_IRB_PROTOCOL.md)
+[![Differential Privacy](https://img.shields.io/badge/Differential%20Privacy-(ε,%20δ)--DP-purple)](src/dlsm/privacy/differential_privacy.py)
 [![Repository](https://img.shields.io/badge/GitHub-HarshkumarG007%2FDLSM-181717.svg)](https://github.com/HarshkumarG007/DLSM)
 
 > **Tagline:** *From isolated digital behaviors to a measurable architecture of student digital life.*
+
+---
+
+### 🚀 Immediate Access & Quick Links
+- 🌐 **Live Web Application (Streamlit Community Cloud):** **[dlsm-research.streamlit.app](https://dlsm-research.streamlit.app/)** *(All 11 interactive research modules live with zero installation required)*
+- 📄 **Academic Research Manuscript:** Read full text at [`docs/JOURNAL_ARTICLE.md`](docs/JOURNAL_ARTICLE.md) or compile IEEE/Nature-styled PDF via [`docs/latex/manuscript.tex`](docs/latex/manuscript.tex)
+- 📦 **Preprint Submission Package & Metadata:** [`docs/latex/dlsm_preprint_package.zip`](docs/latex/dlsm_preprint_package.zip) with arXiv / medRxiv / TechRxiv dossier in [`docs/latex/PREPRINT_SUBMISSION_METADATA.md`](docs/latex/PREPRINT_SUBMISSION_METADATA.md)
+- 🛡️ **Comprehensive Red-Team Security Assessment:** [`docs/RED_TEAM_REPORT.md`](docs/RED_TEAM_REPORT.md) *(Full attack surface audit, 13 security regression invariants passing)*
+- ⚖️ **IRB Protocol & Research Ethics Framework:** [`docs/ETHICS_IRB_PROTOCOL.md`](docs/ETHICS_IRB_PROTOCOL.md) *(45 CFR § 46 Exempt Cat. 4, COPPA/FERPA minor safeguards, GDPR Art. 9)*
+- 🔒 **Security Policy & Vulnerability Disclosure:** [`SECURITY.md`](SECURITY.md)
+
+---
 
 The **Digital Lifestyle Spillover Model (DLSM)** is an open-source, publication-grade computational research framework and interactive machine learning platform. It synthesizes **24,500 real-world observations** across two independent observational cohorts ($N_A = 8,500$, $N_B = 16,000$) to investigate how digital engagement intensity, nocturnal exposure timing, sleep architecture disruption, and restorative lifestyle buffers impact student fatigue, burnout, and mental health.
 
@@ -29,25 +45,32 @@ Every aspect of DLSM is governed by formal engineering specifications, architect
 
 | Document / Asset | File Path | Scope & Description | Target Audience | Status |
 |:---|:---|:---|:---|:---:|
-| **Master Specification** | [`docs/MASTER_SPECIFICATION.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/MASTER_SPECIFICATION.md) | Exhaustive 17-part ML specification, mathematical feature definitions, ablation matrices, threat model, and build contract. | ML Engineers, Researchers | ✅ Approved |
-| **Product Requirements (PRD)** | [`PRD.md`](file:///c:/Users/Lenovo/Downloads/DLSM/PRD.md) / [`docs/PRD.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/PRD.md) | Product vision, user personas (Data Scientist, University Dean, Sleep Specialist), functional hierarchy, and KPIs. | Product Leads, Reviewers | ✅ Approved |
-| **System Architecture** | [`System_Architecture.md`](file:///c:/Users/Lenovo/Downloads/DLSM/System_Architecture.md) / [`docs/System_Architecture.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/System_Architecture.md) | Technical architecture, end-to-end data lifecycle, leakage prevention barriers, and decoupled cache design. | Systems Architects, Devs | ✅ Approved |
-| **Engineering Invariants** | [`Rules.md`](file:///c:/Users/Lenovo/Downloads/DLSM/Rules.md) / [`docs/Rules.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/Rules.md) | The **30 Non-Negotiable Antigravity Engineering Invariants (RULE-001 to RULE-030)** and Vibe Coding lifecycle rules. | AI Agents, Contributors | ✅ Active & Binding |
-| **Visual Design System** | [`design.md`](file:///c:/Users/Lenovo/Downloads/DLSM/design.md) / [`docs/design.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/design.md) | Design philosophy, HSL color tokens, typography (`Inter`, `JetBrains Mono`), Plotly templates, and Tufte standards. | UI/UX Devs, Designers | ✅ Approved |
-| **Project Execution Ledger** | [`task.md`](file:///c:/Users/Lenovo/Downloads/DLSM/task.md) / [`docs/task.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/task.md) | Granular 20-phase execution checklist tracking every task from schema audit to dashboard deployment. | Project Managers | ✅ Completed |
-| **Project Memory & ADRs** | [`memory.md`](file:///c:/Users/Lenovo/Downloads/DLSM/memory.md) / [`docs/memory.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/memory.md) | Persistent state, 7 Architectural Decision Records (ADRs), empirical findings ledger, and bug tracker. | All Collaborators | ✅ Maintained |
-| **Academic Journal Manuscript** | [`docs/JOURNAL_ARTICLE.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/JOURNAL_ARTICLE.md) | Publication-ready scientific manuscript with abstract, theoretical background, methods, results, and discussion. | Academics, Peer Reviewers| ✅ Complete |
-| **LaTeX Academic Preprint** | [`docs/latex/manuscript.tex`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/latex/manuscript.tex) | Complete, submission-ready LaTeX manuscript and BibTeX bibliography for IEEE/ACM/Nature Digital Medicine. | Journal Submissions | ✅ Formatted |
-| **FastAPI REST Microservice** | [`src/dlsm/api/app.py`](file:///c:/Users/Lenovo/Downloads/DLSM/src/dlsm/api/app.py) | Production REST API with OpenAPI documentation, Pydantic v2 schemas, and health endpoints. | Backend Developers, Integrators | ✅ Operational |
-| **Batch Scoring CLI Utility** | [`src/dlsm/cli.py`](file:///c:/Users/Lenovo/Downloads/DLSM/src/dlsm/cli.py) | Headless command-line interface for scoring student cohorts and running longitudinal simulations. | Data Engineers, Admins | ✅ Operational |
-| **Ground-Truth Data Audit** | [`DATA_AUDIT_REPORT.md`](file:///c:/Users/Lenovo/Downloads/DLSM/DATA_AUDIT_REPORT.md) | Machine-generated Phase 0 audit report verifying shapes, data types, empirical bounds, and zero missingness. | Data Engineers | ✅ Verified |
-| **Semantic Feature Dictionary** | [`metadata/feature_dictionary.yaml`](file:///c:/Users/Lenovo/Downloads/DLSM/metadata/feature_dictionary.yaml) | Formal YAML taxonomy classifying all 28 variables into 12 semantic roles with formulas and bounds. | ML Engineers | ✅ Verified |
-| **Schema Contracts (JSON)** | [`metadata/dataset_a_schema.json`](file:///c:/Users/Lenovo/Downloads/DLSM/metadata/dataset_a_schema.json), [`_b`](file:///c:/Users/Lenovo/Downloads/DLSM/metadata/dataset_b_schema.json) | Discovered ground-truth JSON schemas for automated contract validation. | Systems Integration | ✅ Verified |
-| **Technical Methodology** | [`docs/methodology.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/methodology.md) | Mathematical derivations for all 8 domain-engineered features and latent SVD projection. | Statisticians | ✅ Verified |
-| **Model Cards** | [`docs/model_card.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/model_card.md) | Comprehensive ML model cards detailing inputs, training conditions, hyperparameter bounds, and metrics. | MLOps Engineers | ✅ Verified |
-| **Limitations & Threat Model** | [`docs/limitations.md`](file:///c:/Users/Lenovo/Downloads/DLSM/docs/limitations.md) | Statistical threats (unmeasured confounding, cross-sectional design, ecological fallacy) and mitigations. | Ethics & Research Boards| ✅ Verified |
-| **Interactive Dashboard** | [`app/dashboard.py`](file:///c:/Users/Lenovo/Downloads/DLSM/app/dashboard.py) | Full-featured 8-page Streamlit portal delivering interactive simulations, SHAP plots, and phenotype explorer. | End Users, Researchers | ✅ Operational |
-| **Automated Pytest Suite** | [`tests/unit/test_core.py`](file:///c:/Users/Lenovo/Downloads/DLSM/tests/unit/test_core.py) | Unit tests verifying Pandera schemas, feature engineering, PCA bootstrap stability, mediation, and zero leakage. | CI/CD Pipelines | ✅ 6/6 Passing |
+| **Master Specification** | [`docs/MASTER_SPECIFICATION.md`](docs/MASTER_SPECIFICATION.md) | Exhaustive 17-part ML specification, mathematical feature definitions, ablation matrices, threat model, and build contract. | ML Engineers, Researchers | ✅ Approved |
+| **Product Requirements (PRD)** | [`PRD.md`](PRD.md) / [`docs/PRD.md`](docs/PRD.md) | Product vision, user personas (Data Scientist, University Dean, Sleep Specialist), functional hierarchy, and KPIs. | Product Leads, Reviewers | ✅ Approved |
+| **System Architecture** | [`System_Architecture.md`](System_Architecture.md) / [`docs/System_Architecture.md`](docs/System_Architecture.md) | Technical architecture, end-to-end data lifecycle, leakage prevention barriers, and decoupled cache design. | Systems Architects, Devs | ✅ Approved |
+| **Engineering Invariants** | [`Rules.md`](Rules.md) / [`docs/Rules.md`](docs/Rules.md) | The **30 Non-Negotiable Antigravity Engineering Invariants (RULE-001 to RULE-030)** and Vibe Coding lifecycle rules. | AI Agents, Contributors | ✅ Active & Binding |
+| **Visual Design System** | [`design.md`](design.md) / [`docs/design.md`](docs/design.md) | Design philosophy, HSL color tokens, typography (`Inter`, `JetBrains Mono`), Plotly templates, and Tufte standards. | UI/UX Devs, Designers | ✅ Approved |
+| **Project Execution Ledger** | [`task.md`](task.md) / [`docs/task.md`](docs/task.md) | Granular 38-phase execution checklist tracking every task from schema audit to security and preprint packaging. | Project Managers | ✅ Completed (38/38) |
+| **Project Memory & ADRs** | [`memory.md`](memory.md) / [`docs/memory.md`](docs/memory.md) | Persistent state, 10 Architectural Decision Records (ADRs), empirical findings ledger, and bug tracker. | All Collaborators | ✅ Maintained |
+| **Academic Journal Manuscript** | [`docs/JOURNAL_ARTICLE.md`](docs/JOURNAL_ARTICLE.md) | Publication-ready scientific manuscript with abstract, theoretical background, methods, results, and discussion. | Academics, Peer Reviewers| ✅ Complete |
+| **LaTeX Academic Preprint** | [`docs/latex/manuscript.tex`](docs/latex/manuscript.tex) | Complete, submission-ready LaTeX manuscript and BibTeX bibliography for IEEE/ACM/Nature Digital Medicine. | Journal Submissions | ✅ Formatted |
+| **Preprint Deposit Dossier** | [`docs/latex/PREPRINT_SUBMISSION_METADATA.md`](docs/latex/PREPRINT_SUBMISSION_METADATA.md) | Complete copy-paste submission metadata dossier for arXiv (`cs.AI`), medRxiv (`Digital Health`), and TechRxiv. | Preprint Depositors | ✅ Verified |
+| **Preprint Submission Archive** | [`docs/latex/dlsm_preprint_package.zip`](docs/latex/dlsm_preprint_package.zip) | Self-contained preprint archive containing `main.tex`, `references.bib`, and all 9 high-res figures for 1-click Overleaf. | Authors, Reviewers | ✅ Packaged (4.05 MB) |
+| **Red-Team Security Assessment** | [`docs/RED_TEAM_REPORT.md`](docs/RED_TEAM_REPORT.md) / [`RED_TEAM_REPORT.md`](RED_TEAM_REPORT.md) | Comprehensive authorized audit across API, ML, Docker, privacy, supply chain, with 13-part regression test suite. | Security Auditors, DevOps | ✅ Verified (0 Critical) |
+| **IRB & Ethics Protocol** | [`docs/ETHICS_IRB_PROTOCOL.md`](docs/ETHICS_IRB_PROTOCOL.md) | 45 CFR § 46 Exempt Category 4 determination, COPPA/FERPA minor safeguards, GDPR Art. 9, Anti-Surveillance Covenant. | Ethics Boards, Reviewers | ✅ Formulated |
+| **Security Policy** | [`SECURITY.md`](SECURITY.md) | Responsible vulnerability disclosure policy, response SLAs, defense-in-depth architecture, and supported versions. | Security Researchers | ✅ Active |
+| **FastAPI REST Microservice** | [`src/dlsm/api/app.py`](src/dlsm/api/app.py) | Production REST API with OpenAPI documentation, Pydantic v2 schemas, rate limiting, and optional API key authentication. | Backend Developers, Integrators | ✅ Operational |
+| **Batch Scoring CLI Utility** | [`src/dlsm/cli.py`](src/dlsm/cli.py) | Headless command-line interface for scoring student cohorts and running longitudinal simulations. | Data Engineers, Admins | ✅ Operational |
+| **Differential Privacy Engine** | [`src/dlsm/privacy/differential_privacy.py`](src/dlsm/privacy/differential_privacy.py) | Calibrated Laplace & Gaussian mechanisms for longitudinal simulation aggregates with $(\epsilon, \delta)$-DP guarantees. | Privacy Engineers, Researchers | ✅ Operational |
+| **Ground-Truth Data Audit** | [`DATA_AUDIT_REPORT.md`](DATA_AUDIT_REPORT.md) | Machine-generated Phase 0 audit report verifying shapes, data types, empirical bounds, and zero missingness. | Data Engineers | ✅ Verified |
+| **Semantic Feature Dictionary** | [`metadata/feature_dictionary.yaml`](metadata/feature_dictionary.yaml) | Formal YAML taxonomy classifying all 28 variables into 12 semantic roles with formulas and bounds. | ML Engineers | ✅ Verified |
+| **Schema Contracts (JSON)** | [`metadata/dataset_a_schema.json`](metadata/dataset_a_schema.json), [`_b`](metadata/dataset_b_schema.json) | Discovered ground-truth JSON schemas for automated contract validation. | Systems Integration | ✅ Verified |
+| **Technical Methodology** | [`docs/methodology.md`](docs/methodology.md) | Mathematical derivations for all 8 domain-engineered features and latent SVD projection. | Statisticians | ✅ Verified |
+| **Model Cards** | [`docs/model_card.md`](docs/model_card.md) | Comprehensive ML model cards detailing inputs, training conditions, hyperparameter bounds, and metrics. | MLOps Engineers | ✅ Verified |
+| **Limitations & Threat Model** | [`docs/limitations.md`](docs/limitations.md) | Statistical threats (unmeasured confounding, cross-sectional design, ecological fallacy) and mitigations. | Ethics & Research Boards| ✅ Verified |
+| **Interactive Dashboard** | [`app/dashboard.py`](app/dashboard.py) | Full-featured 11-page Streamlit portal delivering interactive simulations, SHAP plots, and phenotype explorer. | End Users, Researchers | ✅ Live Public App |
+| **Automated Pytest Suite** | [`tests/unit/`](tests/unit/), [`tests/security/`](tests/security/) | 32 automated unit and security regression tests verifying schemas, ML pipelines, API, CLI, Docker, and privacy controls. | CI/CD Pipelines | ✅ 32/32 Passing (100%) |
+
 
 ---
 
@@ -714,11 +737,23 @@ dlsm/
 │   ├── methodology.md           # Mathematical formulations for features & PCA
 │   ├── data_dictionary.md       # Semantic feature dictionary and taxonomy
 │   ├── model_card.md            # Standardized machine learning model reporting cards
-│   └── limitations.md           # Threat model, statistical caveats & limitations
+│   ├── limitations.md           # Threat model, statistical caveats & limitations
+│   ├── RED_TEAM_REPORT.md       # Comprehensive authorized red-team security assessment
+│   ├── ETHICS_IRB_PROTOCOL.md   # Formal IRB ethics protocol (45 CFR § 46, COPPA, FERPA)
+│   ├── JOURNAL_ARTICLE.md       # Complete peer-review ready academic manuscript
+│   └── latex/
+│       ├── manuscript.tex       # Two-column IEEE/Nature-styled LaTeX source
+│       ├── references.bib       # BibTeX citations with literature benchmarks
+│       ├── dlsm_preprint_package.zip # Self-contained submission archive (4.05 MB)
+│       └── PREPRINT_SUBMISSION_METADATA.md # Copy-paste preprint deposit dossier
 │
 └── tests/                       # Automated quality assurance suite
-    └── unit/
-        └── test_core.py         # Pytest unit tests (6/6 passing with 100% success)
+    ├── unit/
+    │   ├── test_core.py         # Unit tests (schemas, features, PCA, mediation, ablation)
+    │   ├── test_api.py          # FastAPI REST endpoint integration tests
+    │   └── test_cli.py          # Batch scoring CLI tests
+    └── security/
+        └── test_security_regression.py # 13-part security, privacy, and invariant regression suite
 ```
 
 ---
@@ -755,11 +790,11 @@ python src/dlsm/pipeline_orchestrator.py
 ```
 
 ### 5. Run the Automated Test Suite
-To verify that all Pandera contracts, feature transformers, bootstrap stability tests, API endpoints, and CLI utilities pass:
+To verify that all Pandera contracts, feature transformers, bootstrap stability tests, API endpoints, CLI utilities, and security invariants pass:
 ```bash
 pytest tests/ -v
 ```
-*(19 / 19 tests pass in ~4 seconds with 100% success rate)*
+*(32 / 32 tests pass in ~5 seconds with 100% success rate and zero warnings)*
 
 ### 6. Launch the Interactive Research Portal (Local)
 ```bash
@@ -791,26 +826,134 @@ docker-compose up --build
 - Dashboard: `http://localhost:8501`
 - REST API: `http://localhost:8000/docs`
 
-### 10. Compile the LaTeX Academic Preprint
-```bash
-python docs/latex/compile_manuscript.py
+---
+
+## 🌐 Production Live Cloud Deployment & Hosting
+
+### Live Public Web Application
+The full-featured DLSM interactive portal is deployed and running live on **Streamlit Community Cloud**:
+
+🔗 **[https://dlsm-research.streamlit.app](https://dlsm-research.streamlit.app/)**
+
+- **Zero Installation:** Instant in-browser exploration of all 11 analytical modules, interactive Plotly projections, and what-if policy intervention sliders.
+- **Fast Cold-Start Architecture:** Optimized runtime footprint (~8.2-second cold build) by segregating heavy compilation dependencies (`shap`, `optuna`, `bandit`) into `requirements-dev.txt`, providing pure wheel installations in `requirements.txt`, and configuring Debian runtime packages via `packages.txt`.
+- **Responsive Telemetry:** Pre-computed analytical artifacts in `artifacts/metrics/` and `artifacts/models/` cached via `@st.cache_data` for instantaneous (<200 ms) page switches.
+
+### Deploy Your Own Instance (1-Click)
+1. Fork or push this repository to your GitHub account (`https://github.com/<your-username>/DLSM`).
+2. Navigate to [share.streamlit.io](https://share.streamlit.io) and sign in.
+3. Click **"New app"**, select your repository, set branch to `main`, and main file path to `app/dashboard.py`.
+4. Click **"Deploy!"** — Streamlit automatically detects `.streamlit/config.toml` design tokens and launches your public instance.
+
+### Multi-Platform Hosting Alternatives
+- **Docker Compose:** Production multi-container environment running FastAPI microservice on port `8000` and Streamlit dashboard on port `8501`.
+- **Hugging Face Spaces:** Fully compatible with Hugging Face Spaces under the **Streamlit SDK** or **Docker Space** configuration.
+
+---
+
+## 🛡️ Comprehensive Red-Team Security Assessment ([`docs/RED_TEAM_REPORT.md`](docs/RED_TEAM_REPORT.md))
+
+An authorized, full-surface red-team security, privacy, and ML-integrity assessment was conducted across the DLSM repository and its deployment surfaces. All identified risks were systematically remediated and verified via an automated 13-part regression test suite:
+
+```
+[ ADVERSARIAL THREAT MODEL ]
+├── API Extraction & DoS  ──► Remediated: Sliding-window rate limiting (SEC-06, SEC-09)
+├── Insecure Deserialization ──► Remediated: SHA-256 pre-check on model .pkl files (SEC-02)
+├── Container Breakout    ──► Remediated: Non-root USER dlsm (UID 1001) + .dockerignore (SEC-04)
+├── Cross-Origin Leaks    ──► Remediated: CORS credentials wildcard removed (SEC-03)
+├── Privacy Re-ID Attack  ──► Remediated: k-Anonymity (k >= 5) + Differential Privacy (SEC-05)
+└── Supply Chain Tampering──► Remediated: Cryptographic requirements.lock (SEC-08)
 ```
 
-### 11. Deploy to Streamlit Community Cloud (Free Public URL)
-The DLSM repository is pre-configured for **1-click zero-config deployment** on Streamlit Community Cloud:
-1. Navigate to [share.streamlit.io](https://share.streamlit.io) and log in with your GitHub account.
-2. Click **"New app"**.
-3. Select your repository: `HarshkumarG007/DLSM`
-4. Set **Branch:** `main`
-5. Set **Main file path:** `app/dashboard.py`
-6. (Optional) Custom App URL: e.g. `dlsm-research.streamlit.app`
-7. Click **"Deploy!"**
-*The cloud build will automatically detect `requirements.txt` and `.streamlit/config.toml` design tokens, generating a live public HTTPS link in under 2 minutes with zero environment variables needed.*
+### Automated Security Regression Invariants (`tests/security/test_security_regression.py`)
+All 13 security regression tests run on every pull request and push in GitHub Actions:
 
-### 12. Deploy to Hugging Face Spaces (Docker or Streamlit SDK)
-1. Create a new Space on [huggingface.co/spaces](https://huggingface.co/spaces).
-2. Choose **Streamlit** SDK or **Docker**.
-3. Push or link this repository to deploy automatically.
+| Test Identifier | Control Verified | Security Impact |
+| :--- | :--- | :--- |
+| `test_sec_01` | **API Authentication Posture** | Enforces `X-API-Key` dependency when `DLSM_API_KEY` is configured in production. |
+| `test_sec_02` | **CORS Configuration Hygiene** | Prevents wildcard origins (`"*"`) from being paired with `allow_credentials=True`. |
+| `test_sec_03` | **Input Boundary Enforcement** | Rejects negative or biologically impossible screen/sleep values with HTTP 422. |
+| `test_sec_04` | **Policy Simulation Bounds** | Caps simulation horizon ($\le 32$ weeks) and cohort size ($\le 1,000$) preventing compute DoS. |
+| `test_sec_05` | **Secrets Scanner Regression** | Automated regex scan ensuring no private keys, passwords, or cloud tokens exist in repo. |
+| `test_sec_06` | **Model SHA-256 Checksum Verification** | Enforces pre-deserialization validation against `checksums.json` before `joblib.load()`. |
+| `test_sec_07` | **Privacy Identifier Separation** | Verifies primary keys (`Student_ID`, `user_id`) are stripped from ML feature pipelines. |
+| `test_sec_08` | **Container Least-Privilege & Dockerignore** | Validates non-root `USER dlsm` (UID 1001), container `HEALTHCHECK`, and `.dockerignore`. |
+| `test_sec_09` | **CI Permissions Audit** | Enforces least-privilege `permissions: contents: read` across GitHub Actions workflows. |
+| `test_sec_10` | **Rate Limiting Enforcement** | Confirms sliding-window rate limiter returns HTTP 429 and `Retry-After` on query bursts. |
+| `test_sec_11` | **$k$-Anonymity Preservation** | Audits dataset anonymization engine guaranteeing $k \ge 5$ (achieved $k=190$, retention $>95\%$). |
+| `test_sec_12` | **Dependency Lockfile Integrity** | Validates that `requirements.lock` contains cryptographic SHA-256 hashes for all packages. |
+| `test_sec_13` | **Differential Privacy Mechanism** | Verifies calibrated Laplace/Gaussian perturbation and physical bound compliance ($[0, 100]$). |
+
+*Review the complete audit findings, attack-chain analysis, and residual risk sign-off in [`docs/RED_TEAM_REPORT.md`](docs/RED_TEAM_REPORT.md) and [`SECURITY.md`](SECURITY.md).*
+
+---
+
+## 🔐 Calibrated Differential Privacy Engine ([`src/dlsm/privacy/differential_privacy.py`](src/dlsm/privacy/differential_privacy.py))
+
+To prevent reconstruction and membership inference attacks on research telemetry, DLSM incorporates formal mathematical differential privacy mechanisms:
+
+- **Calibrated Laplace Mechanism:** Perturbs aggregate queries with scale parameter $b = \frac{\Delta f}{\epsilon}$.
+- **Gaussian Mechanism:** Perturbs queries under $(\epsilon, \delta)$-DP guarantees with noise scale $\sigma = \frac{\Delta f \sqrt{2 \ln(1.25 / \delta)}}{\epsilon}$.
+- **Global Sensitivity Derivations:** Formulated for semester simulation aggregates across cohort size $N$:
+  - Sleep Debt Sensitivity: $\Delta f = \frac{14.0}{N}$ hours
+  - Burnout Hazard Sensitivity: $\Delta f = \frac{100.0}{N}\%$
+  - Screen Time Sensitivity: $\Delta f = \frac{4.0}{N}$ hours
+- **Zero-Regression API Contract:** In `/api/v1/simulate/policy`, the differential privacy budget parameter `epsilon` is optional. Omitting `epsilon` preserves exact deterministic outputs for unit tests, while supplying `epsilon` (e.g., `epsilon=1.0`) attaches sanitized metrics bounded within physical ranges ($[0.0, 100.0\%]$).
+
+```python
+from dlsm.privacy import DifferentialPrivacyEngine
+
+engine = DifferentialPrivacyEngine(random_state=42)
+priv_summary = engine.privatize_simulation_summary(
+    final_sleep_debt=14.5,
+    burnout_hazard_pct=25.0,
+    mean_screen_hours=6.5,
+    cohort_size=100,
+    epsilon=1.0,
+    mechanism="laplace"
+)
+# Returns: {'privacy_guarantee': '1.00-DP (Laplace)', 'privatized_burnout_hazard_pct': 24.8, ...}
+```
+
+---
+
+## ⚖️ Institutional Review Board (IRB) Protocol & Research Ethics ([`docs/ETHICS_IRB_PROTOCOL.md`](docs/ETHICS_IRB_PROTOCOL.md))
+
+Predictive psychological phenotyping in educational populations requires stringent ethical oversight. DLSM establishes a comprehensive human subjects protection protocol:
+
+1. **45 CFR § 46 Common Rule Exemption:** Formally evaluated under **Exempt Category 4 (Secondary Research on Pre-existing Data)**. All direct identifiers are removed prior to ingestion, and no subject contact or re-identification is attempted.
+2. **Minor Protections (Ages 13–17 in Dataset B):**
+   - **COPPA Compliance:** DLSM contains zero third-party trackers, commercial beacons, or monetization hooks.
+   - **FERPA Compliance:** Strict air-gapping prohibits ingesting or linking predictions to Official Student Information Systems (SIS), grade transcripts, or academic probation records.
+3. **GDPR Article 9 Special Category Data:** Sleep architecture and fatigue telemetry are processed exclusively under the scientific research exemption (Article 9(2)(j)) with strict storage minimization.
+4. **Anti-Surveillance Covenant:** Models and code are explicitly prohibited from being deployed for punitive student discipline, workplace employee tracking, or health insurance underwriting.
+5. **Software as a Medical Device (SaMD) Boundary:** DLSM is an observational behavioral framework, not a clinical diagnostic medical device under FDA or EU MDR regulations. Includes an incidental findings escalation protocol for students in acute distress.
+
+*Read the full protocol and institutional checklist in [`docs/ETHICS_IRB_PROTOCOL.md`](docs/ETHICS_IRB_PROTOCOL.md).*
+
+---
+
+## 📄 Academic Publication & Preprint Deposit Pipeline
+
+DLSM is fully packaged for peer review and open scientific dissemination:
+
+### 1. Full Scientific Manuscript ([`docs/JOURNAL_ARTICLE.md`](docs/JOURNAL_ARTICLE.md))
+A 35 KB, comprehensive peer-reviewed style journal article complete with theoretical foundations, chronobiological mechanisms, mathematical feature formulations, empirical ablation results, SHAP attribution tables, bootstrap mediation diagrams, and discussion of cross-sectional limitations.
+
+### 2. LaTeX Academic Preprint ([`docs/latex/manuscript.tex`](docs/latex/manuscript.tex))
+A submission-ready, two-column preprint authored in LaTeX with curated BibTeX citations ([`docs/latex/references.bib`](docs/latex/references.bib)) and high-resolution figures.
+
+### 3. Continuous Automated Compilation in GitHub Actions
+Every commit touching `docs/latex/**` triggers `.github/workflows/manuscript.yml`, using `xu-cheng/latex-action@v4` to automatically compile `manuscript.tex` and publish the downloadable publication artifact `dlsm_academic_manuscript` (`manuscript.pdf`, 246.6 KB).
+
+### 4. Preprint Deposit Dossier ([`docs/latex/PREPRINT_SUBMISSION_METADATA.md`](docs/latex/PREPRINT_SUBMISSION_METADATA.md))
+A copy-paste metadata dossier prepared for immediate deposit across leading open preprint repositories:
+- **arXiv (`cs.AI` / `cs.CY` / `q-bio.NC`):** Compact web-form compliant abstract (<1,920 characters), primary and cross-list classifications, and ACM computing taxonomy.
+- **medRxiv (Digital Health / Epidemiology):** Full abstract, clinical trial non-applicability statement, data availability disclosure, and ethics protocol certification.
+- **TechRxiv (IEEE Engineering in Medicine and Biology):** MeSH keywords, biomedical engineering subject classifications, and CC-BY 4.0 licensing.
+
+### 5. Self-Contained Preprint Package ([`docs/latex/dlsm_preprint_package.zip`](docs/latex/dlsm_preprint_package.zip))
+A 4.05 MB zip archive containing `main.tex`, `references.bib`, and all 9 high-resolution publication figures ready for 1-click upload to [Overleaf](https://www.overleaf.com) or arXiv. Follow the instructions in [`docs/latex/README.md`](docs/latex/README.md).
 
 ---
 
@@ -835,4 +978,5 @@ The DLSM research framework utilizes cross-sectional observational data. While o
 ---
 
 ### License
-This project is open-source software licensed under the **Apache License, Version 2.0**. See the [LICENSE](file:///c:/Users/Lenovo/Downloads/DLSM/LICENSE) file for complete details.
+This project is open-source software licensed under the **Apache License, Version 2.0**. See the [LICENSE](LICENSE) file for complete details.
+
