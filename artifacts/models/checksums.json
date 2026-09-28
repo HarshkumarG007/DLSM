@@ -4,5 +4,7 @@
   "preprocessor_dataset_a.pkl": "f46e5ef483b39e64a6ba2095fa050ff6daa00ed55777b3c9eda6b1e162713438",
   "preprocessor_dataset_b.pkl": "10cb377fa3197b067ec9b8583ee40998796b3cea814fcbd27f9792a2c4519494",
   "xgb_fatigue_model_dataset_a.pkl": "ad4adeff3dc577f399ff29df85e8884a2dc187d59d97f48d81b31de82c237223",
-  "xgb_mental_health_model_dataset_b.pkl": "365cf2df3ff72cfd1bbad6c08b2e75c1a25a760bb89336f6a2c2e94eddfcf728"
+  "xgb_mental_health_model_dataset_b.pkl": "365cf2df3ff72cfd1bbad6c08b2e75c1a25a760bb89336f6a2c2e94eddfcf728",
+  "xgb_fatigue_model_dataset_a.json": "04c718d958dfdcb383ef7e3afc1cada827c079944f26551f090fd2caabf7ce25",
+  "xgb_mental_health_model_dataset_b.json": "f2136bd7dd2af98fe87c12e3adc376425703ffa678acda0ac7cf006952fcdf73"
 }

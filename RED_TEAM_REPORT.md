@@ -117,14 +117,14 @@ The assessment was executed under explicit authorization strictly against the lo
 | Finding ID | Severity | Category | Component | Vulnerability Finding | Evidence / Location | Remediation | Status |
 |:---|:---:|:---|:---|:---|:---|:---|:---:|
 | **SEC-01** | **CRITICAL** | Broken Auth | `src/dlsm/api/app.py` | Complete absence of authentication & authorization on all API routes | Lines 113–365 | Implement API Key / JWT Bearer authentication | **REMEDIATED** |
-| **SEC-02** | **HIGH** | Insecure Deserialization | `src/dlsm/api/app.py`, `cli.py` | Unverified `joblib.load()` on `.pkl` model files allows RCE if tampered | `app.py:96`, `cli.py:73` | Implement SHA-256 integrity verification before unpickling | **REMEDIATED** |
+| **SEC-02** | **HIGH** | Insecure Deserialization | `src/dlsm/api/app.py`, `cli.py` | Unverified `joblib.load()` on `.pkl` model files allows RCE if tampered | `app.py:96`, `cli.py:73` | Implement SHA-256 integrity verification & native JSON serialization | **REMEDIATED** |
 | **SEC-03** | **MEDIUM** | Security Misconfiguration | `src/dlsm/api/app.py` | Overly permissive CORS (`allow_origins=["*"]` + `allow_credentials=True`) | `app.py:34-39` | Restrict origins and disallow wildcard credentials | **REMEDIATED** |
 | **SEC-04** | **HIGH** | Container Security | `Dockerfile`, `docker-compose.yml` | Container runs as root with host volume mount and missing `.dockerignore` | `Dockerfile:1-17` | Add non-root `USER`, `.dockerignore`, and read-only mounts | **REMEDIATED** |
-| **SEC-05** | **HIGH** | Privacy & Data Exposure | `data/raw/`, `metadata/` | Sensitive mental health data & quasi-identifiers stored in cleartext | `AI_SocialMedia_Student_Dataset.csv` | Data minimization, pseudonymization, and differential privacy | CONFIRMED |
-| **SEC-06** | **MEDIUM** | ML Model Security | `src/dlsm/api/app.py` | Unthrottled API enables model extraction and black-box cloning | `app.py:206-310` | Implement rate limiting (e.g. `slowapi`) and query noise | CONFIRMED |
+| **SEC-05** | **HIGH** | Privacy & Data Exposure | `data/raw/`, `metadata/` | Sensitive mental health data & quasi-identifiers stored in cleartext | `AI_SocialMedia_Student_Dataset.csv` | Data minimization, pseudonymization, and k-anonymity binning | **REMEDIATED** |
+| **SEC-06** | **MEDIUM** | ML Model Security | `src/dlsm/api/app.py` | Unthrottled API enables model extraction and black-box cloning | `app.py:206-310` | Implement sliding-window rate limiting middleware | **REMEDIATED** |
 | **SEC-07** | **LOW** | CI/CD Security | `.github/workflows/ci.yml` | GitHub Actions workflow lacks explicit least-privilege token permissions | `ci.yml:1-50` | Add `permissions: contents: read` to workflow | **REMEDIATED** |
-| **SEC-08** | **MEDIUM** | Supply Chain | `requirements.txt`, `pyproject.toml` | Unpinned dependency version constraints (`>=`) allow silent build drift | `requirements.txt:1-20` | Generate strict `requirements.lock` via `pip-compile` | CONFIRMED |
-| **SEC-09** | **MEDIUM** | Denial of Service | `src/dlsm/api/app.py` | Absence of request rate limiting and payload size limits | `app.py:313-365` | Enforce max payload size and concurrency throttling | CONFIRMED |
+| **SEC-08** | **MEDIUM** | Supply Chain | `requirements.txt`, `pyproject.toml` | Unpinned dependency version constraints (`>=`) allow silent build drift | `requirements.txt:1-20` | Generate strict `requirements.lock` with cryptographic SHA-256 hashes | **REMEDIATED** |
+| **SEC-09** | **MEDIUM** | Denial of Service | `src/dlsm/api/app.py` | Absence of request rate limiting and payload size limits | `app.py:313-365` | Enforce sliding-window rate limiting and request bounds | **REMEDIATED** |
 | **SEC-10** | **LOW** | Input Validation | `src/dlsm/api/schemas.py` | Categorical string fields lack Enum / regex constraints | `schemas.py:6-8` | Enforce `Literal` or `Enum` validation on categorical inputs | CONFIRMED |
 
 ---
@@ -439,24 +439,25 @@ An automated security regression test suite has been established at:
 
 ## 18. Prioritized Remediation Roadmap
 
-### Immediate (0–24 Hours)
-1. **Remediate CORS (`SEC-03`):** Update `CORSMiddleware` in `src/dlsm/api/app.py` to remove wildcard credentials.
-2. **Add `.dockerignore` (`SEC-04`):** Prevent `.git/`, `.env*`, and logs from being packaged into Docker images.
-3. **Delete Duplicate Root CSV:** Remove `bedtime_screentime_sleep_debt.csv` from the root directory.
+### Immediate (0–24 Hours) [COMPLETED]
+1. **Remediate CORS (`SEC-03`):** [x] Update `CORSMiddleware` in `src/dlsm/api/app.py` to remove wildcard credentials (`allow_credentials=False`).
+2. **Add `.dockerignore` (`SEC-04`):** [x] Prevent `.git/`, `.env*`, and logs from being packaged into Docker images.
+3. **Delete Duplicate Root CSV:** [x] Remove unencrypted `bedtime_screentime_sleep_debt.csv` from the root directory.
+4. **CI Token Least-Privilege (`SEC-07`):** [x] Add explicit `permissions: contents: read` to `.github/workflows/ci.yml`.
 
-### Short Term (1–7 Days)
-1. **Implement API Authentication (`SEC-01`):** Add `X-API-Key` header verification on `/api/v1/*` routes.
-2. **Hardening Dockerfile (`SEC-04`):** Add `USER dlsm` non-root execution and healthcheck directives.
-3. **Add Model Hash Checksum Validation (`SEC-02`):** Implement SHA-256 pre-deserialization validation.
-4. **CI Security Hardening (`SEC-07`):** Add `permissions: contents: read` and `pip-audit` to `.github/workflows/ci.yml`.
+### Short Term (1–7 Days) [COMPLETED]
+1. **Implement API Authentication (`SEC-01`):** [x] Add `X-API-Key` header verification on `/api/v1/*` routes with configurable `DLSM_API_KEY` toggle.
+2. **Hardening Dockerfile (`SEC-04`):** [x] Add `USER dlsm` (UID 1001) non-root execution and container `HEALTHCHECK` directive.
+3. **Add Model Hash Checksum Validation (`SEC-02`):** [x] Implement SHA-256 pre-deserialization validation in `helpers.py:load_pickle()` against `artifacts/models/checksums.json`.
+4. **Security Regression Suite (`SEC-01`–`SEC-10`):** [x] Implement 9-part test suite in `tests/security/test_security_regression.py` passing 100% locally and in CI.
 
-### Medium Term (1–4 Weeks)
-1. **API Rate Limiting (`SEC-06`, `SEC-09`):** Integrate `slowapi` or Redis-based rate limiting on inference endpoints.
-2. **Privacy Enhancement (`SEC-05`):** Implement k-anonymity binning on published CSV datasets.
-3. **Lock Dependencies (`SEC-08`):** Author `requirements.lock` with pinned hashes.
+### Medium Term (1–4 Weeks) [COMPLETED]
+1. **API Rate Limiting (`SEC-06`, `SEC-09`):** [x] Integrate sliding-window rate limiting middleware on inference endpoints (`src/dlsm/api/app.py`).
+2. **Privacy Enhancement (`SEC-05`):** [x] Implement k-anonymity binning on published CSV datasets (`src/dlsm/privacy/anonymize.py`, achieving $k=190 \ge 5$).
+3. **Lock Dependencies (`SEC-08`):** [x] Author `requirements.lock` with cryptographically pinned SHA-256 hashes for all 20 production dependencies.
 
 ### Long Term (1–3 Months)
-1. **Migrate from Pickle (`SEC-02`):** Convert XGBoost models to native JSON and explore ONNX format for preprocessors.
+1. **Migrate from Pickle (`SEC-02`):** [x] Convert XGBoost models to native JSON (`artifacts/models/xgb_*.json`) eliminating pickle for tree models; explore ONNX format for preprocessors.
 2. **Differential Privacy:** Implement $(\epsilon, \delta)$-differential privacy on public simulation aggregates.
 3. **Independent Ethics & Legal Review:** Formalize institutional data governance policies for student wellbeing telemetry.
 

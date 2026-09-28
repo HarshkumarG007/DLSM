@@ -34,6 +34,62 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+import time
+from collections import defaultdict
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
+
+class SlidingWindowRateLimiter(BaseHTTPMiddleware):
+    """
+    Sliding window in-memory rate limiter to protect against automated scraping,
+    adversarial query flooding, resource exhaustion (DoS), and black-box model extraction.
+    """
+    def __init__(self, app, default_limit: int = 120, window_seconds: int = 60):
+        super().__init__(app)
+        self.default_limit = default_limit
+        self.window_seconds = window_seconds
+        self.requests = defaultdict(list)
+
+    async def dispatch(self, request, call_next):
+        # Exclude monitoring, docs, and root endpoints
+        if request.url.path in ["/health", "/", "/docs", "/redoc", "/openapi.json"]:
+            return await call_next(request)
+
+        # Allow disabling rate limiting via DLSM_DISABLE_RATE_LIMIT=1
+        if os.getenv("DLSM_DISABLE_RATE_LIMIT") == "1":
+            return await call_next(request)
+
+        # Identify client by API Key or IP
+        api_key = request.headers.get("X-API-Key")
+        client_ip = request.client.host if request.client else "127.0.0.1"
+        client_id = f"{client_ip}:{api_key or 'anon'}"
+
+        now = time.monotonic()
+        history = self.requests[client_id]
+
+        # Prune requests outside the current window
+        cutoff = now - self.window_seconds
+        valid_history = [t for t in history if t > cutoff]
+        self.requests[client_id] = valid_history
+
+        limit = int(os.getenv("DLSM_RATE_LIMIT_PER_MINUTE", str(self.default_limit)))
+        if len(valid_history) >= limit:
+            return JSONResponse(
+                status_code=429,
+                content={
+                    "detail": "Rate limit exceeded. Too many requests. Please throttle query frequency.",
+                    "limit_per_minute": limit,
+                    "retry_after_seconds": self.window_seconds
+                },
+                headers={"Retry-After": str(self.window_seconds)}
+            )
+
+        self.requests[client_id].append(now)
+        response = await call_next(request)
+        response.headers["X-RateLimit-Limit"] = str(limit)
+        response.headers["X-RateLimit-Remaining"] = str(max(0, limit - len(self.requests[client_id])))
+        return response
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,6 +97,7 @@ app.add_middleware(
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization", "X-API-Key"],
 )
+app.add_middleware(SlidingWindowRateLimiter, default_limit=120, window_seconds=60)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 MODELS_DIR = PROJECT_ROOT / "artifacts/models"

@@ -223,3 +223,53 @@ class TestSecurityRegression:
         ci_content = ci_path.read_text(encoding="utf-8")
         assert "permissions:" in ci_content, "Remediated: CI workflow must declare explicit permissions"
         assert "contents: read" in ci_content, "CI workflow must specify least-privilege 'contents: read'"
+
+    def test_sec_10_rate_limiting_enforcement(self, monkeypatch):
+        """
+        [SEC-06 / SEC-09] Rate Limiting & Denial of Service Protection.
+        EXPECTED SECURE BEHAVIOR: Excessive rapid requests must be rate-limited with HTTP 429 Too Many Requests.
+        """
+        monkeypatch.setenv("DLSM_RATE_LIMIT_PER_MINUTE", "5")
+        headers = {"X-API-Key": "test-rate-limit-client"}
+        
+        # Requests up to the limit should succeed
+        for i in range(5):
+            resp = client.get("/api/v1/phenotypes", headers=headers)
+            assert resp.status_code == 200, f"Request {i+1} should succeed under threshold"
+            assert "X-RateLimit-Remaining" in resp.headers
+
+        # 6th request within window must be rejected with 429
+        resp_blocked = client.get("/api/v1/phenotypes", headers=headers)
+        assert resp_blocked.status_code == 429, "6th request within window must be rate-limited with 429"
+        assert "Retry-After" in resp_blocked.headers
+        assert "Rate limit exceeded" in resp_blocked.json()["detail"]
+
+    def test_sec_11_k_anonymity_preservation(self):
+        """
+        [SEC-05] Privacy Enhancement & k-Anonymity Verification.
+        EXPECTED SECURE BEHAVIOR: Published research cohorts must satisfy k-anonymity (k >= 5)
+        with direct identifiers stripped and quasi-identifiers generalized.
+        """
+        from dlsm.privacy.anonymize import k_anonymize_dataset_b
+        df_b = load_dataset_b()
+        anon_df, metrics = k_anonymize_dataset_b(df_b, k=5)
+        
+        assert "Student_ID" not in anon_df.columns, "Direct identifier must be stripped"
+        assert metrics["k_anonymity_satisfied"] is True, "Dataset must strictly satisfy k-anonymity"
+        assert metrics["achieved_k"] >= 5, f"Achieved k must be >= 5, got {metrics['achieved_k']}"
+        assert metrics["retention_rate_pct"] > 95.0, "Utility retention must remain high"
+        assert "Age_Band" in anon_df.columns
+        assert "Mental_Health_Category" in anon_df.columns
+
+    def test_sec_12_dependency_lockfile_integrity(self):
+        """
+        [SEC-08] Supply Chain Security & Lockfile Hash Integrity.
+        EXPECTED SECURE BEHAVIOR: A verified requirements.lock file must exist with cryptographically pinned hashes.
+        """
+        lock_path = REPO_ROOT / "requirements.lock"
+        assert lock_path.exists(), "requirements.lock must exist for deterministic builds"
+        content = lock_path.read_text(encoding="utf-8")
+        assert "--hash=sha256:" in content, "requirements.lock must enforce cryptographic SHA-256 hashes"
+        assert "numpy==" in content
+        assert "fastapi==" in content
+        assert "xgboost==" in content
