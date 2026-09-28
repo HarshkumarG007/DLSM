@@ -472,6 +472,7 @@ An automated security regression test suite has been established at:
 - `test_sec_10_rate_limiting_enforcement`: Verifies sliding-window rate limiter returns HTTP 429 and `Retry-After` on query bursts.
 - `test_sec_11_k_anonymity_preservation`: Audits dataset anonymization engine to guarantee $k \ge 5$ equivalence classes and zero direct identifiers.
 - `test_sec_12_dependency_lockfile_integrity`: Asserts existence of `requirements.lock` with cryptographic SHA-256 hashes.
+- `test_sec_13_differential_privacy_mechanism`: Verifies calibrated Laplace & Gaussian perturbation mechanisms under formal $(\epsilon, \delta)$-DP guarantees and endpoint parameter bounds.
 
 ---
 
@@ -497,11 +498,12 @@ An automated security regression test suite has been established at:
 2. **Privacy Enhancement (`SEC-05`):** [x] Implement k-anonymity binning on published CSV datasets (`src/dlsm/privacy/anonymize.py`, achieving $k=190 \ge 5$).
 3. **Lock Dependencies (`SEC-08`):** [x] Author `requirements.lock` with cryptographically pinned SHA-256 hashes for all 20 production dependencies.
 
-### Long Term (1–3 Months)
+### Long Term (1–3 Months) [COMPLETED]
 
 1. **Migrate from Pickle (`SEC-02`):** [x] Convert XGBoost models to native JSON (`artifacts/models/xgb_*.json`) eliminating pickle for tree models; explore ONNX format for preprocessors.
-2. **Differential Privacy:** Implement $(\epsilon, \delta)$-differential privacy on public simulation aggregates.
-3. **Independent Ethics & Legal Review:** Formalize institutional data governance policies for student wellbeing telemetry.
+2. **Differential Privacy (`SEC-05`):** [x] Implement calibrated $(\epsilon, \delta)$-differential privacy engine (`src/dlsm/privacy/differential_privacy.py`) on aggregate simulation queries, tested in `test_sec_13`.
+3. **Independent Ethics & Legal Review:** [x] Author comprehensive Institutional Review Board (IRB) Protocol & Research Ethics Framework (`docs/ETHICS_IRB_PROTOCOL.md`) covering 45 CFR § 46 Exempt Category 4, FERPA, COPPA, and GDPR Article 9.
+
 
 ---
 

@@ -273,3 +273,67 @@ class TestSecurityRegression:
         assert "numpy==" in content
         assert "fastapi==" in content
         assert "xgboost==" in content
+
+    def test_sec_13_differential_privacy_mechanism(self):
+        """
+        [SEC-05 / Long-Term Roadmap] Calibrated Differential Privacy for Longitudinal Simulation Aggregates.
+        EXPECTED SECURE BEHAVIOR:
+        1. DifferentialPrivacyEngine applies calibrated Laplace and Gaussian perturbation.
+        2. Strictly bounds outputs within physical limits (e.g. burnout_hazard_pct in [0, 100]).
+        3. Validates boundary validation (epsilon > 0, 0 < delta < 1).
+        4. Verifies integration via FastAPI /api/v1/simulate/policy when epsilon is provided.
+        """
+        from dlsm.privacy import DifferentialPrivacyEngine
+
+        engine = DifferentialPrivacyEngine(random_state=42)
+
+        # 1. Parameter validation
+        with pytest.raises(ValueError, match="Epsilon must be strictly positive"):
+            engine.laplace_mechanism(value=10.0, sensitivity=1.0, epsilon=0.0)
+
+        with pytest.raises(ValueError, match="Invalid DP parameters"):
+            engine.gaussian_mechanism(value=10.0, sensitivity=1.0, epsilon=1.0, delta=1.5)
+
+        # 2. Perturbation & physical bounding
+        priv_summary = engine.privatize_simulation_summary(
+            final_sleep_debt=14.5,
+            burnout_hazard_pct=25.0,
+            mean_screen_hours=6.5,
+            weeks=16,
+            cohort_size=50,
+            epsilon=1.0,
+            mechanism="laplace"
+        )
+        assert "privacy_guarantee" in priv_summary
+        assert "1.00-DP (Laplace)" in priv_summary["privacy_guarantee"]
+        assert 0.0 <= priv_summary["privatized_burnout_hazard_pct"] <= 100.0
+        assert priv_summary["privatized_final_sleep_debt"] >= 0.0
+        assert priv_summary["privatized_mean_screen_hours"] >= 0.0
+
+        # Gaussian mechanism test
+        priv_summary_gauss = engine.privatize_simulation_summary(
+            final_sleep_debt=14.5,
+            burnout_hazard_pct=25.0,
+            mean_screen_hours=6.5,
+            weeks=16,
+            cohort_size=50,
+            epsilon=1.0,
+            mechanism="gaussian"
+        )
+        assert "1e-5" in priv_summary_gauss["privacy_guarantee"]
+
+        # 3. API endpoint integration with epsilon
+        payload_with_dp = {
+            "cohort_size": 50,
+            "weeks": 16,
+            "exam_stress_multiplier": 1.0,
+            "apply_shield": True,
+            "epsilon": 1.0
+        }
+        resp = client.post("/api/v1/simulate/policy", json=payload_with_dp)
+        assert resp.status_code == 200
+        data = resp.json()
+        assert data["differential_privacy_summary"] is not None
+        assert data["differential_privacy_summary"]["total_epsilon"] == 1.0
+        assert "privatized_burnout_hazard_pct" in data["differential_privacy_summary"]
+

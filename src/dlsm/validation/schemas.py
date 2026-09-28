@@ -1,5 +1,10 @@
-import pandera as pa
-from pandera import Column, Check, DataFrameSchema
+try:
+    import pandera.pandas as pa
+    from pandera.pandas import Column, Check, DataFrameSchema
+except ImportError:
+    import pandera as pa
+    from pandera import Column, Check, DataFrameSchema
+
 
 schema_dataset_a = DataFrameSchema(
     {

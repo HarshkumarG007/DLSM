@@ -430,6 +430,20 @@ def simulate_policy(payload: PolicySimulationRequest):
         f"Screen-to-sleep ratio averaged {df_sim['Screen_to_Sleep_Ratio'].mean():.2f}."
     )
     
+    dp_summary = None
+    if payload.epsilon is not None:
+        from dlsm.privacy.differential_privacy import DifferentialPrivacyEngine
+        dp_engine = DifferentialPrivacyEngine(random_state=42)
+        dp_summary = dp_engine.privatize_simulation_summary(
+            final_sleep_debt=final_debt,
+            burnout_hazard_pct=burnout_hazard_pct,
+            mean_screen_hours=float(df_sim["Total_Digital_Hours"].mean()),
+            weeks=payload.weeks,
+            cohort_size=payload.cohort_size,
+            epsilon=payload.epsilon,
+            mechanism="laplace"
+        )
+
     return PolicySimulationResponse(
         weeks=df_sim["Week"].tolist(),
         stress_wave=stress_wave,
@@ -438,5 +452,7 @@ def simulate_policy(payload: PolicySimulationRequest):
         cumulative_sleep_debt=df_sim["Cumulative_Sleep_Debt_Hours"].tolist(),
         burnout_hazard_pct=burnout_hazard_pct,
         shielding_active=payload.apply_shield,
-        summary_findings=findings
+        summary_findings=findings,
+        differential_privacy_summary=dp_summary
     )
+

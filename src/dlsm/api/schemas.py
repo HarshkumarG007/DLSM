@@ -53,6 +53,7 @@ class PolicySimulationRequest(BaseModel):
     weeks: int = Field(default=16, ge=4, le=32, description="Academic semester duration in weeks")
     exam_stress_multiplier: float = Field(default=1.0, ge=0.5, le=2.5, description="Midterm/final examination stress amplifier")
     apply_shield: bool = Field(default=False, description="Enable institutional wellbeing shielding protocol")
+    epsilon: Optional[float] = Field(default=None, ge=0.01, le=10.0, description="Optional differential privacy budget epsilon for aggregate output perturbation")
 
 class PolicySimulationResponse(BaseModel):
     weeks: List[int]
@@ -63,6 +64,8 @@ class PolicySimulationResponse(BaseModel):
     burnout_hazard_pct: float
     shielding_active: bool
     summary_findings: str
+    differential_privacy_summary: Optional[Dict[str, Any]] = Field(default=None, description="Differentially private sanitized aggregate summary (populated when epsilon is specified)")
+
 
 class PhenotypeProfile(BaseModel):
     cohort: str
