@@ -1,0 +1,14 @@
+.git/
+.gitignore
+.dockerignore
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+.pytest_cache/
+.coverage
+htmlcov/
+.env*
+artifacts/reports/*.log
+artifacts/reports/*.zip
+notebooks/.ipynb_checkpoints/
