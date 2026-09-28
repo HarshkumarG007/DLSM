@@ -171,3 +171,42 @@
 - [x] **TASK-32.3:** Verify full 19-test test suite (`pytest tests/ -v`, 19/19 passing).
 - [x] **TASK-32.4:** Synchronize remote branch `main` at `https://github.com/HarshkumarG007/DLSM`.
 
+## Phase 33: Authorized Red-Team Security Assessment & Hardening
+- [x] **TASK-33.1:** Author [`docs/RED_TEAM_REPORT.md`](docs/RED_TEAM_REPORT.md) documenting full attack surface, threat models, and MITRE ATLAS matrix.
+- [x] **TASK-33.2:** Remediate CORS configuration in [`src/dlsm/api/app.py`](src/dlsm/api/app.py) (`allow_credentials=False` with wildcard origins).
+- [x] **TASK-33.3:** Add non-root `USER dlsm` (UID 1001) execution and `HEALTHCHECK` directive in [`Dockerfile`](Dockerfile).
+- [x] **TASK-33.4:** Implement SHA-256 pre-deserialization validation for model `.pkl` files in [`artifacts/models/checksums.json`](artifacts/models/checksums.json).
+- [x] **TASK-33.5:** Implement sliding-window rate limiting middleware in [`src/dlsm/api/app.py`](src/dlsm/api/app.py) mitigating model extraction attacks.
+- [x] **TASK-33.6:** Generate cryptographically pinned [`requirements.lock`](requirements.lock) with SHA-256 hashes for all 20 dependencies.
+- [x] **TASK-33.7:** Implement $k$-anonymity generalization engine in [`src/dlsm/privacy/anonymize.py`](src/dlsm/privacy/anonymize.py) achieving $k=190 \ge 5$.
+- [x] **TASK-33.8:** Build 12-part automated security regression suite in [`tests/security/test_security_regression.py`](tests/security/test_security_regression.py).
+
+## Phase 34: Continuous LaTeX Manuscript Compilation in GitHub Actions
+- [x] **TASK-34.1:** Author `.github/workflows/manuscript.yml` utilizing `xu-cheng/latex-action@v4`.
+- [x] **TASK-34.2:** Compile [`docs/latex/manuscript.tex`](docs/latex/manuscript.tex) into two-column IEEE/Nature-styled preprint PDF on push.
+- [x] **TASK-34.3:** Publish downloadable publication artifact `dlsm_academic_manuscript` (`manuscript.pdf`, 246.6 KB).
+
+## Phase 35: Calibrated Differential Privacy for Longitudinal Simulation Aggregates
+- [x] **TASK-35.1:** Implement [`DifferentialPrivacyEngine`](src/dlsm/privacy/differential_privacy.py) supporting calibrated Laplace and Gaussian mechanisms.
+- [x] **TASK-35.2:** Expose `DifferentialPrivacyEngine` in [`src/dlsm/privacy/__init__.py`](src/dlsm/privacy/__init__.py).
+- [x] **TASK-35.3:** Integrate optional differential privacy budget parameter `epsilon` into [`src/dlsm/api/schemas.py`](src/dlsm/api/schemas.py) and `/api/v1/simulate/policy`.
+- [x] **TASK-35.4:** Author security regression test `test_sec_13_differential_privacy_mechanism` in [`tests/security/test_security_regression.py`](tests/security/test_security_regression.py) (32/32 tests passing with 0 warnings).
+
+## Phase 36: Institutional Review Board (IRB) Protocol & Research Ethics Framework
+- [x] **TASK-36.1:** Author formal IRB Protocol & Research Ethics Framework in [`docs/ETHICS_IRB_PROTOCOL.md`](docs/ETHICS_IRB_PROTOCOL.md).
+- [x] **TASK-36.2:** Formalize 45 CFR § 46 Exempt Category 4 secondary research determination.
+- [x] **TASK-36.3:** Codify COPPA and FERPA minor assent/privacy safeguards for adolescent sub-cohorts (ages 13–17 in Dataset B).
+- [x] **TASK-36.4:** Formalize Anti-Surveillance Covenant prohibiting punitive academic tracking, employee monitoring, or insurance underwriting.
+- [x] **TASK-36.5:** Document Software as a Medical Device (SaMD) non-liability boundary and incidental findings escalation protocol.
+
+## Phase 37: Academic Preprint Deposit Dossier
+- [x] **TASK-37.1:** Author [`docs/latex/PREPRINT_SUBMISSION_METADATA.md`](docs/latex/PREPRINT_SUBMISSION_METADATA.md) with copy-paste submission metadata for arXiv, medRxiv, and TechRxiv.
+- [x] **TASK-37.2:** Formulate compact arXiv-compliant plain-text abstract (<1,920 characters) and full journal abstract.
+- [x] **TASK-37.3:** Package [`docs/latex/dlsm_preprint_package.zip`](docs/latex/dlsm_preprint_package.zip) containing TeX source, BibTeX references, and all 9 high-resolution publication figures.
+- [x] **TASK-37.4:** Author [`docs/latex/README.md`](docs/latex/README.md) with 1-click Overleaf compilation guide.
+
+## Phase 38: Repository Security Policy & Responsible Vulnerability Disclosure
+- [x] **TASK-38.1:** Author repository root [`SECURITY.md`](SECURITY.md) documenting security architecture, supported versions, and responsible disclosure SLA.
+- [x] **TASK-38.2:** Link security policies and ethics protocols across all repository documentation.
+
+

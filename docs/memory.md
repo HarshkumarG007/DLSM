@@ -122,4 +122,10 @@ The **Digital Lifestyle Spillover Model (DLSM)** research system is fully built,
 - [x] **Iteration 1.3:** 1-Click Executive Research Report Generator (Markdown + Print-to-PDF HTML).
 - [x] **Iteration 1.4:** 9/9 passing automated unit tests with full CI/CD GitHub Actions matrix on Python 3.11 & 3.12.
 - [x] **Iteration 1.5:** Zero-config Streamlit Community Cloud public deployment configuration.
+- [x] **Iteration 1.6:** Authorized Red-Team Security Assessment & Hardening (13-part regression test suite, CORS fix, non-root Docker, SHA-256 model checksums, sliding-window rate limiting).
+- [x] **Iteration 1.7:** Continuous LaTeX Academic Manuscript PDF compilation in GitHub Actions (`.github/workflows/manuscript.yml`).
+- [x] **Iteration 1.8:** Calibrated Differential Privacy Engine for simulation aggregates (`src/dlsm/privacy/differential_privacy.py`).
+- [x] **Iteration 1.9:** Formal Institutional Review Board (IRB) Protocol & Research Ethics Framework (`docs/ETHICS_IRB_PROTOCOL.md`).
+- [x] **Iteration 1.10:** Preprint Deposit Dossier & submission metadata for arXiv, medRxiv, and TechRxiv (`docs/latex/PREPRINT_SUBMISSION_METADATA.md`).
+
 
